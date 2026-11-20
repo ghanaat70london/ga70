@@ -6,7 +6,7 @@ try {
   });
 } catch {}
 var SITE_CONFIG = {
-  contactEmail: "hello@ghana70.london",
+  contactEmail: "ghanaat70.uk@gmail.com",
   contactPhone: "07824 555307",
   endpoint: "/api/register",
   anniversary: "2027-03-06T00:00:00Z",

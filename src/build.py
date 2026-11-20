@@ -291,8 +291,8 @@ NAV_MAIN = [("gallery", "Gallery"), ("about", "Our story")]
 VENUE_LD = {"@type": "Place", "name": "Banking Hall", "address": {"@type": "PostalAddress", "streetAddress": "14 Cornhill", "addressLocality": "London", "addressRegion": "City of London", "postalCode": "EC3V 3ND", "addressCountry": "GB"},
             "geo": {"@type": "GeoCoordinates", "latitude": 51.5133, "longitude": -0.0868}, "description": "A Grade II listed Art Deco banking hall on Cornhill, moments from the Bank of England. Bank station is two minutes on foot."}
 ORG_NODE = {"@type": "Organization", "@id": SITE_URL + "/#org", "name": "Ghana at 70 UK", "alternateName": ["Ghana at 70 London", "Ghana at 70 UK, The Platinum Jubilee Celebrations"],
-            "url": SITE_URL, "logo": SITE_URL + "/images/brand/icon-512.png", "email": "hello@ghanaat70uk.com", "telephone": "+447824555307",
-            "contactPoint": {"@type": "ContactPoint", "contactType": "customer service", "telephone": "+447824555307", "email": "hello@ghanaat70uk.com", "areaServed": "GB", "availableLanguage": "en-GB"}}
+            "url": SITE_URL, "logo": SITE_URL + "/images/brand/icon-512.png", "email": "ghanaat70.uk@gmail.com", "telephone": "+447824555307",
+            "contactPoint": {"@type": "ContactPoint", "contactType": "customer service", "telephone": "+447824555307", "email": "ghanaat70.uk@gmail.com", "areaServed": "GB", "availableLanguage": "en-GB"}}
 ORG_LD = json.dumps({"@context": "https://schema.org", "@graph": [ORG_NODE, {"@type": "WebSite", "@id": SITE_URL + "/#site", "name": "Ghana at 70 UK", "url": SITE_URL, "inLanguage": "en-GB", "publisher": {"@id": SITE_URL + "/#org"}}]})
 
 def _kw_tags(slug):
@@ -469,7 +469,7 @@ def footer():
       <p class="ft-call-line">Call Asantewaa</p>
       <a class="ft-phone" href="tel:+447824555307"><span data-phone>07824 555307</span></a>
       <a class="ft-wa" href="https://wa.me/447824555307?text=Hello%20Asantewaa%2C%20I%20have%20a%20question%20about%20Ghana%20at%2070%20UK" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true" width="18" height="18"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2c-1.6 0-3.1-.4-4.4-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3a.5.5 0 0 0 0-.4l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.1 5.1 0 0 0 1.1 2.7 11.7 11.7 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.2c0-.1-.2-.2-.4-.3Z"/></svg><span>Chat on WhatsApp</span></a>
-      <a class="ft-mail" data-email-link href="contact.html"><span data-email>hello@ghanaat70uk.com</span></a>
+      <a class="ft-mail" data-email-link href="contact.html"><span data-email>ghanaat70.uk@gmail.com</span></a>
       <ul class="ft-mini"><li><a href="press.html">Tell our story</a></li><li><a href="partners.html">Partners</a></li><li><a href="exhibit.html">Exhibit</a></li></ul>
     </div>
   </div>
@@ -863,7 +863,7 @@ TT_BOOKING = '''
     <li><b>Dietary and access needs</b><span>For the Gala we ask for dietary needs at checkout, and anything that would make your arrival easier, so the kitchen and our hosts are ready for you.</span></li>
     <li><b>Your choice on news</b><span>One optional box at checkout, left unticked. Tick it only if you would like our news.</span></li>
     <li><b>Refunds</b><span>All sales are final and tickets are transferable to another guest. If we cancel, every ticket is refunded in full. Read our <a href="terms.html">booking terms</a> and <a href="privacy.html">privacy notice</a>.</span></li>
-    <li><b>Help with your booking</b><span>Call Asantewaa on <a href="tel:07824555307" data-phone>07824 555307</a> or email <a data-email href="mailto:hello@ghanaat70uk.com">hello@ghanaat70uk.com</a>.</span></li>
+    <li><b>Help with your booking</b><span>Call Asantewaa on <a href="tel:07824555307" data-phone>07824 555307</a> or email <a data-email href="mailto:ghanaat70.uk@gmail.com">ghanaat70.uk@gmail.com</a>.</span></li>
   </ol>
 </div></section>'''
 
@@ -2107,7 +2107,7 @@ def build():
     body = "".join(f'<div class="faq-group" id="{k}"><h2 class="h3">{g}</h2><div class="faq">' + "".join(f"<details><summary>{q}</summary><p>{a}</p></details>" for q, a in items) + "</div></div>" for k, g, items in groups)
     page("faq", "Questions | Tickets, Dress and Children | Ghana at 70 UK London 2027", "Questions answered about tickets, dress code, food, children, games, partners and the venue for Ghana at 70 UK.",
          page_head("Questions answered", "Everything you need to know.", "Cannot find your answer? Email us and we will reply within one working day.", "", "eban") + f'''
-<section class="band white"><div class="wrap faq-layout"><nav class="faq-nav" aria-label="FAQ sections">{nav}</nav><div>{body}<p class="muted">Email <span data-email>hello@ghanaat70uk.com</span> or call Asantewaa on <span data-phone>07824 555307</span>.</p></div></div></section>
+<section class="band white"><div class="wrap faq-layout"><nav class="faq-nav" aria-label="FAQ sections">{nav}</nav><div>{body}<p class="muted">Email <span data-email>ghanaat70.uk@gmail.com</span> or call Asantewaa on <span data-phone>07824 555307</span>.</p></div></div></section>
 ''', faq_ld)
 
     # ================= TERMS =================
@@ -2362,7 +2362,7 @@ def build():
 
 <section class="band emerald" id="apply"><div class="wrap split">
   <div class="stack-lg"><div class="stack"><span class="eyebrow">Apply</span><h2>Your stand on Independence Day.</h2><p class="lead">Applications are reviewed in the order they arrive. When a category is full, it closes.</p></div>
-    {info([("Reply", "Within five working days"), ("Prices", "Market stand: GBP 250 + VAT<br>Feature stand: GBP 600 + VAT<br>Stand build included<br>Royal Jubilee Gala seats: exhibitor rate, optional"), ("Questions", '<span data-email>hello@ghanaat70uk.com</span>')])}
+    {info([("Reply", "Within five working days"), ("Prices", "Market stand: GBP 250 + VAT<br>Feature stand: GBP 600 + VAT<br>Stand build included<br>Royal Jubilee Gala seats: exhibitor rate, optional"), ("Questions", '<span data-email>ghanaat70.uk@gmail.com</span>')])}
     <p class="gh-tip" style="color:var(--ink)"><b>Exhibiting from Ghana?</b> Adansi Travels, our travel partner in Ghana, supports your UK visa application and flights. <a href="stay.html#from-ghana">Start your journey</a></p></div>
   {exhibitor_form()}
 </div></section>
@@ -2377,7 +2377,7 @@ def build():
 <section class="band white"><div class="wrap split">
   <div class="stack-lg">
     <h2 class="sr">Contact details</h2>
-    {info([("Email", '<span data-email>hello@ghanaat70uk.com</span>'), ("Call Asantewaa", '<span data-phone>07824 555307</span>'), ("WhatsApp", '<a href="https://wa.me/447824555307?text=Hello%20Asantewaa%2C%20I%20have%20a%20question%20about%20Ghana%20at%2070%20UK" target="_blank" rel="noopener">Chat on WhatsApp</a>'), ("Reply time", "Within one working day")])}
+    {info([("Email", '<span data-email>ghanaat70.uk@gmail.com</span>'), ("Call Asantewaa", '<span data-phone>07824 555307</span>'), ("WhatsApp", '<a href="https://wa.me/447824555307?text=Hello%20Asantewaa%2C%20I%20have%20a%20question%20about%20Ghana%20at%2070%20UK" target="_blank" rel="noopener">Chat on WhatsApp</a>'), ("Reply time", "Within one working day")])}
     <div class="stack"><span class="eyebrow">Quick answers</span><div class="btn-row"><a class="btn emerald" href="faq.html">Questions answered</a><a class="btn emerald" href="visit.html">Plan your visit</a></div></div>
   </div>
   {enquiry_form("contact")}
@@ -2409,7 +2409,7 @@ Tickets: Royal Jubilee Gala GBP 275, Ghana Day Festival GBP 50, Women of the Mot
 
 ENDS
 
-Media contact: Asantewaa, 07824 555307, hello@ghanaat70uk.com
+Media contact: Asantewaa, 07824 555307, ghanaat70.uk@gmail.com
 Interviews, images and accreditation: SITEURL/press"""
     PR_RELEASE = PR_RELEASE.replace("SITEURL", SITE_URL)
     PR_ABOUT = "Ghana at 70 UK, The Platinum Jubilee Celebrations, marks seventy years of Ghanaian independence with three days at Banking Hall in the City of London, from Friday 5 to Sunday 7 March 2027: The Royal Jubilee Gala, the Ghana Day Festival and Women of the Motherland. It is created by joint founders Asantewaa-Gloria Ayim and Adwoa Agyemang."
@@ -2483,7 +2483,7 @@ Interviews, images and accreditation: SITEURL/press"""
 
 <section class="band white" id="accreditation"><div class="wrap split">
   <div class="stack-lg"><div class="stack"><span class="eyebrow">Accreditation and interviews</span><h2>Cover it in person.</h2><p class="lead">Journalists, broadcasters, podcasters, photographers, community and diaspora media, and creators of every size can request accreditation for one or all three days. Interviews with Asantewaa and Adwoa are available on request.</p></div>
-    {info([("Call Asantewaa", '<span data-phone>07824 555307</span>'), ("Email", '<span data-email>hello@ghanaat70uk.com</span>'), ("Reply", "Accreditation confirmed within three working days")])}</div>
+    {info([("Call Asantewaa", '<span data-phone>07824 555307</span>'), ("Email", '<span data-email>ghanaat70.uk@gmail.com</span>'), ("Reply", "Accreditation confirmed within three working days")])}</div>
   {enquiry_form("press")}
 </div></section>
 ''')
@@ -2687,7 +2687,7 @@ Interviews, images and accreditation: SITEURL/press"""
   <ol><li>Enquiries and form details are kept until 31 May 2027, then deleted, unless you bought a ticket or agreed to hear from us.</li><li>If you agreed to hear from us, we keep your name and email until you unsubscribe.</li><li>Booking and payment records are kept for six years after the event, as UK tax law requires.</li></ol>
   <h2 class="h3">Your rights</h2>
   <p>You can ask to see, correct or delete your details, object to their use or withdraw consent at any time. We reply within one month. You may also complain to the ICO, the UK data protection regulator, at ico.org.uk.</p>
-  <p class="muted">Contact: <span data-email>hello@ghanaat70uk.com</span>, or write to INTEROPA Holidays Ltd, 21 to 23 Chilworth Street, London W2 3HA.</p>
+  <p class="muted">Contact: <span data-email>ghanaat70.uk@gmail.com</span>, or write to INTEROPA Holidays Ltd, 21 to 23 Chilworth Street, London W2 3HA.</p>
 </div></section>
 ''')
 
@@ -2710,7 +2710,7 @@ Interviews, images and accreditation: SITEURL/press"""
 ## Booking
 - Book golden tickets, on sale now: {SITE_URL}/tickets
 - Sponsorship pack: {SITE_URL}/partners#pack
-- Contact: Asantewaa, 07824 555307, hello@ghanaat70uk.com
+- Contact: Asantewaa, 07824 555307, ghanaat70.uk@gmail.com
 
 ## Quick answers
 - What is Ghana at 70 UK? The UK celebration of the Ghana 70th Platinum Jubilee, held in London over three days at Banking Hall, 5 to 7 March 2027, marking seventy years of Ghanaian independence.
