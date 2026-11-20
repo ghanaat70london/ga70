@@ -1,0 +1,33 @@
+# Built site: Cloudflare or Vercel rebuilds it with python3 src/build.py
+ghana-at-70/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Node and hosting tools
+node_modules/
+.wrangler/
+.vercel/
+
+# Secrets: keys live in the hosting project settings, never in git
+.env
+.env.*
+.dev.vars
+
+# Local Claude Code settings
+.claude/
+
+# Handover copy exported from Claude, not part of the website
+/index.html
+/manifest.json
+
+# Editors and operating systems
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+desktop.ini

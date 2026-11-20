@@ -1,0 +1,7 @@
+{
+  "name": "ghana-at-70",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Ghana at 70 event website, 5 to 7 March 2027, the UK celebration of the Ghana 70th Platinum Jubilee, held in London",
+  "engines": { "node": ">=20" }
+}

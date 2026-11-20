@@ -1,0 +1,908 @@
+{
+ "joy": {
+  "w": 1600,
+  "h": 1239,
+  "by": "Andra C Taylor Jr",
+  "src": "Unsplash"
+ },
+ "embrace": {
+  "w": 1066,
+  "h": 1600,
+  "by": "Ben Iwara",
+  "src": "Unsplash"
+ },
+ "dancer": {
+  "w": 1600,
+  "h": 1066,
+  "by": "Emmanuel Yeboah Okine",
+  "src": "Unsplash"
+ },
+ "market-woman": {
+  "w": 1280,
+  "h": 1600,
+  "by": "K Studios",
+  "src": "Unsplash"
+ },
+ "mother-daughter": {
+  "w": 1280,
+  "h": 1600,
+  "by": "Joshua Duneebon",
+  "src": "Unsplash"
+ },
+ "dancers": {
+  "w": 1600,
+  "h": 1066,
+  "by": "Emmanuel Yeboah Okine",
+  "src": "Unsplash"
+ },
+ "kente-man": {
+  "w": 1066,
+  "h": 1600,
+  "by": "Barnabas Lartey Odoi Tetteh",
+  "src": "Unsplash"
+ },
+ "headwrap-green": {
+  "w": 1066,
+  "h": 1600,
+  "by": "Ato Aikins",
+  "src": "Unsplash"
+ },
+ "market": {
+  "w": 1066,
+  "h": 1600,
+  "by": "Ingeborg Korme",
+  "src": "Unsplash"
+ },
+ "flag": {
+  "w": 1066,
+  "h": 1600,
+  "by": "Wyteshot",
+  "src": "Unsplash"
+ },
+ "enterprise": {
+  "w": 1200,
+  "h": 1600,
+  "by": "Iwaria Inc",
+  "src": "Unsplash"
+ },
+ "dance": {
+  "w": 1600,
+  "h": 1066,
+  "by": "Emmanuel Yeboah Okine",
+  "src": "Unsplash"
+ },
+ "elder": {
+  "w": 1600,
+  "h": 1099,
+  "by": "Ayo Ogunseinde",
+  "src": "Unsplash"
+ },
+ "builder": {
+  "w": 1062,
+  "h": 1600,
+  "by": "Jeff Kweba",
+  "src": "Unsplash"
+ },
+ "profile": {
+  "w": 1067,
+  "h": 1600,
+  "by": "1857643",
+  "src": "Pixabay"
+ },
+ "cocoa": {
+  "w": 1600,
+  "h": 1172,
+  "by": "5671698",
+  "src": "Pixabay"
+ },
+ "blue-lace": {
+  "w": 1600,
+  "h": 1067,
+  "by": "jump1987",
+  "src": "Pixabay"
+ },
+ "loom": {
+  "w": 1200,
+  "h": 1600,
+  "by": "kojooooooo",
+  "src": "Pixabay"
+ },
+ "arch": {
+  "w": 1600,
+  "h": 1127,
+  "by": "Ifeoluwa B",
+  "src": "Unsplash"
+ },
+ "beads": {
+  "w": 1066,
+  "h": 1600,
+  "by": "Yoel Winkler",
+  "src": "Unsplash"
+ },
+ "wares": {
+  "w": 1083,
+  "h": 1600,
+  "by": "afrikit",
+  "src": "Pixabay"
+ },
+ "orange": {
+  "w": 1142,
+  "h": 1600,
+  "by": "Olumide Adekunle",
+  "src": "Unsplash"
+ },
+ "flagfist": {
+  "w": 1066,
+  "h": 1600,
+  "by": "Nene Odonkor",
+  "src": "Unsplash"
+ },
+ "sisters-headwrap": {
+  "w": 1600,
+  "h": 1082,
+  "by": "Gra\u00e7a Assane",
+  "src": "Unsplash"
+ },
+ "kente-profile": {
+  "w": 1600,
+  "h": 1600,
+  "by": "Ato Aikins",
+  "src": "Unsplash"
+ },
+ "mother-daughter-red": {
+  "w": 1600,
+  "h": 2405,
+  "by": "Pam Sharpe",
+  "src": "Unsplash"
+ },
+ "sisterhood-white": {
+  "w": 1600,
+  "h": 1067,
+  "by": "Kaeme",
+  "src": "Unsplash"
+ },
+ "ghana-prints": {
+  "w": 1600,
+  "h": 2400,
+  "by": "Oswald Elsaboath",
+  "src": "Unsplash"
+ },
+ "four-sisters": {
+  "w": 1600,
+  "h": 1768,
+  "by": "Ghana at 70 UK",
+  "src": "supplied"
+ },
+ "print-pink": {
+  "w": 1600,
+  "h": 2400,
+  "by": "Ibrahima Toure",
+  "src": "Unsplash"
+ },
+ "print-blue": {
+  "w": 1600,
+  "h": 2400,
+  "by": "Ibrahima Toure",
+  "src": "Unsplash"
+ },
+ "print-gold": {
+  "w": 1600,
+  "h": 2400,
+  "by": "Ibrahima Toure",
+  "src": "Unsplash"
+ },
+ "headwrap-cream": {
+  "w": 1600,
+  "h": 2400,
+  "by": "Gideon Hezekiah",
+  "src": "Unsplash"
+ },
+ "three-in-white": {
+  "w": 1600,
+  "h": 1067,
+  "by": "Jackie Parker",
+  "src": "Unsplash"
+ },
+ "emerald-kente": {
+  "w": 1536,
+  "h": 1024,
+  "by": "Ghana at 70 UK",
+  "src": "design concept"
+ },
+ "gal-glamour": {
+  "w": 1600,
+  "h": 900,
+  "by": "Ghana at 70 UK",
+  "src": "design concept"
+ },
+ "gal-laughter": {
+  "w": 1600,
+  "h": 900,
+  "by": "Ghana at 70 UK",
+  "src": "design concept"
+ },
+ "gal-matriarch": {
+  "w": 1600,
+  "h": 900,
+  "by": "Ghana at 70 UK",
+  "src": "design concept"
+ },
+ "gal-black-stole": {
+  "w": 1536,
+  "h": 1024,
+  "by": "Ghana at 70 UK",
+  "src": "design concept"
+ },
+ "gal-kente-drape": {
+  "w": 1199,
+  "h": 1312,
+  "by": "Ghana at 70 UK",
+  "src": "design concept"
+ },
+ "gal-velvet": {
+  "w": 1024,
+  "h": 1536,
+  "by": "Ghana at 70 UK",
+  "src": "design concept"
+ },
+ "gal-pair": {
+  "w": 1536,
+  "h": 1024,
+  "by": "Ghana at 70 UK",
+  "src": "design concept"
+ },
+ "gal-natural": {
+  "w": 1536,
+  "h": 1024,
+  "by": "Ghana at 70 UK",
+  "src": "design concept"
+ },
+ "gal-expo-man": {
+  "w": 1199,
+  "h": 1312,
+  "by": "Ghana at 70 UK",
+  "src": "design concept"
+ },
+ "gal-couple": {
+  "w": 1024,
+  "h": 1536,
+  "by": "Ghana at 70 UK",
+  "src": "design concept"
+ },
+ "gal-four-gowns": {
+  "w": 1199,
+  "h": 1312,
+  "by": "Ghana at 70 UK",
+  "src": "design concept"
+ },
+ "gal-kente-four": {
+  "w": 1200,
+  "h": 1311,
+  "by": "Ghana at 70 UK",
+  "src": "design concept"
+ },
+ "gal-kente-couple": {
+  "w": 1199,
+  "h": 1312,
+  "by": "Ghana at 70 UK",
+  "src": "design concept"
+ },
+ "g-tux-couple": {
+  "w": 1024,
+  "h": 1536,
+  "by": "Ghana at 70 UK",
+  "src": "design concept"
+ },
+ "g-elder-kente": {
+  "w": 1024,
+  "h": 1536,
+  "by": "Ghana at 70 UK",
+  "src": "design concept"
+ },
+ "g-tux-man": {
+  "w": 1024,
+  "h": 1536,
+  "by": "Ghana at 70 UK",
+  "src": "design concept"
+ },
+ "g-kente-men": {
+  "w": 1536,
+  "h": 1024,
+  "by": "Ghana at 70 UK",
+  "src": "design concept"
+ },
+ "g-orange-print": {
+  "w": 1600,
+  "h": 2000,
+  "by": "Abimbola Olurin",
+  "src": "Unsplash"
+ },
+ "g-pink-dress": {
+  "w": 1600,
+  "h": 2000,
+  "by": "Charles Robertson",
+  "src": "Unsplash"
+ },
+ "g-kente-smile": {
+  "w": 1600,
+  "h": 2000,
+  "by": "Emmanuel Offei",
+  "src": "Unsplash"
+ },
+ "g-queen-mothers": {
+  "w": 1600,
+  "h": 1127,
+  "by": "Emmanuel Offei",
+  "src": "Unsplash"
+ },
+ "g-conversation": {
+  "w": 1600,
+  "h": 1067,
+  "by": "Iwaria Inc",
+  "src": "Unsplash"
+ },
+ "g-fan": {
+  "w": 1600,
+  "h": 2000,
+  "by": "McFollis",
+  "src": "Unsplash"
+ },
+ "g-black-star-gate": {
+  "w": 1600,
+  "h": 1067,
+  "by": "Nana Kwandoh",
+  "src": "Unsplash"
+ },
+ "g-prints-line": {
+  "w": 1600,
+  "h": 1067,
+  "by": "Nasiru Othman",
+  "src": "Unsplash"
+ },
+ "g-flags": {
+  "w": 1600,
+  "h": 1067,
+  "by": "Wyteshot",
+  "src": "Unsplash"
+ },
+ "g-the-room": {
+  "w": 1536,
+  "h": 1024,
+  "by": "Ghana at 70 UK",
+  "src": "design concept"
+ },
+ "g-three-laugh": {
+  "w": 1536,
+  "h": 1024,
+  "by": "Ghana at 70 UK",
+  "src": "design concept"
+ },
+ "g-table-women": {
+  "w": 1536,
+  "h": 1024,
+  "by": "Ghana at 70 UK",
+  "src": "design concept"
+ },
+ "g-table-queens": {
+  "w": 1536,
+  "h": 1024,
+  "by": "Ghana at 70 UK",
+  "src": "design concept"
+ },
+ "g-standing": {
+  "w": 1536,
+  "h": 1024,
+  "by": "Ghana at 70 UK",
+  "src": "design concept"
+ },
+ "g-sash-men": {
+  "w": 1535,
+  "h": 1024,
+  "by": "Ghana at 70 UK",
+  "src": "design concept"
+ },
+ "g-bright-prints": {
+  "w": 1600,
+  "h": 2400,
+  "by": "Nasiru Othman",
+  "src": "Unsplash"
+ },
+ "g-colour-line": {
+  "w": 1600,
+  "h": 1067,
+  "by": "Clarke Sanders",
+  "src": "Unsplash"
+ },
+ "g-sunset-sisters": {
+  "w": 1600,
+  "h": 2400,
+  "by": "Junior Reis",
+  "src": "Unsplash"
+ },
+ "g-headwrap-portrait": {
+  "w": 1600,
+  "h": 2000,
+  "by": "Arturo Anez",
+  "src": "Unsplash"
+ },
+ "g-sunday-table": {
+  "w": 1600,
+  "h": 1067,
+  "by": "Mohau Mannathoko",
+  "src": "Unsplash"
+ },
+ "g-leaves-print": {
+  "w": 1600,
+  "h": 2416,
+  "by": "Everest Agomate",
+  "src": "Unsplash"
+ },
+ "g-gala-guests": {
+  "w": 1535,
+  "h": 1024,
+  "by": "Ghana at 70 UK",
+  "src": "design concept"
+ },
+ "r-garden-women": {
+  "w": 1536,
+  "h": 1024,
+  "by": "Ghana at 70 UK",
+  "src": "design concept"
+ },
+ "r-hall-reception": {
+  "w": 1536,
+  "h": 1024,
+  "by": "Ghana at 70 UK",
+  "src": "design concept"
+ },
+ "r-hall-gathering": {
+  "w": 1536,
+  "h": 1024,
+  "by": "Ghana at 70 UK",
+  "src": "design concept"
+ },
+ "r-three-women": {
+  "w": 1535,
+  "h": 1024,
+  "by": "Ghana at 70 UK",
+  "src": "design concept"
+ },
+ "r-speech": {
+  "w": 1536,
+  "h": 1024,
+  "by": "Ghana at 70 UK",
+  "src": "design concept"
+ },
+ "r-kente-garden": {
+  "w": 1123,
+  "h": 1401,
+  "by": "Ghana at 70 UK",
+  "src": "design concept"
+ },
+ "r-market": {
+  "w": 1536,
+  "h": 1024,
+  "by": "Ghana at 70 UK",
+  "src": "design concept"
+ },
+ "r-toast-group": {
+  "w": 1536,
+  "h": 1024,
+  "by": "Ghana at 70 UK",
+  "src": "design concept"
+ },
+ "r-headwrap-elder": {
+  "w": 1199,
+  "h": 1312,
+  "by": "Ghana at 70 UK",
+  "src": "design concept"
+ },
+ "r-woven": {
+  "w": 1199,
+  "h": 1312,
+  "by": "Ghana at 70 UK",
+  "src": "design concept"
+ },
+ "d-kente-circle": {
+  "w": 1536,
+  "h": 1024,
+  "by": "Ghana at 70 UK",
+  "src": "design concept"
+ },
+ "d-tux-dance": {
+  "w": 1536,
+  "h": 1024,
+  "by": "Ghana at 70 UK",
+  "src": "design concept"
+ },
+ "d-laugh-dance": {
+  "w": 1600,
+  "h": 900,
+  "by": "Ghana at 70 UK",
+  "src": "design concept"
+ },
+ "d-mother-dance": {
+  "w": 1536,
+  "h": 1024,
+  "by": "Ghana at 70 UK",
+  "src": "design concept"
+ },
+ "d-reception": {
+  "w": 1536,
+  "h": 1024,
+  "by": "Ghana at 70 UK",
+  "src": "design concept"
+ },
+ "d-table-laugh": {
+  "w": 1536,
+  "h": 1024,
+  "by": "Ghana at 70 UK",
+  "src": "design concept"
+ },
+ "d-elder-dance": {
+  "w": 1600,
+  "h": 900,
+  "by": "Ghana at 70 UK",
+  "src": "design concept"
+ },
+ "d-elder-table": {
+  "w": 1536,
+  "h": 1024,
+  "by": "Ghana at 70 UK",
+  "src": "design concept"
+ },
+ "d-ankara-dance": {
+  "w": 1536,
+  "h": 1024,
+  "by": "Ghana at 70 UK",
+  "src": "design concept"
+ },
+ "y-young-couple": {
+  "w": 1600,
+  "h": 1067,
+  "by": "Ghana at 70 UK",
+  "src": "design concept"
+ },
+ "y-two-couples": {
+  "w": 1600,
+  "h": 1067,
+  "by": "Ghana at 70 UK",
+  "src": "design concept"
+ },
+ "y-generations": {
+  "w": 1600,
+  "h": 1067,
+  "by": "Ghana at 70 UK",
+  "src": "design concept"
+ },
+ "y-single-man": {
+  "w": 1600,
+  "h": 1600,
+  "by": "Ghana at 70 UK",
+  "src": "design concept"
+ },
+ "n-green-group": {
+  "w": 1536,
+  "h": 1024,
+  "by": "Ghana at 70 UK",
+  "src": "design concept"
+ },
+ "n-grand-hall": {
+  "w": 1600,
+  "h": 900,
+  "by": "Ghana at 70 UK",
+  "src": "design concept"
+ },
+ "n-friends-table": {
+  "w": 1536,
+  "h": 1024,
+  "by": "Ghana at 70 UK",
+  "src": "design concept"
+ },
+ "n-friends-laugh": {
+  "w": 1536,
+  "h": 1024,
+  "by": "Ghana at 70 UK",
+  "src": "design concept"
+ },
+ "n-couple-dance": {
+  "w": 1536,
+  "h": 1024,
+  "by": "Ghana at 70 UK",
+  "src": "design concept"
+ },
+ "n-dance-floor": {
+  "w": 1536,
+  "h": 1024,
+  "by": "Ghana at 70 UK",
+  "src": "design concept"
+ },
+ "n-mother-daughter": {
+  "w": 1199,
+  "h": 1312,
+  "by": "Ghana at 70 UK",
+  "src": "design concept"
+ },
+ "n-toast-pair": {
+  "w": 1536,
+  "h": 1024,
+  "by": "Ghana at 70 UK",
+  "src": "design concept"
+ },
+ "n-her-laugh": {
+  "w": 1536,
+  "h": 1024,
+  "by": "Ghana at 70 UK",
+  "src": "design concept"
+ },
+ "n-elders-table": {
+  "w": 1536,
+  "h": 1024,
+  "by": "Ghana at 70 UK",
+  "src": "design concept"
+ },
+ "n-young-woman": {
+  "w": 1024,
+  "h": 1536,
+  "by": "Ghana at 70 UK",
+  "src": "design concept"
+ },
+ "n-three-gen": {
+  "w": 1536,
+  "h": 1024,
+  "by": "Ghana at 70 UK",
+  "src": "design concept"
+ },
+ "n-dance-mix": {
+  "w": 1536,
+  "h": 1024,
+  "by": "Ghana at 70 UK",
+  "src": "design concept"
+ },
+ "s-ankara-crop": {
+  "w": 1600,
+  "h": 2406,
+  "by": "Amani Nation",
+  "src": "Unsplash"
+ },
+ "s-market-elders": {
+  "w": 1600,
+  "h": 1065,
+  "by": "Annie Spratt",
+  "src": "Unsplash"
+ },
+ "s-print-elder": {
+  "w": 1600,
+  "h": 2001,
+  "by": "Eye for Ebony",
+  "src": "Unsplash"
+ },
+ "s-print-collar": {
+  "w": 1600,
+  "h": 2400,
+  "by": "Prince Akachi",
+  "src": "Unsplash"
+ },
+ "s-market-walk": {
+  "w": 1536,
+  "h": 1024,
+  "by": "Ghana at 70 UK",
+  "src": "design concept"
+ },
+ "g-wheel-dance": {
+  "w": 1600,
+  "h": 900,
+  "by": "Ghana at 70 UK",
+  "src": "design concept"
+ },
+ "g-band-dance": {
+  "w": 1536,
+  "h": 1024,
+  "by": "Ghana at 70 UK",
+  "src": "design concept"
+ },
+ "g-gold-hands": {
+  "w": 1600,
+  "h": 907,
+  "by": "Emmanuel Offei",
+  "src": "Unsplash"
+ },
+ "g-table-talk": {
+  "w": 1536,
+  "h": 1024,
+  "by": "Ghana at 70 UK",
+  "src": "design concept"
+ },
+ "g-seated-queens": {
+  "w": 1536,
+  "h": 1024,
+  "by": "Ghana at 70 UK",
+  "src": "design concept"
+ },
+ "g-royal-pair": {
+  "w": 1600,
+  "h": 900,
+  "by": "Ghana at 70 UK",
+  "src": "design concept"
+ },
+ "g-black-tie-group": {
+  "w": 1536,
+  "h": 1024,
+  "by": "Ghana at 70 UK",
+  "src": "design concept"
+ },
+ "s-drummers": {
+  "w": 1600,
+  "h": 1066,
+  "by": "Emmanuel Yeboah Okine",
+  "src": "Unsplash"
+ },
+ "s-sofa-pair": {
+  "w": 1333,
+  "h": 2000,
+  "by": "Barnabas Lartey Odoi Tetteh",
+  "src": "Unsplash"
+ },
+ "s-knit": {
+  "w": 1334,
+  "h": 2000,
+  "by": "Clout Africa",
+  "src": "Unsplash"
+ },
+ "s-headwrap-trio": {
+  "w": 1333,
+  "h": 2000,
+  "by": "Ayomide Okanlawon",
+  "src": "Unsplash"
+ },
+ "s-laptop": {
+  "w": 1600,
+  "h": 1066,
+  "by": "Iwaria Inc",
+  "src": "Unsplash"
+ },
+ "m-two-smiles": {
+  "w": 1500,
+  "h": 2000,
+  "by": "William Boateng",
+  "src": "Unsplash"
+ },
+ "m-tea": {
+  "w": 1275,
+  "h": 1920,
+  "by": "saz74",
+  "src": "Pixabay"
+ },
+ "m-hijab": {
+  "w": 1600,
+  "h": 2000,
+  "by": "S Gun Tori La",
+  "src": "Unsplash"
+ },
+ "p-ballroom": {
+  "w": 1536,
+  "h": 1024,
+  "by": "Ghana at 70 UK",
+  "src": "design concept"
+ },
+ "p-chandelier": {
+  "w": 1600,
+  "h": 900,
+  "by": "Ghana at 70 UK",
+  "src": "design concept"
+ },
+ "p-black-star-square": {
+  "w": 1600,
+  "h": 1066,
+  "by": "Nana Kwandoh",
+  "src": "Unsplash"
+ },
+ "p-independence-arch": {
+  "w": 1600,
+  "h": 980,
+  "by": "Andrew Ekuban",
+  "src": "Unsplash"
+ },
+ "j-couple-black": {
+  "w": 1024,
+  "h": 1536,
+  "by": "Ghana at 70 UK",
+  "src": "design concept"
+ },
+ "j-wide-denim": {
+  "w": 1024,
+  "h": 1536,
+  "by": "Ghana at 70 UK",
+  "src": "design concept"
+ },
+ "j-green-shirt": {
+  "w": 1024,
+  "h": 1536,
+  "by": "Ghana at 70 UK",
+  "src": "design concept"
+ },
+ "j-dance-party": {
+  "w": 1536,
+  "h": 1024,
+  "by": "Ghana at 70 UK",
+  "src": "design concept"
+ },
+ "j-dark-denim": {
+  "w": 1024,
+  "h": 1536,
+  "by": "Ghana at 70 UK",
+  "src": "design concept"
+ },
+ "j-black-shirt": {
+  "w": 1024,
+  "h": 1536,
+  "by": "Ghana at 70 UK",
+  "src": "design concept"
+ },
+ "j-duo": {
+  "w": 1024,
+  "h": 1536,
+  "by": "Ghana at 70 UK",
+  "src": "design concept"
+ },
+ "j-four-friends": {
+  "w": 1199,
+  "h": 1312,
+  "by": "Ghana at 70 UK",
+  "src": "design concept"
+ },
+ "j-couple-blue": {
+  "w": 1024,
+  "h": 1536,
+  "by": "Ghana at 70 UK",
+  "src": "design concept"
+ },
+ "j-print-tunic": {
+  "w": 1024,
+  "h": 1536,
+  "by": "Ghana at 70 UK",
+  "src": "design concept"
+ },
+ "rc-wall": {
+  "w": 1600,
+  "h": 900,
+  "by": "Ghana at 70 UK",
+  "src": "Brand artwork"
+ },
+ "m-elder-kente": {
+  "w": 1024,
+  "h": 1536,
+  "by": "Ghana at 70 UK",
+  "src": "design concept"
+ },
+ "m-kente-mermaid": {
+  "w": 1024,
+  "h": 1536,
+  "by": "Ghana at 70 UK",
+  "src": "design concept"
+ },
+ "m-blue-dance": {
+  "w": 504,
+  "h": 760,
+  "by": "Ghana at 70 UK",
+  "src": "design concept"
+ },
+ "m-two-generations": {
+  "w": 504,
+  "h": 760,
+  "by": "Ghana at 70 UK",
+  "src": "design concept"
+ },
+ "m-green-peplum": {
+  "w": 504,
+  "h": 760,
+  "by": "Ghana at 70 UK",
+  "src": "design concept"
+ },
+ "m-elder-face": {
+  "w": 724,
+  "h": 1000,
+  "by": "Ghana at 70 UK",
+  "src": "design concept"
+ }
+}

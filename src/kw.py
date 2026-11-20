@@ -1,0 +1,37 @@
+# 150 search keywords for Ghana at 70 UK, grouped by the page that answers them
+KW = {
+ "index": ["ghana at 70 uk", "ghana at 70 london", "ghana 70th independence anniversary", "ghana platinum jubilee", "ghana independence day 2027",
+           "ghana independence day london", "ghana 70 years of independence", "6 march 2027 ghana", "ghana independence celebration uk", "ghanaian independence day event london",
+           "ghana at 70 celebrations", "ghana jubilee celebrations london", "ghana 70th anniversary events", "ghana independence weekend london", "ghana independence day uk 2027"],
+ "royal-gala": ["royal jubilee gala", "ghana independence gala london", "african gala dinner london", "ghanaian gala dinner", "black tie gala london march 2027",
+                "ghana gala dinner 2027", "african black tie event london", "independence eve gala", "ghana midnight toast", "gala dinner city of london",
+                "banking hall gala dinner", "african royalty themed gala", "kings and queens gala", "ghanaian banquet london", "highlife live band london",
+                "gala tickets london march 2027", "luxury african event london", "diaspora gala london", "african networking gala london", "kente and black tie gala",
+                "ghanaian dinner dance london", "corporate table african gala london", "royal kente dress code", "fontomfrom drums london", "kete and adowa dance"],
+ "ghana-day": ["ghana day festival", "ghana day london", "independence day festival london", "african festival london march 2027", "ghanaian festival uk",
+               "african culture family day out london", "afrobeats day party london", "ghana independence party london", "things to do in london 6 march 2027", "african cultural festival city of london",
+               "ghanaian culture london", "oware game", "big ghana quiz", "ghanaian market stands london", "black owned business market london",
+               "ghana fashion runway london", "african dance circle", "afrobeats and highlife dj", "ghanaian community event london", "african diaspora event uk",
+               "family friendly african event london", "west african culture event london", "ghana heritage festival", "ankara print event", "independence day for kids african heritage"],
+ "women-of-the-motherland": ["women of the motherland", "mothering sunday afternoon tea london", "mothers day afternoon tea london 2027", "mothering sunday 7 march 2027", "african women event london",
+               "black women empowerment event london", "women of african heritage", "mothers day gift experience london", "afternoon tea with mum london", "wall of mothers",
+               "african mothers celebration", "mothering sunday london 2027", "african women afternoon tea london", "ghanaian mothers day london", "african heritage mothers day", "mothering sunday tea for african women", "women of african heritage event london",
+               "african heritage women networking london", "mothers day event city of london", "family afternoon tea london"],
+ "tickets": ["ghana at 70 tickets", "ghana independence tickets london", "ghana at 70 weekend pass", "book gala tickets london", "ghana day festival tickets",
+             "women of the motherland tickets", "early bird gala tickets", "mothers day gift tickets", "gala table of ten", "party of ten gala dinner",
+             "african event tickets london 2027", "events in london march 2027", "whats on in london march 2027", "city of london events march 2027", "african heritage events london 2027"],
+ "visit": ["banking hall london", "banking hall cornhill", "14 cornhill events", "events near bank station", "bank of england area events",
+           "city of london event venue", "grade ii listed banking hall", "art deco hall london event"],
+ "stay": ["ghana to london travel march 2027", "hotels near bank station", "visitor oyster card", "uk visa invitation letter event"],
+ "dress-code": ["what to wear ghana independence day", "kente outfit ideas", "kente for men", "kente kaba styles", "ankara outfit for an event",
+                "ghanaian traditional wear london", "black tie with kente", "african print outfit ideas", "sunday best african outfit", "duku headwrap"],
+ "partners": ["sponsor ghana independence event", "african diaspora sponsorship uk", "brand partnership ghana event", "ghana remittance audience", "diaspora marketing uk", "gala sponsorship london 2027"],
+ "exhibit": ["exhibit at ghana day", "market stand ghana event london", "black owned business stand london", "vendor opportunity african festival", "small business stand london march 2027"],
+ "press": ["ghana at 70 press", "ghana at 70 media accreditation", "ghanaian community media", "african diaspora podcast event"],
+ "about": ["ghana independence history", "kwame nkrumah 6 march 1957", "ghana flag theodosia okoh", "black star of africa", "ghanaian diaspora uk",
+           "ghanaians in london", "seventy years of ghana", "ghana platinum jubilee meaning", "gold coast to ghana", "ghana freedom and justice"],
+ "faq": ["mothers day afternoon tea london", "ghana at 70 dress code", "ghana independence dinner dance london"],
+}
+ALL = [k for v in KW.values() for k in v]
+assert len(ALL) == 150, len(ALL)
+assert len(set(ALL)) == 150
