@@ -21,6 +21,7 @@ const TYPES = {
   village: { pipeline: "GA70 Partnerships", stage: "Resource Village application", tag: "GA70 Resource Village", reply: "Thank you for applying to join the Resource Village at Women of the Motherland. Our partnership team will reply within one working day." },
   contact: { pipeline: "GA70 Enquiries", stage: "New enquiry", tag: "GA70 Enquiry", reply: "Thank you for contacting Ghana at 70 UK. A member of our team will reply within one working day." },
   checkout: { pipeline: "GA70 Tickets", stage: "Checkout started", tag: "GA70 Checkout", reply: "Thank you for choosing Ghana at 70 UK. If you completed payment, your golden tickets follow by email. If you have not paid yet, nothing is reserved until payment is made, and your secure payment link follows shortly." },
+  sessions: { pipeline: "GA70 Tickets", stage: "Registered interest", tag: "GA70 Session Interest", reply: "Medaase. Your ideas for Women of the Motherland are with our programme team. We tell you first when talks and masterclasses are confirmed. Registering does not reserve a place." },
   compete: { pipeline: "GA70 Competitions", stage: "Entered", tag: "GA70 Competitor", reply: "You are entered for the Ghana Day Festival games. Rules and your call times arrive by email in February 2027." }
 };
 const clip = (s, n) => String(s == null ? "" : s).slice(0, n);
