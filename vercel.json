@@ -1,7 +1,7 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": null,
-  "installCommand": "python3 -m pip install -r src/requirements.txt",
+  "installCommand": "python3 -m pip install --break-system-packages -r src/requirements.txt",
   "buildCommand": "python3 src/build.py",
   "outputDirectory": "ghana-at-70",
   "cleanUrls": true,
