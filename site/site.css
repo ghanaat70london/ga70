@@ -39,3 +39,10 @@
     padding: 22px 14px 14px;
   }
 }
+
+/* Accessibility: phone tap targets at least 24px tall (site audit, 25 November 2026).
+   The footer phone number gets a little padding; the event card links get an invisible
+   larger touch area, so nothing moves visually. */
+.ft-phone{display:inline-block;padding-block:4px;min-height:24px}
+.ev-more{position:relative}
+.ev-more::after{content:"";position:absolute;left:0;right:0;top:-10px;bottom:-10px}
