@@ -18,7 +18,7 @@ KW = {
                "african mothers celebration", "mothering sunday london 2027", "african women afternoon tea london", "ghanaian mothers day london", "african heritage mothers day", "mothering sunday tea for african women", "women of african heritage event london",
                "african heritage women networking london", "mothers day event city of london", "family afternoon tea london"],
  "tickets": ["ghana at 70 tickets", "ghana independence tickets london", "ghana at 70 weekend pass", "book gala tickets london", "ghana day festival tickets",
-             "women of the motherland tickets", "early bird gala tickets", "mothers day gift tickets", "gala table of ten", "party of ten gala dinner",
+             "women of the motherland tickets", "ghana gala dinner tickets", "mothers day gift tickets", "gala table of ten", "party of ten gala dinner",
              "african event tickets london 2027", "events in london march 2027", "whats on in london march 2027", "city of london events march 2027", "african heritage events london 2027"],
  "visit": ["banking hall london", "banking hall cornhill", "14 cornhill events", "events near bank station", "bank of england area events",
            "city of london event venue", "grade ii listed banking hall", "art deco hall london event"],

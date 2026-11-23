@@ -15902,3 +15902,12 @@ img.heads-safe {
     padding: 22px 14px 14px;
   }
 }
+
+/* Booking panel: offer name and the free-seat hint under the total (change request 1.8) */
+.co-total small {
+  display: block;
+  margin-top: 4px;
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  color: #7a5a10;
+}

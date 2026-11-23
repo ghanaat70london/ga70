@@ -16,6 +16,43 @@ SITE_URL = (os.environ.get("SITE_URL") or "https://ghanaat70uk.com").rstrip("/")
 SRC = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.normpath(os.path.join(SRC, "..", "ghana-at-70"))
 
+# PRICES and the FIRST RELEASE switch live in one place: SITE_CONFIG at the top of site.js.
+# Every page, the structured data, llms.txt and the booking panel read them from there.
+def _read_site_config():
+    js = open(os.path.join(SRC, "site.js"), encoding="utf-8").read()
+    m = re.search(r"\n  prices:\s*\{([^}]*)\}", js)
+    f = re.search(r"\n  firstRelease:\s*\{[^}]*\bon:\s*(true|false)", js)
+    if not m or not f:
+        sys.exit("site.js: SITE_CONFIG.prices or SITE_CONFIG.firstRelease is missing or not in the expected form.")
+    prices = {k: int(v) for k, v in re.findall(r"(\w+):\s*(\d+)", m.group(1))}
+    need = {"gala", "firstRelease", "table", "ghanaday", "quizTeam", "sunday", "familyTable", "weekend"}
+    if need - prices.keys():
+        sys.exit("site.js: SITE_CONFIG.prices is missing " + ", ".join(sorted(need - prices.keys())))
+    return prices, f.group(1) == "true"
+PR, FR_ON = _read_site_config()
+def gbp(n): return f"GBP {n:,}"
+G, G_FR, G_TABLE, G_DAY, G_QUIZ, G_SUN, G_FAM, G_WKND = (gbp(PR[k]) for k in ("gala", "firstRelease", "table", "ghanaday", "quizTeam", "sunday", "familyTable", "weekend"))
+SUM_FR, SUM_FULL = PR["firstRelease"] + PR["ghanaday"] + PR["sunday"], PR["gala"] + PR["ghanaday"] + PR["sunday"]
+def fr(on, off=""):
+    """Text that shows only while the first release is on sale. One switch: SITE_CONFIG.firstRelease.on"""
+    return on if FR_ON else off
+# The exact lines the change request fixes, built from the prices above
+TABLE_LINE = f"Table of ten {G_TABLE}, ten guests for the price of nine (9 x {G})"
+GALA_PRICE_LINE = fr(f"First release {G_FR}, up to 2 per order · ") + TABLE_LINE
+WKND_COMPARE = fr(f"Always less than three separate tickets: {gbp(SUM_FR)} at first release prices, {gbp(SUM_FULL)} after.",
+                  f"Less than three separate tickets: {G} + {G_DAY} + {G_SUN} = {gbp(SUM_FULL)}.")
+WKND_LINE = f"The Weekend Pass: {G_WKND}. All three days, for one guest. {WKND_COMPARE}"
+GALA_FROM = fr(f"{G}, first release {G_FR}", G)
+TERMS_PRICES = ("Prices: the Royal Jubilee Gala " + G + " per guest. "
+    + fr(f"First release: {G_FR} per guest for the first 25 Gala tickets sold, up to 2 per order. ")
+    + f"Table of ten: {G_TABLE} for ten Gala guests, the price of nine (9 x {G}), limited to 5 tables. "
+    + f"The Ghana Day Festival {G_DAY} per guest, and a quiz team booking of six tickets at 6 x {G_DAY} = {G_QUIZ}. "
+    + f"Women of the Motherland {G_SUN} per guest, and a family table booking of five tickets at 5 x {G_SUN} = {G_FAM}. "
+    + f"The Weekend Pass {G_WKND} per guest: one ticket for each of the three days, issued to the same guest, which is less than the three tickets bought separately "
+    + fr(f"({gbp(SUM_FR)} at first release prices, {gbp(SUM_FULL)} after). ", f"({G} + {G_DAY} + {G_SUN} = {gbp(SUM_FULL)}). ")
+    + "One offer applies per order: " + fr("the first release, the table of ten and the Weekend Pass cannot be combined with each other. ", "the table of ten and the Weekend Pass cannot be combined with each other. ")
+    + "Offers end when their allocation is sold. Prices include VAT and booking fees. No fee is added at checkout.")
+
 GOLD_DEF = '<defs><linearGradient id="{id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8C6510"/><stop offset=".22" stop-color="#E3B53E"/><stop offset=".4" stop-color="#FFF1B8"/><stop offset=".58" stop-color="#D4A62A"/><stop offset=".78" stop-color="#946B12"/><stop offset="1" stop-color="#F3D271"/></linearGradient></defs>'
 
 def star(fill="#14110D", stroke="#D4A62A", sw=3):
@@ -248,7 +285,7 @@ def exhibitor_form():
     <fieldset class="ex-step"><legend><span class="ex-n">1</span>Which stand are you buying?</legend>
       <div class="ex-opts"><label class="ex-opt"><input type="radio" name="standType" value="Market stand, GBP 250 + VAT" required><span class="ex-opt-in"><b>Market stand</b><span class="ex-price">GBP 250 + VAT</span><span class="ex-work">GBP 250 + VAT at 20% (GBP 50) = GBP 300</span></span></label><label class="ex-opt"><input type="radio" name="standType" value="Feature stand, GBP 600 + VAT" required><span class="ex-opt-in"><b>Feature stand</b><span class="ex-price">GBP 600 + VAT</span><span class="ex-work">GBP 600 + VAT at 20% (GBP 120) = GBP 720</span></span></label><label class="ex-opt"><input type="radio" name="partySize" value="Sunday market stand, GBP 150 + VAT" required><span class="ex-opt-in"><b>Sunday market stand</b><span class="ex-price">GBP 150 + VAT</span><span class="ex-work">GBP 150 + VAT at 20% (GBP 30) = GBP 180</span></span></label><label class="ex-opt"><input type="radio" name="partySize" value="Both days, market stand Saturday and Sunday, GBP 400 + VAT" required><span class="ex-opt-in"><b>Both days</b><span class="ex-price">GBP 400 + VAT</span><span class="ex-work">GBP 250 + GBP 150 = GBP 400 + VAT at 20% (GBP 80) = GBP 480</span></span></label><label class="ex-opt"><input type="radio" name="partySize" value="Rising Stars complimentary stand" required><span class="ex-opt-in"><b>Rising Stars</b><span class="ex-price">Complimentary</span><span class="ex-work">For new Ghanaian businesses, two stands only</span></span></label><label class="ex-opt"><input type="radio" name="partySize" value="Not sure, advise me" required><span class="ex-opt-in"><b>Not sure yet</b><span class="ex-price">We advise you</span><span class="ex-work">We call you within five working days</span></span></label></div></fieldset>
     <fieldset class="ex-step ex-gala"><legend><span class="ex-n">2</span>Royal Jubilee Gala seats, Friday 5 March</legend>
-      <label class="ex-yes"><input type="checkbox" name="galaWanted" value="yes"><span><b>Yes, I want to buy Royal Jubilee Gala seats at the exhibitor rate</b><span class="hint">Not included with any stand. The exhibitor rate is below the public price of GBP 275.</span></span></label>
+      <label class="ex-yes"><input type="checkbox" name="galaWanted" value="yes"><span><b>Yes, I want to buy Royal Jubilee Gala seats at the exhibitor rate</b><span class="hint">Not included with any stand. The exhibitor rate is below the public price of {G}.</span></span></label>
       <div class="field ex-gala-n"><label for="ex-gala">How many seats?</label><select id="ex-gala" name="galaSeats"><option value="1">1 seat</option><option value="2" selected>2 seats</option><option value="3">3 seats</option><option value="4">4 seats</option><option value="5 or more">5 or more</option></select></div>
     </fieldset>
     <div class="field"><label for="ex-msg">What will you show and sell</label><textarea id="ex-msg" name="message" required></textarea></div>
@@ -266,7 +303,7 @@ def hours_table(rows):
     return f'<div class="table-wrap"><table class="hours"><tbody>{body}</tbody></table></div>'
 
 NAV_GROUPS = [
-    ("days", "The three days", [("royal-gala", "The Royal Jubilee Gala", "Friday 5 March · GBP 275, early bird GBP 250"), ("ghana-day", "Ghana Day Festival", "Saturday 6 March · GBP 50"),
+    ("days", "The three days", [("royal-gala", "The Royal Jubilee Gala", "Friday 5 March · " + GALA_FROM), ("ghana-day", "Ghana Day Festival", "Saturday 6 March · GBP 50"),
                                 ("women-of-the-motherland", "Women of the Motherland", "Sunday 7 March · GBP 150"), ("programme", "The full programme", "All three days at a glance"),
                                 ("sessions", "Talks and sessions", "Expert talks, clinics and masterclasses")]),
     ("visit", "Visit", [("visit", "Plan your visit", "Opening times and getting there"), ("dress-code", "What to wear", "Dress codes for each day"),
@@ -279,8 +316,8 @@ NAV_GROUPS = [
                         ("news", "News", "Announcements and dates"), ("contact", "Contact", "Who to talk to")]),
 ]
 NAV_GROUPS = [
-    ("weekend", "The weekend", [("royal-gala", "The Royal Jubilee Gala", "Friday 5 March · GBP 275"), ("ghana-day", "Ghana Day Festival", "Saturday 6 March · GBP 50"),
-                                ("women-of-the-motherland", "Women of the Motherland", "Sunday 7 March · GBP 150"), ("tickets", "Tickets and the Weekend Pass", "All three days · GBP 435")]),
+    ("weekend", "The weekend", [("royal-gala", "The Royal Jubilee Gala", "Friday 5 March · " + G), ("ghana-day", "Ghana Day Festival", "Saturday 6 March · GBP 50"),
+                                ("women-of-the-motherland", "Women of the Motherland", "Sunday 7 March · GBP 150"), ("tickets", "Tickets and the Weekend Pass", "All three days · " + G_WKND)]),
     ("plan", "Plan your visit", [("dress-code", "What to wear", "Kente, Ankara print and Sunday best"), ("visit", "Times and getting there", "Doors, transport and access"),
                                  ("stay", "Travel and stay", "Hotels, Oyster cards, flights from Ghana"), ("faq", "Questions", "Tickets, timings and dress")]),
     ("involved", "Get involved", [("partners", "Partner with us", "Brands, sponsors and supporters"), ("exhibit", "Exhibit", "Forty stands on Independence Day"),
@@ -453,7 +490,7 @@ def footer():
       <p class="ft-count"><b data-days>{DAYS_LEFT}</b><span>days to Independence Day</span></p>
     </div>
     <ul class="ft-tix">
-      <li class="ftt-gala"><a href="royal-gala.html#book" data-pay="gala"><span class="ftt-d">Friday 5 March</span><b>The Royal Jubilee Gala</b><span class="ftt-p">GBP 275</span><i aria-hidden="true"></i></a></li>
+      <li class="ftt-gala"><a href="royal-gala.html#book" data-pay="gala"><span class="ftt-d">Friday 5 March</span><b>The Royal Jubilee Gala</b><span class="ftt-p">{G}</span><i aria-hidden="true"></i></a></li>
       <li class="ftt-day"><a href="ghana-day.html#book" data-pay="ghanaday"><span class="ftt-d">Saturday 6 March</span><b>Ghana Day Festival</b><span class="ftt-p">GBP 50</span><i aria-hidden="true"></i></a></li>
       <li class="ftt-sun"><a href="women-of-the-motherland.html#book" data-pay="sunday"><span class="ftt-d">Sunday 7 March</span><b>Women of the Motherland</b><span class="ftt-p">GBP 150</span><i aria-hidden="true"></i></a></li>
     </ul>
@@ -537,7 +574,7 @@ def page(slug, title, desc, body, extra=""):
         f.write(img_dims(html))
 
 STORY_BAND = {'ghana-day': '<section class="band dstory" id="family"><div class="wrap story-in"><div class="story-head"><span class="eyebrow">Independence Day</span><h2>Born in Kumasi. Born in Birmingham. Born Ghanaian.</h2><div class="divider c"><i></i></div></div><div class="story-body"><p class="story-first">Seventy years to the day, and the whole family under one roof.</p><p>The aunties who argue about the jollof. The cousins who switch to Twi or Ga when they want to keep a secret. The friend from work who has never been, and will never miss it again. Families travelling in from Manchester, Birmingham, Leeds, Milton Keynes, Dublin and beyond.</p><p>A DJ all day, up to forty stands, the dance circle, oware and the Big Ghana Quiz, and five talks for families with two homes. At noon the whole hall stops for the drums and a reading of the declaration of independence. Then the music starts again.</p><p class="story-pull">Today Ghana is seventy. Today Ghana is ours.</p><div class="btn-row" style="justify-content:center;margin-top:24px"><a class="btn gold" href="#book" data-pay="ghanaday">Bring the people who made you</a></div></div></div></section>', 'royal-gala': '<section class="band dstory" id="midnight"><div class="wrap story-in"><div class="story-head"><span class="eyebrow">Independence Eve</span><h2>Midnight, 6 March. Seventy years free.</h2><div class="divider c"><i></i></div></div><div class="story-body"><p class="story-first">In 1957 our grandparents stood under the warm night sky of Accra and waited for midnight.</p><p>On Independence Eve we wait for it together again, in Kente and gold, with guests from every corner of the UK, in a grand banking hall in the City of London, moments from the Bank of England.</p><p>Fontomfrom drums at the door. A Ghanaian inspired dinner at long royal tables. Live highlife and a dance floor. Then, as the clock turns, the whole hall rises, glasses high, for the moment Ghana became free, seventy years on.</p><p class="story-pull">Arrive as royalty. There are only 250 seats.</p><div class="btn-row" style="justify-content:center;margin-top:24px"><a class="btn gold" href="#book" data-pay="gala">Take your seat at the Jubilee</a></div></div></div></section>', 'women-of-the-motherland': '<section class="band dstory" id="mothers"><div class="wrap story-in"><div class="story-head"><span class="eyebrow">Mothering Sunday</span><h2>Bring your mother. She brought you here.</h2><div class="divider c"><i></i></div></div><div class="story-body"><p class="story-first">She ironed the cloth. She sent money home on Friday and still had Sunday dinner on the table.</p><p>Some of our mothers live around the corner. Some came down from Manchester or up from Kent for the day. Some are at home in Ghana, waiting for the photographs.</p><p>On Mothering Sunday, the day after Independence Day, we honour them all: a family afternoon tea, a family portrait, and the Wall of Mothers, where every mother named by a guest is celebrated aloud.</p><p>Our symbol, Akoko Nan, is a mother who shelters and corrects her children, and never lets go. This is her day.</p><div class="btn-row" style="justify-content:center;margin-top:24px"><a class="btn gold" href="#book" data-pay="sunday">Book her seat at the table</a></div></div></div></section>', 'index': '<section class="band dstory" id="motherland"><div class="wrap story-in"><div class="story-head"><span class="eyebrow">Seventy years · One family</span><h2>The Motherland is us.</h2><div class="divider c"><i></i></div></div><div class="story-body"><p class="story-first">Somewhere in Barking tonight, a mother is ironing a Kente cloth she has kept for thirty years.</p><p>She wore it the day she landed. She wore it to every wedding, every outdooring and every graduation. On the fifth of March she will wear it again.</p><p>In Manchester, a young man is choosing a Black Stars shirt. In Birmingham, two aunties are already arguing about whose jollof is best. In Glasgow, a student is booking the train south. In Dublin, a family is booking the flight over. Some of us were born in Osu, some in Kumasi, some in Leeds and others in south London, and every one of us knows the words of that midnight in 1957: Ghana, your beloved country, is free forever.</p><p>On 6 March 1957 our grandparents danced until morning. Now it is our turn. From every corner of the UK and across Europe, Ghanaians are coming together in one great hall for three days: The Royal Jubilee Gala on Independence Eve, the Ghana Day Festival on Independence Day itself, and Women of the Motherland on Mothering Sunday.</p><p>This Platinum Jubilee, as Ghana celebrates seventy years, we are ready. When you see the traffic light, there is something you should know. Red means stop. Yellow means get ready. Green means go, go, go. We are ready to go all out for our beloved Ghana.</p><p class="story-pull">Ghana is seventy. Ghana is ours. Come and celebrate Ghana.</p><div class="btn-row" style="justify-content:center;margin-top:24px"><a class="btn gold" href="tickets.html" data-pay="pick">Take your seat at the Jubilee</a><a class="btn line-dark" href="about.html">Read our story</a></div></div></div></section>'}
-AEO_SHORT = {'index': 'Ghana at 70 UK is the UK celebration of the Ghana 70th Platinum Jubilee, held in London: three days at Banking Hall, 5 to 7 March 2027, marking seventy years of Ghanaian independence. The Royal Jubilee Gala on Friday, the Ghana Day Festival on Independence Day itself, and Women of the Motherland, a Mothers Day afternoon tea, on Sunday.', 'royal-gala': 'The Royal Jubilee Gala is the Ghana Independence gala dinner and dance in London. Friday 5 March 2027 at Banking Hall in the City, on the eve of the seventieth Independence Day. Kente or black tie, royal drums, a Ghanaian inspired dinner, live highlife and Afrobeats, and a midnight toast as 6 March begins. GBP 275.', 'ghana-day': 'The Ghana Day Festival is the Ghana Independence Day party in London. Saturday 6 March 2027, seventy years to the day since 6 March 1957. A DJ and dancing from 11:00 to 18:00, forty Ghanaian stands, the dance circle, oware and the Big Ghana Quiz, for families and friends of every age. GBP 50.', 'women-of-the-motherland': 'Women of the Motherland is a Mothers Day afternoon tea for women in London. Mothering Sunday, 7 March 2027, at Banking Hall. Afternoon tea at the table, a family portrait, the networking hour and her name on the Wall of Mothers. For every woman of African heritage, and her family. GBP 150.'}
+AEO_SHORT = {'index': 'Ghana at 70 UK is the UK celebration of the Ghana 70th Platinum Jubilee, held in London: three days at Banking Hall, 5 to 7 March 2027, marking seventy years of Ghanaian independence. The Royal Jubilee Gala on Friday, the Ghana Day Festival on Independence Day itself, and Women of the Motherland, a Mothers Day afternoon tea, on Sunday.', 'royal-gala': 'The Royal Jubilee Gala is the Ghana Independence gala dinner and dance in London. Friday 5 March 2027 at Banking Hall in the City, on the eve of the seventieth Independence Day. Kente or black tie, royal drums, a Ghanaian inspired dinner, live highlife and Afrobeats, and a midnight toast as 6 March begins. ' + GALA_FROM + '.', 'ghana-day': 'The Ghana Day Festival is the Ghana Independence Day party in London. Saturday 6 March 2027, seventy years to the day since 6 March 1957. A DJ and dancing from 11:00 to 18:00, forty Ghanaian stands, the dance circle, oware and the Big Ghana Quiz, for families and friends of every age. GBP 50.', 'women-of-the-motherland': 'Women of the Motherland is a Mothers Day afternoon tea for women in London. Mothering Sunday, 7 March 2027, at Banking Hall. Afternoon tea at the table, a family portrait, the networking hour and her name on the Wall of Mothers. For every woman of African heritage, and her family. GBP 150.'}
 CRUMB = {"royal-gala": "The Royal Jubilee Gala", "ghana-day": "Ghana Day Festival", "women-of-the-motherland": "Women of the Motherland", "tickets": "Tickets",
          "about": "Our story", "visit": "Plan your visit", "stay": "Travel and stay", "dress-code": "What to wear", "gallery": "Gallery", "faq": "Questions",
          "partners": "Partner with us", "exhibit": "Exhibit", "press": "Tell our story", "contact": "Contact", "terms": "Ticket terms", "privacy": "Privacy"}
@@ -552,7 +589,7 @@ def seo_ld(slug, title, body):
             "description": "The UK celebration of the Ghana 70th Platinum Jubilee, held over three days in London: The Royal Jubilee Gala, the Ghana Day Festival on Independence Day and Women of the Motherland.",
             "startDate": "2027-03-05T18:30:00+00:00", "endDate": "2027-03-07T18:30:00+00:00", "location": VENUE_LD, "url": SITE_URL + "/", "image": [SITE_URL + "/images/og.jpg"],
             "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode", "eventStatus": "https://schema.org/EventScheduled", "organizer": {"@id": SITE_URL + "/#org"},
-            "offers": {"@type": "Offer", "name": "Weekend Pass, all three days", "price": "435", "priceCurrency": "GBP", "availability": "https://schema.org/InStock", "url": SITE_URL + "/tickets", "validFrom": "2026-11-18T00:00:00+00:00"},
+            "offers": {"@type": "Offer", "name": "Weekend Pass, all three days", "price": str(PR["weekend"]), "priceCurrency": "GBP", "availability": "https://schema.org/InStock", "url": SITE_URL + "/tickets", "validFrom": "2026-11-18T00:00:00+00:00"},
             "subEvent": [{"@type": "Event", "name": n, "startDate": s, "url": SITE_URL + "/" + u} for n, s, u in [
                 ("The Royal Jubilee Gala", "2027-03-05T18:30:00+00:00", "royal-gala"), ("Ghana Day Festival", "2027-03-06T11:00:00+00:00", "ghana-day"),
                 ("Women of the Motherland", "2027-03-07T11:00:00+00:00", "women-of-the-motherland")]]})
@@ -647,10 +684,12 @@ def _event(n, s, e, p, d, u):
 def _offers(p, u):
     base = {"@type": "Offer", "priceCurrency": "GBP", "url": SITE_URL + "/" + u + "#book", "availability": "https://schema.org/InStock", "validFrom": "2026-11-18T00:00:00+00:00"}
     out = [dict(base, price=p, name="Standard ticket")]
-    if p == "275": out.insert(0, dict(base, price="250", name="Early bird", availability="https://schema.org/LimitedAvailability"))
+    if p == str(PR["gala"]):
+        out.append(dict(base, price=str(PR["table"]), name="Table of ten, ten guests for the price of nine", availability="https://schema.org/LimitedAvailability"))
+        if FR_ON: out.insert(0, dict(base, price=str(PR["firstRelease"]), name="First release, up to 2 per order", availability="https://schema.org/LimitedAvailability"))
     return out
 EVENT_LD = {
-    "royal-gala": _event("Ghana at 70 UK: The Royal Jubilee Gala of Kings and Queens", "2027-03-05T18:30:00+00:00", "2027-03-06T00:30:00+00:00", "275", "A Ghanaian gala dinner for kings and queens at Banking Hall, City of London: royal drums, a Ghanaian inspired dinner, live highlife and a midnight toast.", "royal-gala"),
+    "royal-gala": _event("Ghana at 70 UK: The Royal Jubilee Gala of Kings and Queens", "2027-03-05T18:30:00+00:00", "2027-03-06T00:30:00+00:00", str(PR["gala"]), "A Ghanaian gala dinner for kings and queens at Banking Hall, City of London: royal drums, a Ghanaian inspired dinner, live highlife and a midnight toast.", "royal-gala"),
     "ghana-day": _event("Ghana at 70 UK: Ghana Day Festival", "2027-03-06T11:00:00+00:00", "2027-03-06T18:00:00+00:00", "50", "Independence Day at Banking Hall: a DJ and dancing all day, up to forty Ghanaian exhibitors, games, the Big Ghana Quiz and the dance circle.", "ghana-day"),
     "women-of-the-motherland": _event("Ghana at 70 UK: Women of the Motherland", "2027-03-07T11:00:00+00:00", "2027-03-07T18:30:00+00:00", "150", "A Mothering Sunday afternoon tea at Banking Hall for women of African heritage and their families, with the Wall of Mothers, a family portrait, the Motherland Market and the networking hour.", "women-of-the-motherland"),
 }
@@ -757,7 +796,7 @@ def guess_icon(title):
     return "star"
 
 DAYINFO = {
-    "royal-gala": ("The Royal Jubilee Gala", "Fri 5 March · 18:30", "GBP 275 · early bird GBP 250", "https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Ghana%20at%2070%3A%20The%20Royal%20Kente%20Gala&amp;dates=20270305T183000Z/20270306T003000Z&amp;details=Doors%2018%3A30.%20We%20start%20on%20time.%20Your%20golden%20ticket%20arrives%20by%20email.&amp;location=Banking%20Hall%2C%2014%20Cornhill%2C%20London%20EC3V%203ND"),
+    "royal-gala": ("The Royal Jubilee Gala", "Fri 5 March · 18:30", GALA_FROM, "https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Ghana%20at%2070%3A%20The%20Royal%20Kente%20Gala&amp;dates=20270305T183000Z/20270306T003000Z&amp;details=Doors%2018%3A30.%20We%20start%20on%20time.%20Your%20golden%20ticket%20arrives%20by%20email.&amp;location=Banking%20Hall%2C%2014%20Cornhill%2C%20London%20EC3V%203ND"),
     "ghana-day": ("Ghana Day Festival", "Sat 6 March · 11:00", "GBP 50", "https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Ghana%20at%2070%3A%20Ghana%20Day%20Party&amp;dates=20270306T110000Z/20270306T180000Z&amp;details=Independence%20Day%20at%20Banking%20Hall.%20Your%20golden%20ticket%20arrives%20by%20email.&amp;location=Banking%20Hall%2C%2014%20Cornhill%2C%20London%20EC3V%203ND"),
     "women-of-the-motherland": ("Women of the Motherland", "Sun 7 March · 11:00", "GBP 150", "https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Ghana%20at%2070%3A%20Women%20of%20the%20Motherland&amp;dates=20270307T110000Z/20270307T183000Z&amp;details=Mothering%20Sunday%20at%20Banking%20Hall.%20Doors%2011%3A00.%20Your%20golden%20ticket%20arrives%20by%20email.&amp;location=Banking%20Hall%2C%2014%20Cornhill%2C%20London%20EC3V%203ND"),
 }
@@ -794,7 +833,7 @@ def gt(name, small, detail, price, serial, theme="", sym="adinkrahene", buy=""):
   <div class="gt-stub r"><span>{price}</span></div>
 </div></div>"""
 
-T_GALA = gt("The Royal Jubilee Gala of Kings and Queens", "Friday", "Friday 5 March 2027 · 18:30 · Banking Hall", "GBP 275", "0001", "gt-black", "adinkrahene", "gala")
+T_GALA = gt("The Royal Jubilee Gala of Kings and Queens", "Friday", "Friday 5 March 2027 · 18:30 · Banking Hall", G, "0001", "gt-black", "adinkrahene", "gala")
 T_DAY = gt("Ghana Day Festival", "Independence Day", "Saturday 6 March 2027 · 11:00 · Banking Hall", "GBP 50", "0001", "gt-green", "fawohodie", "ghanaday")
 T_SUN = gt("Women of the Motherland", "Mothering Sunday", "Sunday 7 March 2027 · 11:00 · Banking Hall", "GBP 150", "0001", "gt-ruby", "asaseyeduru", "sunday")
 
@@ -879,7 +918,7 @@ def ticket_row(ticket, title, items, working, href, cta="Book now", btn="gold", 
     lis = "".join(f"<li>{i}</li>" for i in items)
     dp = f' data-pay="{pay}"' if pay else ""
     return f'''
-<div class="ticket-row">{ticket}<div class="ticket-copy"><h3>{title}</h3><ul>{lis}</ul>{('<p class="not-inc">' + NOT_INC[pay] + '</p>') if pay in NOT_INC else ''}{('<p class="bp-valid">' + VALID[pay] + '</p>') if pay in VALID else ''}<p class="where"><b>Where</b> {VENUE_LINE}</p><p class="working">{working}</p><p class="left" data-left="{pay}" hidden></p><div class="btn-row"><a class="btn {btn}" href="{href}"{dp}>{cta}</a></div><p class="reassure">Two minutes to book · Transferable tickets</p></div></div>'''
+<div class="ticket-row">{ticket}<div class="ticket-copy"><h3>{title}</h3><ul>{lis}</ul>{('<p class="not-inc">' + NOT_INC[pay] + '</p>') if pay in NOT_INC else ''}{('<p class="bp-valid">' + VALID[pay] + '</p>') if pay in VALID else ''}<p class="where"><b>Where</b> {VENUE_LINE}</p><p class="working">{working}</p><div class="btn-row"><a class="btn {btn}" href="{href}"{dp}>{cta}</a></div><p class="reassure">Two minutes to book · Transferable tickets</p></div></div>'''
 
 def register_form(source="landing", heading="Join the priority list", mother=False, day=None):
     mother_field = f"""
@@ -907,7 +946,7 @@ def register_form(source="landing", heading="Join the priority list", mother=Fal
         <div class="field"><label for="f-phone-{source}">Mobile</label><input id="f-phone-{source}" type="tel" name="phone" autocomplete="tel"></div>
       </div>
       <div class="row2">
-        <div class="field"><label for="f-party-{source}">Party size</label><select id="f-party-{source}" name="partySize"><option>1</option><option selected>2</option><option>3 to 4</option><option>5, a family table</option><option>10, a royal party</option><option>More than 10</option></select></div>
+        <div class="field"><label for="f-party-{source}">Party size</label><select id="f-party-{source}" name="partySize"><option>1</option><option selected>2</option><option>3 to 4</option><option>5, a family table</option><option>10, a table of ten</option><option>More than 10</option></select></div>
         <div class="field"><label for="f-heard-{source}">How you heard of us</label><select id="f-heard-{source}" name="heardFrom"><option value="">Please choose</option><option>Instagram</option><option>Facebook</option><option>TikTok</option><option>WhatsApp</option><option>Church or community group</option><option>A friend</option><option>Other</option></select></div>
       </div>
       <fieldset class="field"><legend>I would also like</legend>
@@ -1005,7 +1044,7 @@ DAYS = '<div class="evs">' + evcard("gala", 1, "y-two-couples", "A young couple 
     "The Royal Jubilee Gala", "Independence Eve", "18:30 to 00:30 · Banking Hall",
     "Wear the Kente you have been saving. Come for the dinner, get up for the highlife and stay for the midnight toast. If there is one night to get your friends around the same table, make it Independence Eve.",
     ["Fontomfrom drums and the red carpet", "A Ghanaian inspired dinner", "Live band and dancing", "The midnight toast as Independence Day begins"],
-    "GBP 275", "per guest · early bird GBP 250", "gala", "Book the Gala", "royal-gala.html", "Discover the Gala") + \
+    G, "per guest" + fr(f" · first release {G_FR}, up to 2 per order"), "gala", "Book the Gala", "royal-gala.html", "Discover the Gala") + \
     evcard("fest", 2, "j-four-friends", "Two young men and two young women in Kente print shirts and tops with jeans and white trainers", "50% 15%", "06", "March", "Saturday",
     "Ghana Day Festival", "Independence Day", "11:00 to 18:00 · Banking Hall · Come and go",
     "Meet the companies that want to reach the Ghanaian diaspora, all under one roof. Book fixed 10 minute appointments with the exhibitors you choose, then play the games, dance, network and celebrate Independence Day with fellow Ghanaians.",
@@ -1056,17 +1095,17 @@ OBJ = {
     "gala": [("Is this the Ghana Independence dinner and dance in London?", "Yes. The Royal Jubilee Gala is the black tie and Kente dinner dance on the eve of Ghana Independence Day: a Ghanaian inspired dinner, a live band playing highlife and Afrobeats, the dance floor until the last dance, and the midnight toast as 6 March 2027 begins."),
              ("What is included?", inc_sentence("gala")),
              ("What do I wear?", "Royalty Kente or Black Tie Gala. This is a ball. <a href=\"dress-code.html\">What to wear</a>"),
-             ("Can I book a table for my group?", "Yes. Parties of ten are seated together at the long royal banqueting tables: 10 x GBP 275 = GBP 2,750. Choose Royal party of 10 when you book.")],
+             ("Can I book a table for my group?", f"Yes. A table of ten is {G_TABLE}: ten guests seated together at the long tables, for the price of nine: 9 x {G}. Choose Table of ten when you reserve.")],
     "ghanaday": [("Where can I celebrate Ghana Independence Day in London?", "At the Ghana Day Festival, Banking Hall, 14 Cornhill, on Saturday 6 March 2027 from 11:00 to 18:00. Seventy years to the day since 6 March 1957, with a DJ, dancing, forty Ghanaian stands and the whole community in one hall."),
                  ("Is there dancing?", "All day. The DJ plays highlife, hiplife and Afrobeats from 11:00, and the dance circle is open to every age. Come and go with your wristband."),
                  ("What is included?", inc_sentence("ghanaday")),
                  ("Can I join the games?", "Yes. Entry is included with your ticket. Sign up at the welcome desk on the day."),
-                 ("Can we come as a team?", "Yes. Quiz teams are up to six: 6 x GBP 50 = GBP 300. Choose Quiz team of 6 when you book.")],
+                 ("Can we come as a team?", f"Yes. A quiz team booking is six tickets: 6 x {G_DAY} = {G_QUIZ}. Choose Quiz team, 6 tickets when you book.")],
     "sunday": [("Is there a Mothers Day event in London for African women?", "Yes. Women of the Motherland is a Mothering Sunday afternoon tea on Sunday 7 March 2027 at Banking Hall, for every woman of African heritage and her family. Mothering Sunday falls on 7 March in 2027."),
                ("Will there be talks or masterclasses?", "Not yet confirmed. We are shaping the sessions with our guests. Tell us what you would want to be part of through the <a href=\"women-of-the-motherland.html#sessions\">register your interest form</a>, and we announce the programme once it is confirmed."),
                ("What is included?", inc_sentence("sunday")),
                ("Can I give it as a gift?", "Yes. Tick This is a gift when you book and tell us whose name goes on the golden ticket. A Mothering Sunday gift she will remember."),
-               ("Can we sit together as a family?", "Yes. Family tables seat five: 5 x GBP 150 = GBP 750. Choose Family table of 5 when you book.")],
+               ("Can we sit together as a family?", f"Yes. A family table booking is five tickets at one table: 5 x {G_SUN} = {G_FAM}. Choose Family table, 5 tickets when you book.")],
 }
 OBJ_ALL = [("Will it really happen?", "Yes. All three days are at Banking Hall, 14 Cornhill, in the City of London, moments from the Bank of England. If we ever cancel, every ticket is refunded in full within 14 days. It is in our terms."), ("Who is behind it?", "The team that produced the opening of the Ghana Passport Office in Aldgate East. <a href=\"index.html#proof\">Watch the film</a>."), ("Is my payment safe?", "Yes. Card, Apple Pay or Google Pay through a secure checkout, or bank transfer. No booking fees. Your golden ticket arrives by email the moment you pay."), ("Are drinks included?", "Gala: the sobolo welcome, soft drinks and water all evening. Sunday: tea, coffee and soft drinks. Saturday: drinks are sold by card at the bar. No ticket includes alcohol, and the bar serves by card on every day."),
            ("Is the programme confirmed?", "The programme shown is the plan we are building to. Performers, speakers and timings are announced as each one is contracted, and every booked guest hears first."),
@@ -1107,9 +1146,9 @@ def value_band(day, ph, eyebrow, title, lead, quote, items, price, unit, group, 
       <span class="vb-k">What your ticket includes</span>
       <ol class="vb-list">{lis}</ol>
       <p class="not-inc">{NOT_INC.get(day, "")}</p>
-      <div class="vb-price"><b>GBP {price}</b><span>{unit}</span></div>
+      <div class="vb-price"><b>{gbp(price)}</b><span>{unit}</span></div>
       {extra}
-      <p class="left" data-left="{day}" hidden></p>
+      
       <div class="vb-acts"><a class="btn gold" href="#book" data-pay="{day}">Book now</a><a class="btn line-dark" href="gallery.html#g-{ {"gala": "gala", "ghanaday": "ghanaday", "sunday": "sunday"}.get(day, "gala") }">See the gallery</a></div>
       <p class="vb-work">{gwork}</p>
       <p class="where"><b>Where</b> {VENUE_LINE}</p>
@@ -1119,8 +1158,9 @@ def value_band(day, ph, eyebrow, title, lead, quote, items, price, unit, group, 
 </div></section>'''
 
 def book_band(day, title, line, ticket, extra=""):
-    price = {"gala": 275, "ghanaday": 50, "sunday": 150}[day]
-    group = {"gala": (10, "Book a royal party of 10"), "ghanaday": (6, "Book a quiz team of 6"), "sunday": (5, "Book a family table of 5")}[day]
+    price = {"gala": PR["gala"], "ghanaday": PR["ghanaday"], "sunday": PR["sunday"]}[day]
+    group = {"gala": (10, "Reserve a table of ten"), "ghanaday": (6, "Reserve a quiz team, 6 tickets"), "sunday": (5, "Reserve a family table, 5 tickets")}[day]
+    two = fr(f"Two guests at first release: 2 x {G_FR} = {gbp(2 * PR['firstRelease'])}", f"Two guests: 2 x {G} = {gbp(2 * PR['gala'])}") if day == "gala" else f"Two guests: 2 x {gbp(price)} = {gbp(2 * price)}"
     return f'''<section class="band emerald" id="book"><div class="wrap bk-grid">
   <div class="bk-head stack"><span class="eyebrow">Book</span><h2>{title}</h2><p class="lead">{line}</p></div>
   <div class="bk-left">{ticket}{TRUST}</div>
@@ -1135,10 +1175,10 @@ def book_band(day, title, line, ticket, extra=""):
     <p class="bp-valid">This ticket is for this event, on this date, only. The other two events are separate, each with its own ticket, or all three with the Weekend Pass.</p>
     <span class="rsvp-rule" aria-hidden="true"></span>
     <span class="eyebrow">Your places</span>
-    <p class="bp-price">GBP {price} <span>{"per guest, or GBP 250 early bird while early bird tickets last" if day == "gala" else "per guest"}. No booking fees added. { {"gala": "Alcohol is not included, the bar serves by card", "ghanaday": "Food and drink are not included. The bar sells drinks and snacks, card only", "sunday": "Afternoon tea, tea, coffee and soft drinks included. Alcohol is not included"}[day] }</span></p>
-    <p class="working">Two guests: 2 x GBP {price} = GBP {2 * price:,}</p>
+    <p class="bp-price">{gbp(price)} <span>{"per guest. " + GALA_PRICE_LINE if day == "gala" else "per guest"}. No booking fees added. { {"gala": "Alcohol is not included, the bar serves by card", "ghanaday": "Food and drink are not included. The bar sells drinks and snacks, card only", "sunday": "Afternoon tea, tea, coffee and soft drinks included. Alcohol is not included"}[day] }</span></p>
+    <p class="working">{two}</p>
     {extra}
-    <p class="left" data-left="{day}" hidden></p><p class="left" data-booked hidden></p><p class="left" data-deadline hidden></p>
+    <p class="left" data-booked hidden></p><p class="left" data-deadline hidden></p>
     <a class="btn gold bp-btn" href="#book" data-pay="{day}">Book now</a>
     <a class="btn line bp-btn" href="#book" data-pay="{day}" data-qty="{group[0]}">{group[1]}</a>
     <ol class="bp-steps"><li>Choose your guests</li><li>Add your details</li><li>Pay, then receive your golden tickets by email</li></ol>
@@ -1192,7 +1232,7 @@ def build():
         {LOCKUP}
         <div class="divider c"><i></i></div>
         <p class="hero-sub"><b class="hero-sale">Where will you be when Ghana turns 70?</b> 5 to 7 March 2027 · Banking Hall, London. Three events, each with its own ticket. Tickets on sale now.</p>
-        <ol class="hero-events"><li><a href="royal-gala.html"><b>Friday 5 March</b><span>The Royal Jubilee Gala</span><em>GBP 275</em></a></li><li><a href="ghana-day.html"><b>Saturday 6 March</b><span>Ghana Day Festival</span><em>GBP 50</em></a></li><li><a href="women-of-the-motherland.html"><b>Sunday 7 March</b><span>Women of the Motherland</span><em>GBP 150</em></a></li></ol>
+        <ol class="hero-events"><li><a href="royal-gala.html"><b>Friday 5 March</b><span>The Royal Jubilee Gala</span><em>{G}</em></a></li><li><a href="ghana-day.html"><b>Saturday 6 March</b><span>Ghana Day Festival</span><em>GBP 50</em></a></li><li><a href="women-of-the-motherland.html"><b>Sunday 7 March</b><span>Women of the Motherland</span><em>GBP 150</em></a></li></ol>
         <span class="eyebrow"><b>Friday 5 March 2027</b> to <b>Sunday 7 March 2027</b> · London</span>
         <div class="btn-row" style="justify-content:center"><a class="btn gold" href="tickets.html" data-pay="pick">Take your seat at the Jubilee</a><a class="btn line" href="#days">Discover the three events</a></div>
       </div>
@@ -1235,7 +1275,7 @@ def build():
 
 <section class="band white" id="days">
   <div class="wrap">
-    <div class="section-head"><span class="eyebrow">Choose your event and book</span><h2>Where will you be when Ghana turns 70?</h2><p class="lead">On Friday night at Banking Hall, the drums will welcome you in. There will be Kente across the room, a Ghanaian inspired dinner and live highlife. At midnight, we will raise a glass together as Independence Day begins.</p><p class="lead">That is how the weekend starts. Bring the whole family on Saturday, then make Sunday an afternoon for the woman who has always brought yours together.</p><p class="lead">Each event has its own ticket. The Weekend Pass covers all three for GBP 435.</p></div>
+    <div class="section-head"><span class="eyebrow">Choose your event and book</span><h2>Where will you be when Ghana turns 70?</h2><p class="lead">On Friday night at Banking Hall, the drums will welcome you in. There will be Kente across the room, a Ghanaian inspired dinner and live highlife. At midnight, we will raise a glass together as Independence Day begins.</p><p class="lead">That is how the weekend starts. Bring the whole family on Saturday, then make Sunday an afternoon for the woman who has always brought yours together.</p><p class="lead">Each event has its own ticket. The Weekend Pass covers all three for {G_WKND}.</p></div>
     {DAYS}
   </div>
 </section>
@@ -1250,10 +1290,10 @@ def build():
 
 <section class="band emerald satin-frame" id="tickets">
   <div class="wrap">
-    <div class="section-head">{wax_seal("tk","wax wax-head")}<span class="eyebrow">Golden tickets</span><h2>Your seat at the seventieth.</h2><p class="lead">The Royal Jubilee Gala GBP 275, early bird GBP 250. Ghana Day Festival GBP 50. Women of the Motherland GBP 150. All three days with the Weekend Pass: GBP 435.</p></div>
+    <div class="section-head">{wax_seal("tk","wax wax-head")}<span class="eyebrow">Golden tickets</span><h2>Your seat at the seventieth.</h2><p class="lead">The Royal Jubilee Gala {GALA_FROM}. Ghana Day Festival {G_DAY}. Women of the Motherland {G_SUN}. All three days with the Weekend Pass: {G_WKND}.</p></div>
     <div class="tickets">{T_GALA}{T_DAY}{T_SUN}</div>
-    <p class="working" style="color:var(--gold-hi);text-align:center;margin-top:28px"><b>The Weekend Pass: GBP 435.</b> One entry to each of the three separate events, for one guest. Bought separately at full price: GBP 275 + GBP 50 + GBP 150 = GBP 475. You save GBP 475 less GBP 435 = GBP 40</p>
-    <div class="btn-row" style="margin-top:28px;justify-content:center"><a class="btn gold" href="tickets.html" data-pay="weekend">Book the Weekend Pass, save GBP 40</a><a class="btn line" href="tickets.html" data-pay="pick">Choose one day</a></div>
+    <p class="working" style="color:var(--gold-hi);text-align:center;margin-top:28px"><b>The Weekend Pass: {G_WKND}.</b> All three days, for one guest. {WKND_COMPARE}</p>
+    <div class="btn-row" style="margin-top:28px;justify-content:center"><a class="btn gold" href="tickets.html" data-pay="weekend">Book the Weekend Pass</a><a class="btn line" href="tickets.html" data-pay="pick">Choose one day</a></div>
   </div>
 </section>
 
@@ -1329,7 +1369,7 @@ def build():
     # ================= ROYAL GALA =================
     page("royal-gala", "The Royal Jubilee Gala | Ghana Independence Gala Dinner London 2027", "The Royal Jubilee Gala, Friday 5 March 2027, Banking Hall, London. Royal drums, a Ghanaian inspired dinner, live highlife and a midnight toast to Independence Day.",
          page_head("Friday 5 March 2027 · 18:30 to 00:30", "The Royal Jubilee Gala", "Royal drums, a Ghanaian inspired dinner, live highlife and a midnight toast.", "black gala-hero", "adinkrahene",
-                   '<div class="chips"><span class="chip">Royalty Kente or Black Tie</span><span class="chip">Banking Hall, moments from the Bank of England</span><span class="chip">250 seats</span><span class="chip">GBP 275 · early bird GBP 250</span><span class="chip">Long royal banqueting tables</span><span class="chip">A separate event, with its own ticket</span></div>', "You are cordially invited to", day="royal-gala") + f'''
+                   '<div class="chips"><span class="chip">Black Tie, ball gown or Kente</span><span class="chip">Banking Hall, City of London</span><span class="chip">250 seats</span><span class="chip">' + GALA_FROM + '</span><span class="chip">Long royal banqueting tables</span><span class="chip">A separate event, with its own ticket</span></div>', "You are cordially invited to", day="royal-gala") + f'''
 {kband(3)}
 
 <section class="band emerald bh" id="venue"><div class="wrap">
@@ -1356,7 +1396,7 @@ def build():
    "Drums, banquet, dancing and midnight.",
    "For those who came before us. For those who walk beside us. For those who will follow.",
    INC["gala"],
-   275, "per guest, or GBP 250 early bird while early bird tickets last", (10, "Book a royal party of 10", "Party of ten: 10 x GBP 275 = GBP 2,750, or 10 x GBP 250 = GBP 2,500 while early bird tickets last"), "")}
+   PR["gala"], "per guest", (10, "Reserve a table of ten", GALA_PRICE_LINE), "")}
 
 
 <section class="band ink rc" id="red-carpet"><div class="wrap rc-in">
@@ -1420,7 +1460,7 @@ def build():
 
 
 
-{book_band("gala", "Take your royal seat.", "250 seats, one night. GBP 275, or GBP 250 early bird.", T_GALA)}
+{book_band("gala", "Take your royal seat.", "250 seats, one night. " + G + fr(f", or {G_FR} at first release, up to 2 per order") + ".", T_GALA)}
 ''')
 
     # ================= GHANA DAY =================
@@ -1437,7 +1477,7 @@ def build():
    "Meet, network, dance and play until six.",
    "A day when a conversation can become a partnership, and an introduction can become an opportunity.",
    INC["ghanaday"],
-   50, "per guest, the whole day", (6, "Book a quiz team of 6", "Quiz team: 6 x GBP 50 = GBP 300"))}
+   PR["ghanaday"], "per guest, the whole day", (6, "Reserve a quiz team, 6 tickets", f"Quiz team booking, 6 tickets: 6 x {G_DAY} = {G_QUIZ}"))}
 
 
 <section class="band emerald">
@@ -1530,7 +1570,7 @@ def build():
    "Tea, her family around her, and her name read aloud.",
    "The women who carried us. The women who believed in us. The women who made a way when there seemed to be no way.",
    INC["sunday"],
-   150, "per guest, 11:00 to 18:30", (5, "Book a family table of 5", "Family table: 5 x GBP 150 = GBP 750"),
+   PR["sunday"], "per guest, 11:00 to 18:30", (5, "Reserve a family table, 5 tickets", f"Family table booking, 5 tickets: 5 x {G_SUN} = {G_FAM}"),
    '<p class="founding vb-found">Giving it as a Mothering Sunday gift? Tick This is a gift when you book</p>')}
 
 <section class="band white arrive" id="sunday-best"><div class="wrap arrive-in rev">
@@ -1625,10 +1665,10 @@ def build():
     page("tickets", "Tickets | Ghana Independence Day 2027 London | Ghana at 70 UK", "Golden tickets for Ghana at 70 UK: the Royal Jubilee Gala, the Ghana Day Festival and Women of the Motherland. Prices, inclusions, add ons and booking.",
          page_head("Golden tickets", "Three separate events. Choose one, two or all three.", "Each event has its own ticket. Every price shown in full. Nothing added at checkout.", "gold", "adinkrahene", "") + f'''
 <section class="band emerald"><div class="wrap tickets"><h2 class="sr">Golden tickets</h2>
-  <div id="gala">{ticket_row(T_GALA, "What your ticket includes", INC["gala"], "Party of ten: 10 x GBP 275 = GBP 2,750", "#gala", pay="gala")}</div>
-  <div id="ghana-day">{ticket_row(T_DAY, "What your ticket includes", INC["ghanaday"], "Two guests: 2 x GBP 50 = GBP 100", "#ghana-day", pay="ghanaday")}</div>
-  <div id="sunday">{ticket_row(T_SUN, "What your ticket includes", INC["sunday"], "Family table of five: 5 x GBP 150 = GBP 750", "#sunday", pay="sunday")}</div>
-  <div class="weekend-row"><p class="working" style="color:var(--gold-hi);margin:0"><b>The Weekend Pass: GBP 435.</b> One entry to each of the three separate events, for one guest. Bought separately at full price: GBP 275 + GBP 50 + GBP 150 = GBP 475. You save GBP 475 less GBP 435 = GBP 40</p><a class="btn gold" href="#all-days" data-pay="weekend">Book the Weekend Pass, save GBP 40</a></div>
+  <div id="gala">{ticket_row(T_GALA, "What your ticket includes", INC["gala"], GALA_PRICE_LINE, "#gala", pay="gala")}</div>
+  <div id="ghana-day">{ticket_row(T_DAY, "What your ticket includes", INC["ghanaday"], f"Quiz team booking, 6 tickets: 6 x {G_DAY} = {G_QUIZ}", "#ghana-day", pay="ghanaday")}</div>
+  <div id="sunday">{ticket_row(T_SUN, "What your ticket includes", INC["sunday"], f"Family table booking, 5 tickets: 5 x {G_SUN} = {G_FAM}", "#sunday", pay="sunday")}</div>
+  <div class="weekend-row"><p class="working" style="color:var(--gold-hi);margin:0"><b>The Weekend Pass: {G_WKND}.</b> All three days, for one guest. {WKND_COMPARE}</p><a class="btn gold" href="#all-days" data-pay="weekend">Book the Weekend Pass</a></div>
 {TRUST}
   <p class="tt-fallback" hidden data-tt-fallback>Booking window not opening? Open the box office for <a data-tt-link="gala" href="#">the Gala</a>, <a data-tt-link="ghanaday" href="#">the Festival</a> or <a data-tt-link="sunday" href="#">Sunday</a> in its own page.</p></div></section>
 {TT_BOOKING.replace("{TTBOX}", tt_slot("boxoffice") or '<div class="btn-row"><a class="btn gold" data-tt-link="boxoffice" href="#">Open the box office</a></div>')}
@@ -1642,7 +1682,7 @@ def build():
   <div class="section-head"><span class="eyebrow">Gifts and company tables</span><h2>Give the seventieth.</h2><p class="lead">A gift with a date in it.</p></div>
   <div class="duo">
     <a class="duo-card" href="#gifts" data-pay="sunday"><span class="duo-sym">{adl("akoma")}</span><span class="eyebrow">Mothering Sunday</span><h3>Give her the afternoon.</h3><p>Afternoon tea, a family portrait and her name on the Wall of Mothers. 1 x GBP 150 = GBP 150.</p><span class="tk-link">Book her seat<i aria-hidden="true"></i></span></a>
-    <a class="duo-card" href="#gifts" data-pay="gala" data-qty="10"><span class="duo-sym">{adl("adinkrahene")}</span><span class="eyebrow">For your company or family</span><h3>Host a royal party.</h3><p>Ten seats together at the long royal tables, your name on the place cards and one invoice. 10 x GBP 275 = GBP 2,750.</p><span class="tk-link">Book a royal table<i aria-hidden="true"></i></span></a>
+    <a class="duo-card" href="#gifts" data-pay="gala" data-qty="10"><span class="duo-sym">{adl("adinkrahene")}</span><span class="eyebrow">For your company or family</span><h3>Host a table of ten.</h3><p>Ten guests together at the long tables, for the price of nine: 9 x {G}. Your name on the place cards and one invoice. {G_TABLE}.</p><span class="tk-link">Reserve a table of ten<i aria-hidden="true"></i></span></a>
   </div>
 </div></section>
 
@@ -1740,11 +1780,11 @@ def build():
     # ================= PARTNERS =================
     TIERS_SP = [
         ("headline", "GBP 20,000", "One only", "Presenting Partner", "The Royal Jubilee Gala, presented by you.",
-         ["The Gala presented by your brand", "The midnight toast in your name, as Independence Day begins", "An address of five minutes from the stage", "A table of ten: 10 x GBP 275 = GBP 2,750 in seats", "Full stage and screen branding", "The back cover of the commemorative Ghana at 70 UK passport book"]),
+         ["The Gala presented by your brand", "The midnight toast in your name, as Independence Day begins", "An address of five minutes from the stage", f"A table of ten: {G_TABLE} in seats, ten guests for the price of nine (9 x {G})", "Full stage and screen branding", "The back cover of the commemorative Ghana at 70 UK passport book"]),
         ("", "GBP 15,000", "One per sector", "Principal Partner", "A headline experience, yours alone.",
-         ["Your name on a headline experience: the Royal Welcome, the Highlife Band, the Ghana Day stage or the Wall of Mothers", "Category exclusive in your sector", "Eight seats: 8 x GBP 275 = GBP 2,200 in seats", "A feature stand on Saturday and Sunday", "The inside front cover of the passport book"]),
+         ["Your name on a headline experience: the Royal Welcome, the Highlife Band, the Ghana Day stage or the Wall of Mothers", "Category exclusive in your sector", f"Eight seats: 8 x {G} = {gbp(8 * PR['gala'])} in seats", "A feature stand on Saturday and Sunday", "The inside front cover of the passport book"]),
         ("", "GBP 10,000", "Limited", "Official Partner", "One experience, in your name.",
-         ["Your name on one experience: the Portrait Studio, the dance floor or the Ghana at 70 UK film", "Six seats: 6 x GBP 275 = GBP 1,650 in seats", "A stand on Saturday and Sunday", "A full page in the passport book"]),
+         ["Your name on one experience: the Portrait Studio, the dance floor or the Ghana at 70 UK film", f"Six seats: 6 x {G} = {gbp(6 * PR['gala'])} in seats", "A stand on Saturday and Sunday", "A full page in the passport book"]),
     ]
     def tier_html(t):
         cls, price, avail, name, lead, items = t
@@ -2041,7 +2081,7 @@ def build():
 <section class="band emerald gal-cta"><div class="wrap gal-cta-in">
   <div class="stack"><span class="eyebrow">Your portrait</span><h2>Be in the next gallery.</h2><p class="lead">Every guest is photographed across the weekend. Portraits are delivered within seven days, ready to frame and share.</p></div>
   <div class="gal-cta-days">
-    <a href="royal-gala.html" class="gcd"><span class="eyebrow">Friday 5 March</span><b>The Royal Jubilee Gala</b><i>From GBP 250</i></a>
+    <a href="royal-gala.html" class="gcd"><span class="eyebrow">Friday 5 March</span><b>The Royal Jubilee Gala</b><i>From {G_FR if FR_ON else G}</i></a>
     <a href="ghana-day.html" class="gcd"><span class="eyebrow">Saturday 6 March</span><b>Ghana Day Festival</b><i>GBP 50</i></a>
     <a href="women-of-the-motherland.html" class="gcd"><span class="eyebrow">Sunday 7 March</span><b>Women of the Motherland</b><i>GBP 150</i></a>
   </div>
@@ -2067,7 +2107,7 @@ def build():
             ("How do I book?", "Choose your event on the Tickets page and book. Every ticket is on sale now, on this website only, with no booking fees added."),
         ]),
         ("tickets", "Tickets and payment", [
-            ("When do tickets go on sale?", "Now. Every ticket is on sale today, on this website only. The Gala early bird price is GBP 250 while early bird tickets last, so book early."),
+            ("When do tickets go on sale?", "Now. Every ticket is on sale today, on this website only." + fr(f" First release Gala tickets are {G_FR}, up to 2 per order, while they last.")),
             ("Can I get a refund?", "No. All sales are final and tickets cannot be refunded. If you cannot attend, transfer your ticket to someone else at no extra cost by emailing us their name before 17:00 on the day before. If we cancel the event, you are refunded in full."),
             ("Can I pay by bank transfer?", "Yes. Choose bank transfer when you book and we send our account details with your booking reference. Tickets are issued once payment arrives."),
             ("Can I add extras or host a private party?", "Yes. Once your tickets are paid you can add private parties, royal parties, celebration packages and portrait packages. Extras are priced on request."),
@@ -2075,7 +2115,9 @@ def build():
         ]),
         ("gala", "The Royal Jubilee Gala", [
             ("What is the dress code?", "Royalty Kente or Black Tie Gala. Come as royalty in Kente, or in full black tie. Gold is encouraged."),
-            ("Can I book for a group of ten?", "Yes. Parties of ten sit together at the long royal tables. 10 x GBP 275 = GBP 2,750. Choose Royal party of 10 when you book."),
+            ("Can I book for a group of ten?", f"Yes. A table of ten is {G_TABLE}: ten guests seated together at the long tables, for the price of nine: 9 x {G}. Choose Table of ten when you reserve."),
+                        ("Can we book as a quiz team?", f"Yes. A quiz team booking is six tickets: 6 x {G_DAY} = {G_QUIZ}. Choose Quiz team, 6 tickets when you book."),
+                        ("Can we sit together as a family on Sunday?", f"Yes. A family table booking is five tickets at one table: 5 x {G_SUN} = {G_FAM}. Choose Family table, 5 tickets when you book."),
             ("Are there awards?", "No. Ghana at 70 UK is a celebration of Ghana, not an awards night. There are no awards, prizes or judging on any day."),
         ]),
         ("ghana-day", "Ghana Day Festival", [
@@ -2133,11 +2175,11 @@ def build():
   </ol>
   <h2 class="h3">2. Buying a ticket</h2>
   <ol>
-    <li>Prices: the Royal Jubilee Gala GBP 275 per guest, with an early bird price of GBP 250 while early bird tickets last. The Ghana Day Festival GBP 50 per guest. Women of the Motherland GBP 150 per guest. The Weekend Pass GBP 435 per guest: one ticket for each of the three days, issued to the same guest. The early bird price cannot be combined with the Weekend Pass. Prices include VAT and booking fees. No fee is added at checkout.</li>
+    <li>''' + TERMS_PRICES + '''</li>
     <li>Ghana at 70 UK is a series of three separate events. Each ticket is valid only for the event and date printed on it: The Royal Jubilee Gala on Friday 5 March 2027, the Ghana Day Festival on Saturday 6 March 2027, or Women of the Motherland on Sunday 7 March 2027. A ticket for one event gives no entry to the others. The Weekend Pass is one ticket for each of the three events.</li>
     <li>Your contract is formed when we confirm your booking by email after full payment is received. Until then, no place is guaranteed.</li>
     <li>Bank transfers must arrive in full, in GBP, within 24 hours of booking. Any bank or currency charges are paid by you. Unpaid places are released to other guests without further notice.</li>
-    <li>Early bird and other offers are limited, apply only while stated and cannot be applied to a booking already made.</li>
+    <li>''' + fr("First release and other offers", "Offers") + ''' are limited, apply only while stated and cannot be applied to a booking already made.</li>
     <li>If a price is shown in obvious error, we may cancel the booking and refund in full, or offer the correct price.</li>
     <li>The lead booker is responsible for every ticket in the booking, for passing these terms to each guest and for the accuracy of the details given.</li>
     <li>We may limit the number of tickets per person, and may cancel bookings made in breach of these terms or for resale.</li>
@@ -2205,7 +2247,7 @@ def build():
     <p class="lead">You are now part of the seventy years. Running order, seating and directions follow by email before the day. Send this to the person who should be there with you.</p></div>
     <div class="btn-row"><a class="btn gold" href="#save-date-gala" data-ty-cal>Add to calendar</a><a class="btn emerald" data-share href="https://wa.me/?text=">Tell your people</a><a class="btn line" href="stay.html">We can help you book your hotel stay</a></div></div>
   <div class="stack-lg"><span class="eyebrow">Make it a weekend</span>
-    <a class="duo-card" data-ty-x="gala" href="royal-gala.html" data-pay="gala"><span class="eyebrow">Friday 5 March</span><h3>The Royal Jubilee Gala</h3><p>GBP 275 per guest</p></a>
+    <a class="duo-card" data-ty-x="gala" href="royal-gala.html" data-pay="gala"><span class="eyebrow">Friday 5 March</span><h3>The Royal Jubilee Gala</h3><p>{G} per guest</p></a>
     <a class="duo-card" data-ty-x="ghanaday" href="ghana-day.html" data-pay="ghanaday"><span class="eyebrow">Saturday 6 March</span><h3>Ghana Day Festival</h3><p>GBP 50 per guest</p></a>
     <a class="duo-card" data-ty-x="sunday" href="women-of-the-motherland.html" data-pay="sunday"><span class="eyebrow">Sunday 7 March</span><h3>Women of the Motherland</h3><p>GBP 150 per guest. Bring your mother.</p></a></div>
 </div></section>
@@ -2305,7 +2347,7 @@ def build():
   <div class="costs">
     <article class="cost"><span class="cost-n">GBP 250</span><span class="cost-sym">{adl("tabono")}</span><h3>Market stand</h3><p>A dressed table with two chairs and your name card. For makers, authors and small brands.</p><span class="cost-k">GBP 250 + VAT at 20% (GBP 50) = GBP 300</span></article>
     <article class="cost"><span class="cost-n">GBP 600</span><span class="cost-sym">{adl("hwemudua")}</span><h3>Feature stand</h3><p>A built stand with walls and name fascia, a spotlight and power, a table and two chairs. For brands that want to be seen.</p><span class="cost-k">GBP 600 + VAT at 20% (GBP 120) = GBP 720</span></article>
-    <article class="cost cost-gala cost-red"><span class="cost-n">Optional</span><span class="cost-sym">{adl("adinkrahene")}</span><h3>The Royal Jubilee Gala</h3><p>Not included with a stand. Anyone in the room on Friday evening holds a Gala ticket. Exhibitors book seats at the exhibitor rate, below the public price of GBP 275.</p><span class="cost-k">Exhibitor rate, book early</span></article>
+    <article class="cost cost-gala cost-red"><span class="cost-n">Optional</span><span class="cost-sym">{adl("adinkrahene")}</span><h3>The Royal Jubilee Gala</h3><p>Not included with a stand. Anyone in the room on Friday evening holds a Gala ticket. Exhibitors book seats at the exhibitor rate, below the public price of {G}.</p><span class="cost-k">Exhibitor rate, book early</span></article>
   </div>
   <div class="pledge" style="margin-top:40px"><span class="eyebrow">Every stand includes</span><ol style="margin:0;padding-left:22px;display:grid;gap:8px;columns:2"><li>Two Saturday exhibitor passes</li><li>Your stand number and map in the exhibitor manual</li><li>A listing in the online exhibitor directory</li><li>A mention in guest emails before the day</li><li>Professional photographs of the day</li><li>Hosts on hand from build to pack down</li></ol></div>
 </div></section>
@@ -2405,7 +2447,7 @@ Ghana at 70 UK is created by joint founders Asantewaa-Gloria Ayim and Adwoa Agye
 
 "Seventy years is not an anniversary. It is a homecoming," say Asantewaa and Adwoa. "Bring your mother. Bring your children. Bring the friend who has never been. There is a seat at our table for every one of you."
 
-Tickets: Royal Jubilee Gala GBP 275, Ghana Day Festival GBP 50, Women of the Motherland GBP 150, Weekend Pass GBP 435. Tickets are on sale now at SITEURL.
+Tickets: Royal Jubilee Gala """ + GALA_FROM + """, Ghana Day Festival """ + G_DAY + """, Women of the Motherland """ + G_SUN + """, Weekend Pass """ + G_WKND + """ for all three days. Tickets are on sale now at SITEURL.
 
 ENDS
 
@@ -2443,8 +2485,8 @@ Interviews, images and accreditation: SITEURL/press"""
   <div class="stack"><span class="eyebrow">Fact sheet</span><h2>At a glance.</h2><p class="lead">Ghana turns seventy on 6 March 2027. The UK celebrates in London across three days in one hall.</p>
     <div class="btn-row"><a class="btn gold" href="#release">Read the press release</a><a class="ph-link" href="#accreditation">Request accreditation</a></div></div>
   {info([("Event", "Ghana at 70 UK, The Platinum Jubilee Celebrations"), ("Dates", "Friday 5 to Sunday 7 March 2027"), ("Venue", "Banking Hall, 14 Cornhill, London EC3V 3ND, moments from the Bank of England"),
-         ("Friday", "The Royal Jubilee Gala, 18:30 to 00:30. 250 seats. GBP 275"), ("Saturday", "Ghana Day Festival, 11:00 to 18:00. Up to forty stands, five talks. GBP 50"),
-         ("Sunday", "Women of the Motherland, Mothering Sunday, 11:00 to 18:30. GBP 150"), ("Weekend Pass", "GBP 435, all three days"),
+         ("Friday", "The Royal Jubilee Gala, 18:30 to 00:30. 250 seats. " + GALA_FROM), ("Saturday", "Ghana Day Festival, 11:00 to 18:00. Up to forty stands, five talks. GBP 50"),
+         ("Sunday", "Women of the Motherland, Mothering Sunday, 11:00 to 18:30. GBP 150"), ("Weekend Pass", G_WKND + ", all three days"),
          ("Tickets", "On sale now, on the official website only"),
          ("Founders", "Asantewaa-Gloria Ayim and Adwoa Agyemang"), ("Hashtag", "#GhanaAt70UK")])}
 </div></section>
@@ -2703,7 +2745,7 @@ Interviews, images and accreditation: SITEURL/press"""
 > The UK celebration of the Ghana 70th Platinum Jubilee, held over three days in London, 5 to 7 March 2027.
 
 ## Events
-- The Royal Jubilee Gala of Kings and Queens: Friday 5 March 2027, Banking Hall, 14 Cornhill, City of London, moments from the Bank of England, 18:30 to 00:30. A spectacular Ghanaian gala dinner and party of royals with highlife, hiplife, Afrobeats and everything in between, live, and a midnight toast. Dress code Royalty Kente or Black Tie Gala. GBP 275 per guest, early bird GBP 250. {SITE_URL}/royal-gala
+- The Royal Jubilee Gala of Kings and Queens: Friday 5 March 2027, Banking Hall, 14 Cornhill, City of London, moments from the Bank of England, 18:30 to 00:30. A spectacular Ghanaian gala dinner and party of royals with highlife, hiplife, Afrobeats and everything in between, live, and a midnight toast. Dress code Black Tie, ball gown or Kente. {G} per guest{fr(f', first release {G_FR}, up to 2 per order')}. {TABLE_LINE}. {SITE_URL}/royal-gala
 - Ghana Day Festival: Saturday 6 March 2027 (Ghana Independence Day), Banking Hall, 11:00 to 18:00. The Ghana Day Festival: DJ and dancing all day, forty chosen stands, quiz and dance circle, bar, come and go all day. Ages 5 and over, no pushchairs or buggies. GBP 50. {SITE_URL}/ghana-day
 - Women of the Motherland: Sunday 7 March 2027 (Mothering Sunday), Banking Hall, for women of African heritage and their families, doors 11:00, one sitting with everyone together from 12:00, networking hour at 16:00, close 18:30. Afternoon tea, the Wall of Mothers, Voices of the Motherland poems and stories, a family portrait and the networking hour. Talks and masterclasses not yet confirmed: guests register their interest. GBP 150 per guest. {SITE_URL}/women-of-the-motherland
 
@@ -2716,7 +2758,7 @@ Interviews, images and accreditation: SITEURL/press"""
 - What is Ghana at 70 UK? The UK celebration of the Ghana 70th Platinum Jubilee, held in London over three days at Banking Hall, 5 to 7 March 2027, marking seventy years of Ghanaian independence.
 - When is Ghana Independence Day 2027? Saturday 6 March 2027, seventy years after 6 March 1957. In London it is marked by the Ghana Day Festival, 11:00 to 18:00.
 - Where is it? Banking Hall, 14 Cornhill, London EC3V 3ND, moments from the Bank of England. Bank station is about two minutes on foot. Two floors connected by stairs only.
-- How much are tickets? The Royal Jubilee Gala GBP 275 (early bird GBP 250). Ghana Day Festival GBP 50. Women of the Motherland GBP 150. Weekend Pass for all three days GBP 435, which saves GBP 40 on GBP 275 + GBP 50 + GBP 150 = GBP 475.
+- How much are tickets? The Royal Jubilee Gala {GALA_FROM}. Ghana Day Festival {G_DAY}. Women of the Motherland {G_SUN}. {WKND_LINE} Prices include VAT and booking fees.
 - Are there booking fees? No. Every price shown is the full price.
 - Where do I buy tickets? Only on the official website, {SITE_URL}/tickets. All sales are final, tickets can be transferred to a named guest, and every ticket is refunded in full if the event is cancelled.
 - What is the dress code? Friday: Royalty Kente or Black Tie. Saturday: print and denim, Ankara or a Black Stars shirt. Sunday: Sunday best.
@@ -2724,7 +2766,7 @@ Interviews, images and accreditation: SITEURL/press"""
 - Is there a Ghana Independence party or dance in London in 2027? Yes. The Royal Jubilee Gala is the dinner and dance on the eve, Friday 5 March, and the Ghana Day Festival is the daytime party with a DJ and dancing on Independence Day, Saturday 6 March.
 - Is there a Mothers Day event for African women in London? Yes. Women of the Motherland, a Mothering Sunday afternoon tea for women of African heritage and their families, Sunday 7 March 2027.
 - Is alcohol included? No ticket includes alcohol. The bar takes card only.
-- Can a group sit together? Yes. Choose Royal party of 10 when booking the Gala: 10 x GBP 275 = GBP 2,750.
+- Can a group sit together? Yes. {TABLE_LINE}. Ghana Day quiz team booking, 6 tickets: 6 x {G_DAY} = {G_QUIZ}. Sunday family table booking, 5 tickets: 5 x {G_SUN} = {G_FAM}.
 - Can I exhibit? Yes, on Saturday and Sunday only. Market stand GBP 250 + VAT, feature stand GBP 600 + VAT. {SITE_URL}/exhibit
 - Media and creators: accreditation and the press kit at {SITE_URL}/press
 

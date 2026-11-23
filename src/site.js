@@ -39,8 +39,15 @@ var SITE_CONFIG = {
   },
   /* Tickets are on sale from 18 November 2026. Bookings are taken now: by bank transfer, or a secure payment link follows by email until the card links above are pasted in. */
   salesOpen: "2026-11-18T00:00:00Z",
-  /* Early bird for the Royal Jubilee Gala: GBP 250, then GBP 275. The site never shows how many early bird tickets exist. Set "on" to false when the early bird closes. */
-  earlyBird: { gala: 250, full: 275, on: true },
+  /* PRICES, the one place they are set. build.py reads this block for every page, the structured data and llms.txt,
+     and the booking panel below uses it, so change a price here and nowhere else. Whole pounds, VAT and fees included.
+       gala: Royal Jubilee Gala per guest. firstRelease: Gala first release per guest. table: Gala table of ten (9 x gala).
+       quizTeam: Ghana Day quiz team booking, 6 tickets. familyTable: Sunday family table booking, 5 tickets. */
+  prices: { gala: 200, firstRelease: 150, table: 1800, ghanaday: 50, quizTeam: 300, sunday: 150, familyTable: 750, weekend: 330 },
+  /* FIRST RELEASE, the one switch. GBP 150 on the first 25 Gala tickets, up to 2 per order.
+     When the 25 are sold set on: false, commit, and every first release mention leaves every page at once.
+     The site never shows how many first release tickets exist. */
+  firstRelease: { on: true, perOrder: 2 },
   /* Places left, copied from GoHighLevel when you want to show them. Leave null to hide.
      Example: left: { gala: 42, sunday: 60 } shows "Only 42 places left". */
   left: { gala: null, ghanaday: null, sunday: null },
@@ -1444,7 +1451,12 @@ var SITE_CONFIG = {
   };
   window.__ga70track = track;
   /* Ad signals: ViewContent on each day page, InitiateCheckout when a Book now opens the Ticket Tailor box office */
-  var PRICE = { gala: 275, ghanaday: 50, sunday: 150, weekend: 435 },
+  var PRICE = {
+      gala: SITE_CONFIG.firstRelease && SITE_CONFIG.firstRelease.on ? SITE_CONFIG.prices.firstRelease : SITE_CONFIG.prices.gala,
+      ghanaday: SITE_CONFIG.prices.ghanaday,
+      sunday: SITE_CONFIG.prices.sunday,
+      weekend: SITE_CONFIG.prices.weekend,
+    },
     NAMES = {
       gala: "The Royal Jubilee Gala",
       ghanaday: "Ghana Day Festival",
@@ -1511,16 +1523,16 @@ var SITE_CONFIG = {
       short: "Fri 5 March",
       tab: "Gala",
       when: "Friday 5 March 2027 · 18:30 to 00:30",
-      price: 275,
+      price: SITE_CONFIG.prices.gala,
       field: "Royal Jubilee Gala",
       valid: "This ticket is for The Royal Jubilee Gala only: Friday 5 March 2027, 18:30 to 00:30, Banking Hall, London. It does not include the Ghana Day Festival or Women of the Motherland, which are separate events with their own tickets.",
       tone: "black",
-      line: "Banking Hall, moments from the Bank of England · 250 seats only · The Ghanaian inspired dinner, the band and the midnight toast · Royalty Kente or Black Tie Gala",
+      line: "Banking Hall, City of London · The Ghanaian inspired dinner, the band and the midnight toast · Black Tie, ball gown or Kente",
       presets: [
         [1, "1"],
         [2, "2"],
         [4, "4"],
-        [10, "Royal party of 10"],
+        [10, "Table of ten"],
       ],
       cal: "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Ghana%20at%2070%20UK%3A%20The%20Royal%20Jubilee%20Gala&dates=20270305T183000Z/20270306T003000Z&details=Doors%2018%3A30.%20We%20start%20on%20time.%20Your%20golden%20ticket%20arrives%20by%20email.&location=Banking%20Hall%2C%2014%20Cornhill%2C%20London%20EC3V%203ND",
     },
@@ -1529,16 +1541,16 @@ var SITE_CONFIG = {
       short: "Sat 6 March",
       tab: "Festival",
       when: "Saturday 6 March 2027 · 11:00 to 18:00",
-      price: 50,
+      price: SITE_CONFIG.prices.ghanaday,
       field: "Ghana Day",
       valid: "This ticket is for the Ghana Day Festival only: Saturday 6 March 2027, 11:00 to 18:00, Banking Hall, London. It does not include The Royal Jubilee Gala or Women of the Motherland, which are separate events with their own tickets.",
       tone: "green",
-      line: "Banking Hall · Independence Day · DJ and dancing · Ages 5 and over, no pushchairs",
+      line: "Banking Hall · Independence Day · DJ and dancing · All ages welcome, children with an adult",
       presets: [
         [1, "1"],
         [2, "2"],
         [4, "4"],
-        [6, "Quiz team of 6"],
+        [6, "Quiz team, 6 tickets"],
       ],
       cal: "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Ghana%20at%2070%20UK%3A%20Ghana%20Day%20Festival&dates=20270306T110000Z/20270306T180000Z&details=Independence%20Day%20at%20Banking%20Hall.%20Your%20golden%20ticket%20arrives%20by%20email.&location=Banking%20Hall%2C%2014%20Cornhill%2C%20London%20EC3V%203ND",
     },
@@ -1547,7 +1559,7 @@ var SITE_CONFIG = {
       short: "Sun 7 March",
       tab: "Women",
       when: "Sunday 7 March 2027 · 11:00 to 18:30",
-      price: 150,
+      price: SITE_CONFIG.prices.sunday,
       field: "Women of the Motherland",
       valid: "This ticket is for Women of the Motherland only: Sunday 7 March 2027, 11:00 to 18:30, Banking Hall, London. It does not include The Royal Jubilee Gala or the Ghana Day Festival, which are separate events with their own tickets.",
       tone: "gold",
@@ -1556,7 +1568,7 @@ var SITE_CONFIG = {
         [1, "1"],
         [2, "2"],
         [3, "3"],
-        [5, "Family table of 5"],
+        [5, "Family table, 5 tickets"],
       ],
       cal: "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Ghana%20at%2070%20UK%3A%20Women%20of%20the%20Motherland&dates=20270307T110000Z/20270307T183000Z&details=Mothering%20Sunday%20at%20Banking%20Hall.%20Doors%2011%3A00.%20Your%20golden%20ticket%20arrives%20by%20email.&location=Banking%20Hall%2C%2014%20Cornhill%2C%20London%20EC3V%203ND",
     },
@@ -1565,11 +1577,11 @@ var SITE_CONFIG = {
       short: "All three",
       tab: "Weekend Pass",
       when: "Friday 5 to Sunday 7 March 2027",
-      price: 435,
+      price: SITE_CONFIG.prices.weekend,
       field: "Weekend Pass",
       valid: "This pass gives one entry to each of three separate events, each on its own date: The Royal Jubilee Gala on Friday 5 March 2027, 18:30 to 00:30, the Ghana Day Festival on Saturday 6 March 2027, 11:00 to 18:00, and Women of the Motherland on Sunday 7 March 2027, 11:00 to 18:30, all at Banking Hall, London.",
       tone: "black",
-      line: "All three days for GBP 435. Bought separately at full price: GBP 275 + GBP 50 + GBP 150 = GBP 475. You save GBP 40 per guest",
+      line: "",
       presets: [
         [1, "1"],
         [2, "2"],
@@ -1577,66 +1589,47 @@ var SITE_CONFIG = {
       ],
       cal: "",
     },
-    royal: {
-      name: "The Royal Jubilee Gala, Royal seat",
-      short: "Fri 5 March",
-      tab: "Royal seat",
-      when: "Friday 5 March 2027 · 18:30 to 00:30",
-      price: 150,
-      field: "Royal Jubilee Gala Royal seat",
-      valid: "This ticket is for The Royal Jubilee Gala only: Friday 5 March 2027, 18:30 to 00:30, Banking Hall, London.",
-      tone: "black",
-      line: "Front tables by the stage · Your royal portrait",
-      presets: [
-        [1, "1"],
-        [2, "2"],
-        [4, "4"],
-        [10, "Royal party of 10"],
-      ],
-      cal: "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Ghana%20at%2070%20UK%3A%20The%20Royal%20Jubilee%20Gala&dates=20270305T183000Z/20270306T003000Z&details=Doors%2018%3A30.%20We%20start%20on%20time.%20Your%20golden%20ticket%20arrives%20by%20email.&location=Banking%20Hall%2C%2014%20Cornhill%2C%20London%20EC3V%203ND",
-      hiddenTab: true,
-    },
   };
-  /* The Royal seat upgrade is not on sale. It stays off until a price is agreed. */
-  var royalOpen = false;
-  var gbp = function (n) {
-    return "GBP " + n.toLocaleString("en-GB");
-  };
-  var eb = SITE_CONFIG.earlyBird,
-    ebOn = !!(eb && eb.on);
-  if (eb) {
-    DAYS.gala.price = ebOn ? eb.gala : eb.full;
-    /* The Weekend Pass is a fixed price, never combined with the early bird */
-    if (ebOn)
-      DAYS.gala.line =
-        "Early bird " +
-        gbp(eb.gala) +
-        " while early bird tickets last" +
-        ", then " +
-        gbp(eb.full) +
-        " · " +
-        DAYS.gala.line;
-  }
-  if (!royalOpen) delete DAYS.royal;
-  window.__ga70days = DAYS;
   var fmt = function (n) {
     return "GBP " + n.toLocaleString("en-GB");
   };
-  var leftText = function (k) {
-    var n = null; /* Ticket counts are never shown to the public (Gigi, 19 November 2026). */
-    return typeof n === "number" && n > 0
-      ? n <= 40
-        ? "Only " + n + " places left"
-        : n + " places left"
-      : "";
-  };
-  document.querySelectorAll("[data-left]").forEach(function (el) {
-    var t = leftText(el.getAttribute("data-left"));
-    if (t) {
-      el.textContent = t;
-      el.hidden = false;
+  var P = SITE_CONFIG.prices,
+    FR = SITE_CONFIG.firstRelease || {},
+    frOn = !!FR.on,
+    frMax = FR.perOrder || 2;
+  /* Gala booking card line, from the one first release switch */
+  DAYS.gala.line =
+    (frOn ? "First release " + fmt(P.firstRelease) + ", up to " + frMax + " per order · " : "") +
+    "Table of ten " + fmt(P.table) + ", ten guests for the price of nine (9 x " + fmt(P.gala) + ") · " +
+    DAYS.gala.line;
+  DAYS.weekend.line =
+    "All three days, for one guest. " +
+    (frOn
+      ? "Always less than three separate tickets: " + fmt(P.firstRelease + P.ghanaday + P.sunday) + " at first release prices, " + fmt(P.gala + P.ghanaday + P.sunday) + " after."
+      : "Less than three separate tickets: " + fmt(P.gala) + " + " + fmt(P.ghanaday) + " + " + fmt(P.sunday) + " = " + fmt(P.gala + P.ghanaday + P.sunday) + ".");
+  /* Every total the site works out itself. The guest always pays the lower of two prices, never both offers together.
+     Gala option A: first release on up to frMax seats, the rest at the Gala price.
+     Gala option B: every tenth seat free (a table of ten is the price of nine).
+     Returns the total, the working shown to the guest, and a hint when one more guest would be free. */
+  var quote = function (day, n) {
+    var d = DAYS[day],
+      unit = d.price;
+    if (day !== "gala") return { total: n * unit, unit: unit, working: n + " x " + fmt(unit), offer: "" };
+    var free = Math.floor(n / 10),
+      bTotal = (n - free) * P.gala,
+      bWork = free ? n - free + " x " + fmt(P.gala) + " (every tenth seat free)" : n + " x " + fmt(P.gala);
+    var best = { total: bTotal, unit: P.gala, working: bWork, offer: free ? "Table of ten" : "" };
+    if (frOn) {
+      var fr = Math.min(n, frMax),
+        aTotal = fr * P.firstRelease + (n - fr) * P.gala,
+        aWork = fr + " x " + fmt(P.firstRelease) + (n > fr ? " + " + (n - fr) + " x " + fmt(P.gala) : "");
+      if (aTotal < bTotal) best = { total: aTotal, unit: P.firstRelease, working: aWork, offer: "First release" };
     }
-  });
+    if (n % 10 === 9 && !(frOn && best.offer === "First release")) best.hint = "Add one more guest: the next seat is free.";
+    return best;
+  };
+  window.__ga70days = DAYS;
+  window.__ga70quote = quote;
   var co = document.createElement("div");
   co.className = "co";
   co.hidden = true;
@@ -1664,8 +1657,7 @@ var SITE_CONFIG = {
       })
       .join("") +
     "</div>" +
-    '<div class="co-tier" data-co-tier hidden><button type="button" data-tier="gala"><b>Dinner seat</b><span></span></button><button type="button" data-tier="royal"><b>Royal seat</b><span></span></button></div>' +
-    '<span class="eyebrow" data-co-when></span><h2 id="co-title" data-co-name></h2><p class="co-line" data-co-line></p><p class="co-valid" data-co-valid></p><p class="left" data-co-left hidden></p>' +
+    '<span class="eyebrow" data-co-when></span><h2 id="co-title" data-co-name></h2><p class="co-line" data-co-line></p><p class="co-valid" data-co-valid></p>' +
     '<form class="co-form" novalidate>' +
     '<div class="co-step" data-step="1">' +
     '<div class="co-qty"><span>Guests</span><div class="stepper"><button type="button" data-co-dec aria-label="One fewer guest">−</button><output data-co-n>2</output><button type="button" data-co-inc aria-label="One more guest">+</button></div></div>' +
@@ -1726,7 +1718,8 @@ var SITE_CONFIG = {
   };
   var payload = function () {
     var d = DAYS[cur];
-    return { day: cur, name: d.name, price: d.price, qty: qty, value: qty * d.price };
+    var q = quote(cur, qty);
+    return { day: cur, name: d.name, price: q.unit, qty: qty, value: q.total };
   };
   var step = function (n) {
     co.querySelectorAll(".co-step").forEach(function (el) {
@@ -1759,24 +1752,11 @@ var SITE_CONFIG = {
   var render = function () {
     var d = DAYS[cur],
       link = SITE_CONFIG.pay && SITE_CONFIG.pay[cur],
-      total = qty * d.price;
+      q = quote(cur, qty),
+      total = q.total;
     co.className = "co co-" + d.tone;
-    var fri = cur === "gala" || cur === "royal",
-      tier = co.querySelector("[data-co-tier]");
-    tier.hidden = !(fri && royalOpen);
-    if (royalOpen) {
-      var fl = (SITE_CONFIG.royal || {}).seats;
-      tier.querySelector('[data-tier="royal"] span').textContent =
-        fmt(DAYS.royal.price) +
-        (typeof fl === "number" && fl > 0 ? " · " + fl + " left" : " · front tables by the stage");
-      tier.querySelector('[data-tier="gala"] span').textContent =
-        fmt(DAYS.gala.price) + " · dinner and dancing";
-      tier.querySelectorAll("[data-tier]").forEach(function (b) {
-        b.classList.toggle("on", b.getAttribute("data-tier") === cur);
-      });
-    }
     co.querySelectorAll("[data-co-day]").forEach(function (b) {
-      var on = b.getAttribute("data-co-day") === cur || (fri && b.getAttribute("data-co-day") === "gala");
+      var on = b.getAttribute("data-co-day") === cur;
       b.setAttribute("aria-selected", on ? "true" : "false");
       b.classList.toggle("on", on);
     });
@@ -1784,10 +1764,6 @@ var SITE_CONFIG = {
     co.querySelector("[data-co-name]").textContent = d.name;
     co.querySelector("[data-co-line]").textContent = d.line;
     co.querySelector("[data-co-valid]").textContent = d.valid || "";
-    var lt = leftText(cur),
-      le = co.querySelector("[data-co-left]");
-    le.textContent = lt;
-    le.hidden = !lt;
     co.querySelector("[data-co-sun]").hidden = !(cur === "sunday" || cur === "weekend");
     co.querySelector("[data-co-presets]").innerHTML = d.presets
       .map(function (p) {
@@ -1799,7 +1775,7 @@ var SITE_CONFIG = {
           ">" +
           p[1] +
           (p[0] >= 5
-            ? "<small>" + p[0] + " x " + fmt(d.price) + " = " + fmt(p[0] * d.price) + "</small>"
+            ? "<small>" + quote(cur, p[0]).working + " = " + fmt(quote(cur, p[0]).total) + "</small>"
             : "") +
           "</button>"
         );
@@ -1810,9 +1786,9 @@ var SITE_CONFIG = {
     co.querySelector("[data-co-pre]").hidden = !pre;
     co.querySelector("[data-co-next]").textContent = "Continue";
     co.querySelector("[data-co-total]").innerHTML =
-      qty + " x " + fmt(d.price) + " = <b>" + fmt(total) + "</b>";
+      q.working + " = <b>" + fmt(total) + "</b>" + (q.offer ? "<small>" + q.offer + "</small>" : "") + (q.hint ? "<small>" + q.hint + "</small>" : "");
     co.querySelector("[data-co-sum]").innerHTML =
-      "<b>" + d.name + "</b> · " + d.when + " · " + qty + " x " + fmt(d.price) + " = <b>" + fmt(total) + "</b>";
+      "<b>" + d.name + "</b> · " + d.when + " · " + q.working + " = <b>" + fmt(total) + "</b>";
     var bk = (form.querySelector('input[name="payBy"]:checked') || {}).value === "bank";
     if (bk) link = "";
     co.querySelector("[data-co-pay]").textContent = link
@@ -2011,17 +1987,19 @@ var SITE_CONFIG = {
     var d = DAYS[cur],
       bank = (form.querySelector('input[name="payBy"]:checked') || {}).value === "bank";
     var link = !bank && SITE_CONFIG.pay && SITE_CONFIG.pay[cur],
-      total = qty * d.price;
+      q = quote(cur, qty),
+      total = q.total;
     var data = {
       type: "checkout",
       source: "checkout",
       day: cur,
       quantity: qty,
-      unitPrice: d.price,
+      unitPrice: q.unit,
       value: total,
+      offer: q.offer,
       interests: [d.field],
       partySize: String(qty),
-      basket: qty + " x " + d.name + (cur === "gala" && SITE_CONFIG.earlyBird && d.price < SITE_CONFIG.earlyBird.full ? ", early bird" : "") + " = " + fmt(total),
+      basket: qty + " x " + d.name + (q.offer ? ", " + q.offer.toLowerCase() : "") + ": " + q.working + " = " + fmt(total),
       page: location.pathname,
     };
     new FormData(form).forEach(function (v, k) {
@@ -2081,7 +2059,6 @@ var SITE_CONFIG = {
       var who = (data.firstName || "").replace(/[<>&"]/g, "");
       var SEE = {
         gala: "The drums will be waiting at the door. Come as royalty, and we will see you in the hall.",
-        royal: "Your table by the stage is set. Come as royalty, and we will see you in the hall.",
         sunday: "The tea will be poured and her name will be read. We will see you there.",
         ghanaday: "Seventy years to the day, and you will be in the room. We will see you there.",
         weekend: "Three days, and we will see you at every one of them.",
@@ -2093,7 +2070,7 @@ var SITE_CONFIG = {
       done.querySelector("[data-cd-name]").textContent = d.name;
       done.querySelector("[data-cd-valid]").textContent = d.valid || "";
       done.querySelector("[data-co-done]").textContent =
-        (qty === 1 ? "1 guest" : qty + " guests") + ": " + qty + " x " + fmt(d.price) + " = " + fmt(total);
+        (qty === 1 ? "1 guest" : qty + " guests") + ": " + q.working + " = " + fmt(total);
       done.querySelector("[data-cd-next]").innerHTML =
         "<li>A confirmation of this booking follows by email.</li>" +
         (bank
@@ -2115,13 +2092,12 @@ var SITE_CONFIG = {
         "/" +
         ({
           gala: "royal-gala",
-          royal: "royal-gala",
           ghanaday: "ghana-day",
           sunday: "women-of-the-motherland",
         }[cur] || "");
       done.querySelector("[data-cd-share]").href = "https://wa.me/?text=" + encodeURIComponent(shareTxt);
       var others = ["gala", "ghanaday", "sunday"].filter(function (k) {
-        return k !== cur && !(k === "gala" && cur === "royal") && cur !== "weekend";
+        return k !== cur && cur !== "weekend";
       });
       done.querySelector("[data-co-xsell]").innerHTML = others.length
         ? '<span class="eyebrow">While you are with us, make it a weekend</span>' +
@@ -2207,9 +2183,10 @@ var SITE_CONFIG = {
       tyQty = +(qp.get("qty") || (o && o.qty) || 0);
     if (DAYS[day]) {
       var dd2 = DAYS[day],
-        val = +(qp.get("value") || tyQty * dd2.price);
+        tq = tyQty ? window.__ga70quote(day, tyQty) : null,
+        val = +(qp.get("value") || (tq ? tq.total : 0));
       ty.querySelector("[data-ty-what]").textContent =
-        (tyQty ? tyQty + " x " : "") + dd2.name + (tyQty ? ": " + tyQty + " x " + fmt(dd2.price) + " = " + fmt(val) : "");
+        (tyQty ? tyQty + " x " : "") + dd2.name + (tq ? ": " + tq.working + " = " + fmt(val) : "");
       var tv = ty.querySelector("[data-ty-valid]");
       if (tv && dd2.valid) {
         tv.textContent = dd2.valid;
@@ -2220,7 +2197,7 @@ var SITE_CONFIG = {
         bought = sessionStorage.getItem("ga70-purchased");
       } catch {}
       if (!bought) {
-        track("purchase", { day: day, name: dd2.name, price: dd2.price, qty: tyQty, value: val });
+        track("purchase", { day: day, name: dd2.name, price: tq ? tq.unit : dd2.price, qty: tyQty, value: val });
         try {
           sessionStorage.setItem("ga70-purchased", "1");
         } catch {}
@@ -2228,7 +2205,6 @@ var SITE_CONFIG = {
       document.querySelectorAll("[data-ty-x]").forEach(function (c) {
         if (
           c.getAttribute("data-ty-x") === day ||
-          (day === "royal" && c.getAttribute("data-ty-x") === "gala") ||
           day === "weekend"
         )
           c.hidden = true;
@@ -2392,7 +2368,6 @@ var SITE_CONFIG = {
       o = JSON.parse(sessionStorage.getItem("ga70-order") || "null");
     } catch {}
     var day = qp.get("day") || (o && o.day) || "gala";
-    if (day === "royal") day = "gala";
     var ids = day === "weekend" ? ["gala", "ghanaday", "sunday"] : [day];
     ids.forEach(function (k) {
       var s = document.getElementById("save-date-" + k);
