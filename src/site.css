@@ -3080,7 +3080,7 @@ html.lenis body {
 }
 .localnav {
   position: sticky;
-  top: calc(env(safe-area-inset-top, 0) + 64px);
+  top: calc(env(safe-area-inset-top, 0px) + var(--hdr-h, 64px));
   z-index: 45;
   height: 0;
   overflow: visible;
@@ -15910,4 +15910,38 @@ img.heads-safe {
   font-size: 0.82rem;
   letter-spacing: 0.04em;
   color: #7a5a10;
+}
+
+/* Alliance partners (change request 3.1) */
+.al-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: 28px;
+}
+.al-note {
+  max-width: 760px;
+  margin: 20px auto 0;
+  text-align: center;
+}
+.al-how {
+  margin-top: 48px;
+  align-items: start;
+}
+.al-steps {
+  grid-template-columns: 1fr;
+}
+@media (max-width: 900px) {
+  .al-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Tickets page: one venue line for all three days, under the Weekend Pass row (change request 4.1) */
+.tk-venue {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  margin: 18px 0 0;
+  text-align: center;
+  color: #fffefb;
 }

@@ -142,7 +142,7 @@ var SITE_CONFIG = {
       "data-inline-show-logo": "false",
       "data-inline-bg-fill": "true",
       "data-inline-inherit-ref-from-url-param": "",
-      "data-inline-ref": "website_widget",
+      "data-inline-ref": (window.__ga70ref && window.__ga70ref()) || "website_widget",
     };
     for (var k in at) sc.setAttribute(k, at[k]);
     sc.onerror = function () {
@@ -708,6 +708,7 @@ var SITE_CONFIG = {
     "fbclid",
     "ttclid",
     "li_fat_id",
+    "ref",
   ];
   try {
     var q = new URLSearchParams(location.search);
@@ -719,6 +720,15 @@ var SITE_CONFIG = {
       sessionStorage.setItem("referrer", document.referrer || "");
     }
   } catch {}
+  /* Alliance partner links (change request 3.4): ?ref=kumasi-alumni-uk is kept for the visit, sent with every form
+     and booking as "ref", and shown in the booking form as "Who invited you?" with hyphens as spaces. */
+  window.__ga70ref = function () {
+    var r = "";
+    try {
+      r = new URLSearchParams(location.search).get("ref") || sessionStorage.getItem("ref") || "";
+    } catch {}
+    return String(r).replace(/[^\w .'-]/g, "").slice(0, 120);
+  };
   window.__ga70src = function () {
     var o = {};
     try {
@@ -920,6 +930,14 @@ var SITE_CONFIG = {
   };
   window.addEventListener("scroll", compact, { passive: true });
   compact();
+
+  /* The real header height, kept in --hdr-h at every width and scroll state, so sticky bars sit right under it (change request 5.1) */
+  var setHdrH = function () {
+    if (headerEl) document.documentElement.style.setProperty("--hdr-h", headerEl.offsetHeight + "px");
+  };
+  setHdrH();
+  if (headerEl && window.ResizeObserver) new ResizeObserver(setHdrH).observe(headerEl);
+  window.addEventListener("resize", setHdrH, { passive: true });
 
   /* Hero recedes as you scroll, like a product stage */
   var heroEl = document.querySelector(".hero"),
@@ -1676,6 +1694,7 @@ var SITE_CONFIG = {
     '<div class="row2"><div class="field"><label for="co-email">Email</label><input id="co-email" type="email" name="email" autocomplete="email" inputmode="email" required></div>' +
     '<div class="field"><label for="co-tel">Mobile</label><input id="co-tel" type="tel" name="phone" autocomplete="tel" inputmode="tel" required></div></div>' +
     '<fieldset class="co-payby"><legend>How would you like to pay?</legend><label class="check"><input type="radio" name="payBy" value="card" checked><span data-co-cardlbl>Card, Apple Pay or Google Pay</span></label><label class="check"><input type="radio" name="payBy" value="bank"><span>Bank transfer</span></label></fieldset>' +
+    '<div class="field"><label for="co-inv">Who invited you? (optional)</label><input id="co-inv" name="invitedBy" autocomplete="off"></div>' +
     '<div class="co-opts">' +
     '<label class="check"><input type="checkbox" name="gift" value="yes" data-co-gift><span>This is a gift</span></label>' +
     '<label class="check"><input type="checkbox" name="company" value="yes" data-co-co><span>Booking for a company, invoice needed</span></label>' +
@@ -1815,6 +1834,9 @@ var SITE_CONFIG = {
     done.hidden = true;
     co.querySelector(".co-panel").classList.remove("is-done");
     co.hidden = false;
+    var inv = form.querySelector("#co-inv"),
+      refName = window.__ga70ref ? window.__ga70ref() : "";
+    if (inv && !inv.value && refName) inv.value = refName.replace(/-/g, " ");
     render();
     step(1);
     document.documentElement.classList.add("co-open");

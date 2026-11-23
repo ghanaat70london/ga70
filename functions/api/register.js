@@ -22,6 +22,7 @@ const TYPES = {
   contact: { pipeline: "GA70 Enquiries", stage: "New enquiry", tag: "GA70 Enquiry", reply: "Thank you for contacting Ghana at 70 UK. A member of our team will reply within one working day." },
   checkout: { pipeline: "GA70 Tickets", stage: "Checkout started", tag: "GA70 Checkout", reply: "Thank you for choosing Ghana at 70 UK. If you completed payment, your golden tickets follow by email. If you have not paid yet, nothing is reserved until payment is made, and your secure payment link follows shortly." },
   sessions: { pipeline: "GA70 Tickets", stage: "Registered interest", tag: "GA70 Session Interest", reply: "Medaase. Your ideas for Women of the Motherland are with our programme team. We tell you first when talks and masterclasses are confirmed. Registering does not reserve a place." },
+  alliance: { pipeline: "GA70 Partnerships", stage: "Alliance request", tag: "GA70 Alliance Partner", reply: "Thank you for asking to become an alliance partner of Ghana at 70 UK. Your one page agreement and personal booking link follow within one working day." },
   compete: { pipeline: "GA70 Competitions", stage: "Entered", tag: "GA70 Competitor", reply: "You are entered for the Ghana Day Festival games. Rules and your call times arrive by email in February 2027." }
 };
 const clip = (s, n) => String(s == null ? "" : s).slice(0, n);
@@ -47,12 +48,15 @@ export async function onRequest(context) {
   if (body.type === "checkout" && !clip(body.phone, 40).trim()) return json(400, { error: "Please add your mobile, so we can send your tickets and timings." });
 
   const interests = [].concat(body.interests || []).map((x) => clip(x, 80));
+  // Alliance partner links: who invited this guest, from the form field or the ?ref= the visit arrived with
+  const invitedBy = clip(String(body.invitedBy || "").trim() || String(body.ref || "").trim(), 120).trim();
   const cf = request.cf || {};
   const country = String(cf.country || request.headers.get("cf-ipcountry") || "");
   const record = {
     type: TYPES[body.type] ? body.type : "guest",
     pipeline: (TYPES[body.type] || TYPES.guest).pipeline,
     stage: (TYPES[body.type] || TYPES.guest).stage,
+    title: clip(body.title, 20).trim(),
     firstName,
     lastName: clip(body.lastName, 100).trim(),
     email,
@@ -79,6 +83,8 @@ export async function onRequest(context) {
     giftFor: clip(body.giftFor, 160),
     newsOptIn: body.news === "yes" || body.type === "guest",
     organisationUrl: clip(body.organisationUrl, 200),
+    invitedBy,
+    ref: clip(body.ref, 120),
     source: clip(body.source || body.page, 80),
     consent: true,
     utmSource: clip(body.utm_source, 80), utmMedium: clip(body.utm_medium, 80), utmCampaign: clip(body.utm_campaign, 120),
@@ -89,7 +95,7 @@ export async function onRequest(context) {
     city: clip(cf.city, 80),
     device: clip(body.device, 20), language: clip(body.language, 20), screen: clip(body.screen, 20), timezone: clip(body.timezone, 60),
     referrer: clip(body.referrer, 300), landingPage: clip(body.landing, 300),
-    tags: ["Ghana at 70 UK", (TYPES[body.type] || TYPES.guest).tag].concat(interests.map((i) => "GA70 " + i), body.category ? ["GA70 " + clip(body.category, 60)] : [], body.galaWanted === "yes" ? ["GA70 Exhibitor Gala seats"] : [], body.news === "yes" ? ["GA70 News opt in"] : [], country ? ["GA70 Country " + clip(country, 4)] : [], body.utm_source ? ["GA70 Source " + clip(body.utm_source, 40)] : []),
+    tags: ["Ghana at 70 UK", (TYPES[body.type] || TYPES.guest).tag].concat(interests.map((i) => "GA70 " + i), body.category ? ["GA70 " + clip(body.category, 60)] : [], body.galaWanted === "yes" ? ["GA70 Exhibitor Gala seats"] : [], body.news === "yes" ? ["GA70 News opt in"] : [], country ? ["GA70 Country " + clip(country, 4)] : [], body.utm_source ? ["GA70 Source " + clip(body.utm_source, 40)] : [], invitedBy ? ["GA70 Invited by " + clip(invitedBy, 60)] : []),
     submittedAt: new Date().toISOString()
   };
 
