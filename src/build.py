@@ -437,10 +437,10 @@ def partners_feature(eyebrow="Our partners", title="With the partners who make i
 
 OPEN_SLOTS = [
     ("Presenting Partner", "One only", "The Royal Jubilee Gala, presented by you"),
-    ("Principal Partner", "Banking", "Category exclusive"),
-    ("Principal Partner", "Money transfer", "Category exclusive"),
-    ("Principal Partner", "Drinks", "Category exclusive"),
-    ("Principal Partner", "Telecoms", "Category exclusive"),
+    ("Principal Partner", "Banking", "Own a headline experience"),
+    ("Principal Partner", "Money transfer", "Own a headline experience"),
+    ("Principal Partner", "Drinks", "Own a headline experience"),
+    ("Principal Partner", "Telecoms", "Own a headline experience"),
     ("Official Partner", "Travel", "Own one experience"),
     ("Official Partner", "Beauty", "Own one experience"),
     ("Official Partner", "Property", "Own one experience"),
@@ -1049,7 +1049,7 @@ DAYS = '<div class="evs">' + evcard("gala", 1, "y-two-couples", "A young couple 
     "Ghana Day Festival", "Independence Day", "11:00 to 18:00 · Banking Hall · Come and go",
     "Meet the companies that want to reach the Ghanaian diaspora, all under one roof. Book fixed 10 minute appointments with the exhibitors you choose, then play the games, dance, network and celebrate Independence Day with fellow Ghanaians.",
     ["The exhibition: up to forty companies for the diaspora", "Fixed 10 minute appointments with exhibitors you choose", "Games, the Big Ghana Quiz, DJ and dancing", "Network and meet fellow Ghanaians"],
-    "GBP 50", "per guest · ages 5 and over", "ghanaday", "Book Ghana Day", "ghana-day.html", "Explore the day") + \
+    "GBP 50", "per guest · all ages welcome", "ghanaday", "Book Ghana Day", "ghana-day.html", "Explore the day") + \
     evcard("sun", 3, "n-three-gen", "A grandmother in a Kente headwrap, her daughter and her granddaughter, cheek to cheek and laughing", "50% 30%", "07", "March", "Sunday",
     "Women of the Motherland", "Mothering Sunday", "11:00 to 18:30 · Banking Hall",
     "Bring your mum, your auntie or the woman who raised you. This Mothering Sunday, sit down together for a family afternoon tea. Let her be the one who gets dressed up, takes her seat and is looked after for the afternoon.",
@@ -1094,7 +1094,7 @@ def cards(items, cls="", accent=None, icons=None):
 OBJ = {
     "gala": [("Is this the Ghana Independence dinner and dance in London?", "Yes. The Royal Jubilee Gala is the black tie and Kente dinner dance on the eve of Ghana Independence Day: a Ghanaian inspired dinner, a live band playing highlife and Afrobeats, the dance floor until the last dance, and the midnight toast as 6 March 2027 begins."),
              ("What is included?", inc_sentence("gala")),
-             ("What do I wear?", "Royalty Kente or Black Tie Gala. This is a ball. <a href=\"dress-code.html\">What to wear</a>"),
+             ("What do I wear?", "Black Tie, ball gown or Kente. This is a ball. <a href=\"dress-code.html\">What to wear</a>"),
              ("Can I book a table for my group?", f"Yes. A table of ten is {G_TABLE}: ten guests seated together at the long tables, for the price of nine: 9 x {G}. Choose Table of ten when you reserve.")],
     "ghanaday": [("Where can I celebrate Ghana Independence Day in London?", "At the Ghana Day Festival, Banking Hall, 14 Cornhill, on Saturday 6 March 2027 from 11:00 to 18:00. Seventy years to the day since 6 March 1957, with a DJ, dancing, forty Ghanaian stands and the whole community in one hall."),
                  ("Is there dancing?", "All day. The DJ plays highlife, hiplife and Afrobeats from 11:00, and the dance circle is open to every age. Come and go with your wristband."),
@@ -1112,7 +1112,7 @@ OBJ_ALL = [("Will it really happen?", "Yes. All three days are at Banking Hall, 
            ("Can you cater for dietary needs?", "Yes. Tell us when you book. Vegetarian, halal and allergy needs are planned with the caterer for the Gala and Sunday."),
            ("Can I transfer my ticket?", "Yes, at no extra cost. Email us the name of your guest before 17:00 on the day before the event. All sales are final and tickets cannot be refunded."),
            ("Can I pay by bank transfer?", "Yes. Choose bank transfer when you book and we send our account details with your booking reference."),
-           ("Who is it for?", "All three days welcome guests aged 5 and over. Under 18s must be with an adult at all times, and every guest, adult or child, holds a ticket. We have no space for high chairs, pushchairs or buggies, so children under 5, including babies in arms, cannot be admitted."),
+           ("Who is it for?", "Everyone. All ages are welcome on all three days. Children come with an adult, and every guest, adult or child, holds a ticket. The hall has no space for pushchairs or buggies."),
            ("Where is the venue?", "Banking Hall, 14 Cornhill, in the City of London, moments from the Bank of England. Directions and access details come with your tickets.")]
 
 TRUST = ('<ul class="trust"><li><b>Full refund if we cancel</b><span>Written into our terms</span></li>'
@@ -1429,7 +1429,7 @@ def build():
 <section class="band ivory arrive" id="dress"><div class="wrap arrive-in rev">
   {photo("g-black-tie-group", "Young and older guests together at the Gala, men in black tie and Kente, women in Kente and black gowns", "arrive-ph", "50% 35%", "(max-width:900px) 92vw, 55vw")}
   <div class="arrive-copy"><span class="eyebrow">Dress as royalty</span><h2>Kente, gold and black tie.</h2><div class="divider"><i></i></div>
-    <p class="lead">Royalty Kente or Black Tie. This is a ball.</p>
+    <p class="lead">Black Tie, ball gown or Kente. This is a ball.</p>
     <div class="btn-row"><a class="btn gold" href="dress-code.html">See the dress code</a><a class="btn line-dark" href="dress-code.html#kente">How to wear Kente</a></div></div>
 </div></section>
 <section class="band emerald">
@@ -1438,7 +1438,7 @@ def build():
       <div class="bigdate"><b>5</b><span>March<br>2027</span></div>
       <p class="bd-day">Friday · 18:30 to 00:30</p>
       <h2>From royal drums to the midnight toast.</h2>
-      <p class="bd-note">Royalty Kente or Black Tie Gala</p>
+      <p class="bd-note">Black Tie, ball gown or Kente</p>
     </div>
     {tl([
         ("18:30", "The Royal Arrival", "Fontomfrom drums, a red carpet and a gold reception.", "Red carpet"),
@@ -1466,7 +1466,7 @@ def build():
     # ================= GHANA DAY =================
     page("ghana-day", "Ghana Day Festival | Ghana Independence Day London, 6 March 2027", "The Ghana Day Festival on Independence Day, Saturday 6 March 2027, London. An exhibition of companies reaching the Ghanaian diaspora, fixed 10 minute appointments with exhibitors, games, dancing and networking.",
          page_head("Saturday 6 March 2027 · 11:00 to 18:00", "Ghana Day Festival", "Independence Day, seventy years to the day. 11:00 to 18:00. Meet up to forty companies reaching the diaspora, book 10 minute appointments with the ones you choose, then play, dance and network. GBP 50.", "green", "fawohodie",
-                   '<div class="chips"><span class="chip">The exhibition</span><span class="chip">10 minute appointments</span><span class="chip">DJ and dancing</span><span class="chip">Ages 5 and over</span><span class="chip">Come and go all day</span><span class="chip">GBP 50</span><span class="chip">Games included</span><span class="chip">A separate event, with its own ticket</span></div>', "Seventy years to the day", day="ghana-day") + f'''
+                   '<div class="chips"><span class="chip">The exhibition</span><span class="chip">10 minute appointments</span><span class="chip">DJ and dancing</span><span class="chip">All ages welcome</span><span class="chip">Come and go all day</span><span class="chip">GBP 50</span><span class="chip">Games included</span><span class="chip">A separate event, with its own ticket</span></div>', "Seventy years to the day", day="ghana-day") + f'''
 {kband(8)}
 
 <section class="cine" aria-label="Independence Day">{photo("g-prints-line", "Women in bold Ankara print and headwraps in a sunlit garden", "ph cine-ph", "50% 35%", "100vw")}
@@ -1486,7 +1486,7 @@ def build():
       <div class="bigdate"><b>6</b><span>March<br>2027</span></div>
       <p class="bd-day">Saturday · 11:00 to 18:00</p>
       <h2>Independence Day, hour by hour.</h2>
-      <p class="bd-note">Ages 5 and over · DJ and dancing · GBP 50</p>
+      <p class="bd-note">All ages welcome · DJ and dancing · {G_DAY}</p>
       <div class="btn-row"><a class="btn line" href="#compete">Join the games</a></div>
     </div>
     {tl([
@@ -1544,7 +1544,7 @@ def build():
   {info([("Dance", "Azonto, Kpanlogo and Afrobeats. Solo or crews of up to five, for the joy of it"), ("Oware", "Open games from 13:30"), ("Quiz", "Teams of up to six from 15:30")])}</div>
   {enquiry_form("compete")}
 </div></section>
-{book_band("ghanaday", "Be in the room on Independence Day.", "Ages 5 and over. GBP 50. Bring the people who made you.", T_DAY)}
+{book_band("ghanaday", "Be in the room on Independence Day.", "All ages welcome. " + G_DAY + ". Bring the people who made you.", T_DAY)}
 ''')
 
     # ================= WOMEN OF THE MOTHERLAND =================
@@ -1781,8 +1781,8 @@ def build():
     TIERS_SP = [
         ("headline", "GBP 20,000", "One only", "Presenting Partner", "The Royal Jubilee Gala, presented by you.",
          ["The Gala presented by your brand", "The midnight toast in your name, as Independence Day begins", "An address of five minutes from the stage", f"A table of ten: {G_TABLE} in seats, ten guests for the price of nine (9 x {G})", "Full stage and screen branding", "The back cover of the commemorative Ghana at 70 UK passport book"]),
-        ("", "GBP 15,000", "One per sector", "Principal Partner", "A headline experience, yours alone.",
-         ["Your name on a headline experience: the Royal Welcome, the Highlife Band, the Ghana Day stage or the Wall of Mothers", "Category exclusive in your sector", f"Eight seats: 8 x {G} = {gbp(8 * PR['gala'])} in seats", "A feature stand on Saturday and Sunday", "The inside front cover of the passport book"]),
+        ("", "GBP 15,000", "Headline experience", "Principal Partner", "A headline experience, presented by you.",
+         ["Your name on a headline experience: the Royal Welcome, the Highlife Band, the Ghana Day stage or the Wall of Mothers", f"Eight seats: 8 x {G} = {gbp(8 * PR['gala'])} in seats", "A feature stand on Saturday and Sunday", "The inside front cover of the passport book"]),
         ("", "GBP 10,000", "Limited", "Official Partner", "One experience, in your name.",
          ["Your name on one experience: the Portrait Studio, the dance floor or the Ghana at 70 UK film", f"Six seats: 6 x {G} = {gbp(6 * PR['gala'])} in seats", "A stand on Saturday and Sunday", "A full page in the passport book"]),
     ]
@@ -1819,7 +1819,7 @@ def build():
   <div class="section-head center"><span class="eyebrow">The business case</span><h2>Be the name the diaspora remembers.</h2><div class="divider"><i></i></div><p class="lead">Three days when a community feels seen, honoured and at home. The brand standing beside them in that moment is the one they trust, talk about and choose for years.</p></div>
   <div class="bc-market"><article><h3>A market that moves money every month</h3><p class="bc-fact">USD 7.8 billion was sent home to Ghana in 2025, and the UK sent 17.5 percent of it from January to September 2025.</p><p class="bc-so"><b>What it means.</b> Your future clients already live between two homes. The name that stands beside them at seventy is the one they will remember when they choose. (Bank of Ghana)</p></article><article><h3>A community large enough to build a book of business</h3><p class="bc-fact">132,577 people born in Ghana lived in England and Wales at the 2021 census, with many more of Ghanaian heritage.</p><p class="bc-so"><b>What it means.</b> A community of real depth, in every region of the UK, and loyal to the brands that honour it. (ONS Census 2021)</p></article><article><h3>Two homes, one wallet</h3><p class="bc-fact">52,845 visitors arrived in Ghana from the UK in 2024, the third largest source market. Across all visitors, 22 percent came to see family and friends.</p><p class="bc-so"><b>What it means.</b> Travel, property, insurance, telecoms and banking are chosen for two countries at once. One relationship, warmly begun, serves both. (Ghana Tourism Authority)</p></article></div>
   <div class="section-head center bc-mid"><span class="eyebrow">What the Gala alone delivers</span><h2>Ten returns from one night.</h2></div>
-  <ol class="bc-grid"><li><span class="bc-k">Reach</span><b>250 guests, one room, six hours</b><p>The undivided attention of the room. Presenting Partner: GBP 20,000 / 250 guests = GBP 80 per guest for a whole evening in their company, with ten seats of your own included.</p></li><li><span class="bc-k">Qualified leads</span><b>Introductions by consent</b><p>Guests opt in at checkout to meet our partners in banking, property and money transfer. You receive named introductions to guests who have asked to meet you.</p></li><li><span class="bc-k">Measurable return</span><b>Your own tracked offer</b><p>A guest offer with its own code and link, printed in the passport book and on your table cards. Every redemption is counted and reported to you.</p></li><li><span class="bc-k">Audience data</span><b>Who is in the room</b><p>Guests may tell us their sector when they book. You receive the anonymised profile of the room before the night, so your team arrives with a plan.</p></li><li><span class="bc-k">Exclusivity</span><b>Category exclusivity</b><p>One bank, one money transfer brand, one developer. In your category, the room is yours.</p></li><li><span class="bc-k">Brand building</span><b>108 days in market</b><p>From 17 November 2026 to 5 March 2027 (13 + 31 + 31 + 28 + 5 = 108 days), with tickets on sale from 18 November 2026 and the countdown of the final seventy days from 26 December, our campaign, retargeting audiences and email list carry your name: 108 days in their thoughts before the doors open.</p></li><li><span class="bc-k">The moment</span><b>The midnight toast</b><p>At 00:00 the hall rises for Independence Day. The Presenting Partner owns the moment every guest films and shares.</p></li><li><span class="bc-k">Content you keep</span><b>Content rights</b><p>Photography and film of your branded moments, cleared for your own channels, newsletters and annual report.</p></li><li><span class="bc-k">Renewal</span><b>Proof after the night</b><p>Your partner report within seven days: guests, consented introductions, code redemptions, reach and images. The evidence your board needs to renew.</p></li><li><span class="bc-k">Social value</span><b>Community investment you can stand behind</b><p>Young graduates serve as ushers, women photographers cover Sunday. Social value to stand behind in your community and ESG reporting.</p></li></ol>
+  <ol class="bc-grid"><li><span class="bc-k">Reach</span><b>250 guests, one room, six hours</b><p>The undivided attention of the room. Presenting Partner: GBP 20,000 / 250 guests = GBP 80 per guest for a whole evening in their company, with ten seats of your own included.</p></li><li><span class="bc-k">Qualified leads</span><b>Introductions by consent</b><p>Guests opt in at checkout to meet our partners in banking, property and money transfer. You receive named introductions to guests who have asked to meet you.</p></li><li><span class="bc-k">Measurable return</span><b>Your own tracked offer</b><p>A guest offer with its own code and link, printed in the passport book and on your table cards. Every redemption is counted and reported to you.</p></li><li><span class="bc-k">Audience data</span><b>Who is in the room</b><p>Guests may tell us their sector when they book. You receive the anonymised profile of the room before the night, so your team arrives with a plan.</p></li><li><span class="bc-k">Brand building</span><b>108 days in market</b><p>From 17 November 2026 to 5 March 2027 (13 + 31 + 31 + 28 + 5 = 108 days), with tickets on sale from 18 November 2026 and the countdown of the final seventy days from 26 December, our campaign, retargeting audiences and email list carry your name: 108 days in their thoughts before the doors open.</p></li><li><span class="bc-k">The moment</span><b>The midnight toast</b><p>At 00:00 the hall rises for Independence Day. The Presenting Partner owns the moment every guest films and shares.</p></li><li><span class="bc-k">Content you keep</span><b>Content rights</b><p>Photography and film of your branded moments, cleared for your own channels, newsletters and annual report.</p></li><li><span class="bc-k">Renewal</span><b>Proof after the night</b><p>Your partner report within seven days: guests, consented introductions, code redemptions, reach and images. The evidence your board needs to renew.</p></li><li><span class="bc-k">Social value</span><b>Community investment you can stand behind</b><p>Young graduates serve as ushers, women photographers cover Sunday. Social value to stand behind in your community and ESG reporting.</p></li></ol>
   <div class="bc-cta"><p>Banking, money transfer, property, telecoms, travel, law and food and drink: one partner in each. Each category is offered once.</p><a class="btn gold" href="#pack">Claim your category</a><a class="btn line-dark" href="#tiers">See the tiers</a></div>
   <p class="muted bc-src">Market figures: Bank of Ghana, Office for National Statistics 2021 census, Ghana Tourism Authority.</p>
 </div></section>
@@ -2114,14 +2114,14 @@ def build():
                         ("Where should I book?", "Only on this website, through the Book now buttons or your private priority link. Tickets bought anywhere else are not valid."),
         ]),
         ("gala", "The Royal Jubilee Gala", [
-            ("What is the dress code?", "Royalty Kente or Black Tie Gala. Come as royalty in Kente, or in full black tie. Gold is encouraged."),
+            ("What is the dress code?", "Black Tie, ball gown or Kente. Come as royalty in Kente, or in full black tie. Gold is encouraged."),
             ("Can I book for a group of ten?", f"Yes. A table of ten is {G_TABLE}: ten guests seated together at the long tables, for the price of nine: 9 x {G}. Choose Table of ten when you reserve."),
                         ("Can we book as a quiz team?", f"Yes. A quiz team booking is six tickets: 6 x {G_DAY} = {G_QUIZ}. Choose Quiz team, 6 tickets when you book."),
                         ("Can we sit together as a family on Sunday?", f"Yes. A family table booking is five tickets at one table: 5 x {G_SUN} = {G_FAM}. Choose Family table, 5 tickets when you book."),
             ("Are there awards?", "No. Ghana at 70 UK is a celebration of Ghana, not an awards night. There are no awards, prizes or judging on any day."),
         ]),
         ("ghana-day", "Ghana Day Festival", [
-            ("Can I bring children?", "Yes. All three days welcome guests aged 5 and over. Under 18s must be with an adult at all times, and every guest, adult or child, holds a ticket. We have no space for high chairs, pushchairs or buggies, so children under 5, including babies in arms, cannot be admitted."),
+            ("Can I bring children?", "Yes. All ages are welcome on all three days. Children come with an adult, and every guest, adult or child, holds a ticket. The hall has no space for pushchairs or buggies."),
             ("Is there food and drink?", "Saturday is a festival, not a meal. The bar sells drinks and snacks all day, card only. Food is not included in the GBP 50 ticket, and food and drink cannot be brought in. Over 18s only at the bar, and we follow Challenge 25."),
             ("How do I join the games?", "Entry to the dance circle, oware games and Big Ghana Quiz is included with your ticket. Enter at the welcome desk on the day."),
             ("Is anything on Saturday evening?", "No. The party closes at 18:00."),
@@ -2162,7 +2162,7 @@ def build():
     <li><b>Tickets are transferable.</b> If you cannot attend, pass your ticket to another guest. Email us their name before 17:00 on the day before the event.</li>
     <li><b>Full refund only if we cancel.</b> If we cancel an event, every ticket holder for that event is refunded the full ticket price.</li>
     <li><b>Bank transfer within 24 hours.</b> Payment by bank transfer must arrive in full within 24 hours of booking, or the booking is released.</li>
-    <li><b>Ages 5 and over.</b> We have no space for high chairs, pushchairs or buggies, so children under 5, including babies in arms, cannot be admitted on any day.</li>
+    <li><b>All ages welcome.</b> Children come with an adult, and every guest, child or adult, holds a ticket. There is no space for pushchairs or buggies on any day.</li>
   </ol>
   <div class="final-box" id="final-sale"><span class="eyebrow">Please read before you book</span><h3>All sales are final.</h3>
     <ol><li><b>No refunds.</b> Once you have paid, your ticket cannot be refunded or exchanged.</li><li><b>Transfer it to a friend.</b> If you cannot attend, give your ticket to someone else. Email us their name before 17:00 on the day before the event.</li><li><b>If we cancel, you are refunded in full.</b> If the event is cancelled by us, every ticket holder receives a full refund of the ticket price.</li></ol>
@@ -2193,7 +2193,7 @@ def build():
   <h2 class="h3">4. Transferring a ticket</h2>
   <ol>
     <li>A ticket may be transferred to another guest at no extra cost. Email us the booking reference and the full name of the new guest before 17:00 on the day before the event. We reissue the ticket in the new name and the original ticket no longer works.</li>
-    <li>The new guest holds the ticket on these terms and must be aged 5 or over.</li>
+    <li>The new guest holds the ticket on these terms.</li>
     <li>Tickets may not be resold for profit, offered on resale or auction sites, or used in a promotion or competition without our written consent. Tickets found to be resold in breach of this clause may be cancelled without refund.</li>
   </ol>
   <h2 class="h3">5. If we cancel or change the event</h2>
@@ -2208,7 +2208,7 @@ def build():
   <ol>
     <li>Each ticket admits one guest, once, on the day shown, on scanning its personal QR code. Copied or duplicated tickets are refused, and only the first ticket scanned is admitted. Keep your ticket private.</li>
     <li>The name on the ticket may be checked against photo ID. Please bring it.</li>
-    <li><b>Ages 5 and over.</b> All three days are for guests aged 5 and over. Children under 5, including babies in arms, cannot be admitted. Every guest, child or adult, holds a ticket. Under 18s must be with a responsible adult at all times, who is responsible for them throughout the event. The bar serves over 18s only, and we follow Challenge 25. Admission of under 18s is subject to the conditions of the venue licence.</li>
+    <li><b>All ages welcome.</b> All three days are open to guests of every age. Every guest, child or adult, holds a ticket. Under 18s must be with a responsible adult at all times, who is responsible for them throughout the event. The bar serves over 18s only, and we follow Challenge 25. Admission of under 18s is subject to the conditions of the venue licence.</li>
     <li>Doors close at the last entry time shown for that day. Late arrivals may not be admitted, and no refund is due.</li>
     <li>Saturday guests may leave and return wearing their wristband. Wristbands are fitted by our hosts with a lock that cannot be opened without cutting. A wristband that is cut, damaged, loose, transferred or not worn on the wrist is not valid for coming back in, and a new ticket must be bought.</li>
     <li>The dress code for each day is published on this website. Guests not dressed to the code for the Royal Jubilee Gala may be asked to change before entry.</li>
@@ -2264,9 +2264,9 @@ def build():
 <section class="band white" id="opening"><div class="wrap">
   <div class="section-head"><span class="eyebrow">Opening times</span><h2>Three days, to the minute.</h2><p class="lead">Please arrive while the doors are open, so that we can seat and serve everyone together.</p></div>
   <div class="hours-grid">
-    <article class="hcard"><span class="k">Friday 5 March 2027</span><h3>The Royal Jubilee Gala</h3>{hours_table([("Doors and red carpet", "18:30"), ("Last entry", "19:45"), ("Seated for dinner", "20:00"), ("Dancing ends", "23:30"), ("Midnight toast", "00:00"), ("Venue closes", "00:30")])}<p class="muted">Dress code: Royalty Kente or Black Tie Gala.</p></article>
-    <article class="hcard"><span class="k">Saturday 6 March 2027</span><h3>Ghana Day Festival</h3>{hours_table([("Doors open", "11:00"), ("Anniversary moment", "12:00"), ("DJ and dancing", "12:30 to 18:00"), ("Last entry", "16:30"), ("Doors close", "18:00")])}<p class="muted">Ages 5 and over. No high chairs, pushchairs or buggies. Your wristband lets you come and go all day.</p></article>
-    <article class="hcard"><span class="k">Sunday 7 March 2027</span><h3>Women of the Motherland</h3>{hours_table([("Doors", "11:00"), ("Afternoon tea", "13:00"), ("Wall of Mothers", "14:00"), ("Networking hour", "16:00"), ("Close", "18:30")])}<p class="muted">Ages 5 and over. Under 18s must be accompanied by an adult.</p></article>
+    <article class="hcard"><span class="k">Friday 5 March 2027</span><h3>The Royal Jubilee Gala</h3>{hours_table([("Doors and red carpet", "18:30"), ("Last entry", "19:45"), ("Seated for dinner", "20:00"), ("Dancing ends", "23:30"), ("Midnight toast", "00:00"), ("Venue closes", "00:30")])}<p class="muted">Dress code: Black Tie, ball gown or Kente.</p></article>
+    <article class="hcard"><span class="k">Saturday 6 March 2027</span><h3>Ghana Day Festival</h3>{hours_table([("Doors open", "11:00"), ("Anniversary moment", "12:00"), ("DJ and dancing", "12:30 to 18:00"), ("Last entry", "16:30"), ("Doors close", "18:00")])}<p class="muted">All ages welcome, children with an adult. No pushchairs or buggies. Your wristband lets you come and go all day.</p></article>
+    <article class="hcard"><span class="k">Sunday 7 March 2027</span><h3>Women of the Motherland</h3>{hours_table([("Doors", "11:00"), ("Afternoon tea", "13:00"), ("Wall of Mothers", "14:00"), ("Networking hour", "16:00"), ("Close", "18:30")])}<p class="muted">All ages welcome. Under 18s must be accompanied by an adult.</p></article>
   </div>
 </div></section>
 
@@ -2296,7 +2296,7 @@ def build():
       <li><b>Arrival</b><span>The entrance is at 14 Cornhill, steps from Bank station. Hosts meet every guest at the door.</span></li>
       <li><b>Inside</b><span>The event is held over two floors joined by stairs only.</span></li>
       <li><b>Seating</b><span>Every guest has a seat at the Gala and on Sunday. On Saturday, seating is available around the hall.</span></li>
-      <li><b>Under 5s, pushchairs and buggies</b><span>We have no space for high chairs, pushchairs or buggies, so children under 5, including babies in arms, cannot be admitted.</span></li>
+      <li><b>Pushchairs and buggies</b><span>All ages are welcome, but the hall has no space for high chairs, pushchairs or buggies. Please leave them at home.</span></li>
       <li><b>Cloakroom</b><span>Fully staffed on all three days, so you do not carry coats or bags on the stairs.</span></li>
       <li><b>Before you book</b><span>Call Asantewaa on 07824 555307 and we will tell you honestly what is possible.</span></li>
     </ol></div>
@@ -2304,8 +2304,8 @@ def build():
 
 <section class="band white" id="policies"><div class="wrap">
   <div class="section-head"><span class="eyebrow">Good to know</span><h2>The small print, made simple.</h2></div>
-  {info([("Dress code", 'Friday: Royalty Kente or Black Tie Gala. Saturday: print and denim, or a Black Stars shirt. Sunday: Sunday best or traditional dress. <a href="dress-code.html">What to wear</a>'),
-         ("Age", "Ages 5 and over, every day. Under 18s with an adult at all times. Over 18s only at the bar, and we follow Challenge 25"), ("Pushchairs", "The event is over two floors with stairs, so pushchairs and buggies cannot be accommodated on any day. Children under 5, including babies in arms, cannot be admitted."),
+  {info([("Dress code", 'Friday: Black Tie, ball gown or Kente. Saturday: print and denim, or a Black Stars shirt. Sunday: Sunday best or traditional dress. <a href="dress-code.html">What to wear</a>'),
+         ("Age", "All ages welcome, every day. Under 18s with an adult at all times. Over 18s only at the bar, and we follow Challenge 25"), ("Pushchairs", "The event is over two floors with stairs, so pushchairs and buggies cannot be accommodated on any day."),
          ("Food and dietary needs", "Dinner is included at the Gala and afternoon tea on Sunday. On Saturday the bar sells drinks and snacks, card only. Tell us your dietary needs when you book"),
          ("Photography", "Our photographers capture the weekend. Tell a host if you prefer not to be photographed"),
          ("Coming and going", "Saturday guests may leave and return, wearing their wristband. A wristband that has been cut or removed is not valid"),
@@ -2437,9 +2437,9 @@ Ghana at 70 UK: London to mark seventy years of Ghanaian independence with three
 
 London, 17 November 2026. On 6 March 2027 Ghana turns seventy. The whole of the UK will mark it with Ghana at 70 UK, held in London, The Platinum Jubilee Celebrations: three days at Banking Hall, 14 Cornhill, the Grade II listed hall moments from the Bank of England.
 
-Friday 5 March, The Royal Jubilee Gala. Independence Eve. Fontomfrom drums and a red carpet at 18:30, a Ghanaian inspired dinner, live highlife and, at midnight, the whole hall rising for the moment Ghana became independent in 1957. 250 seats. Royalty Kente or Black Tie.
+Friday 5 March, The Royal Jubilee Gala. Independence Eve. Fontomfrom drums and a red carpet at 18:30, a Ghanaian inspired dinner, live highlife and, at midnight, the whole hall rising for the moment Ghana became independent in 1957. 250 seats. Black Tie, ball gown or Kente.
 
-Saturday 6 March, the Ghana Day Festival. Independence Day itself. A DJ all day, forty Ghanaian and African businesses, five practical talks on land, money, wills, pensions and business, and the anniversary moment at 12:00 with drumming and a reading of the declaration of independence. Ages 5 and over.
+Saturday 6 March, the Ghana Day Festival. Independence Day itself. A DJ all day, forty Ghanaian and African businesses, five practical talks on land, money, wills, pensions and business, and the anniversary moment at 12:00 with drumming and a reading of the declaration of independence. All ages welcome.
 
 Sunday 7 March, Women of the Motherland. Mothering Sunday falls the day after the anniversary. A family afternoon tea open to every woman of African heritage and her family, with the Wall of Mothers, where every mother named by a guest is celebrated aloud, Voices of the Motherland and a family portrait. Talks and masterclasses are being shaped with guests and are not yet confirmed.
 
@@ -2543,7 +2543,7 @@ Interviews, images and accreditation: SITEURL/press"""
     <p class="dc-note">{note}</p>
     <div class="btn-row"><a class="btn gold" href="tickets.html" data-pay="{pay}">{label}</a></div></div>
 </div></article>"""
-    FRI = dc_chapter("friday", "dc-dark", "I", "Friday 5 March 2027 · The Royal Jubilee Gala", "Royalty Kente or Black Tie Gala.",
+    FRI = dc_chapter("friday", "dc-dark", "I", "Friday 5 March 2027 · The Royal Jubilee Gala", "Black Tie, ball gown or Kente.",
         "Kente, gold and black tie. Nothing less.",
         ("look/a2", "A king in a black suit with Kente panels and a queen in a Kente mermaid gown, arm in arm before a columned City facade", "ph", "50% 0%", "(max-width:900px) 50vw, 24vw"), ("look/a5", "A king in a Kente print dinner jacket with black lapels and a queen in a one shoulder Kente print gown with a high slit and matching headwrap", "ph", "50% 0%", "(max-width:900px) 50vw, 24vw"),
         dc_list("Queens", ["Kente kaba and slit", "Long evening gown", "Gold and beads"])
@@ -2639,13 +2639,13 @@ Interviews, images and accreditation: SITEURL/press"""
   <p class="kg-subl">No Kente? Classic black tie is always correct. Have Kente? Let it do the talking.</p>
   <div class="kg-bt"><figure class="bt-classic">{BTSVG}<figcaption><b>Classic black tie</b><span>Dinner jacket, black bow tie, white shirt and polished shoes.</span></figcaption></figure>{"".join(f'<figure><img src="images/look/{k}-720.jpg" srcset="images/look/{k}-720.jpg 720w, images/look/{k}-1400.jpg 1400w" sizes="(max-width:760px) 50vw, 25vw" width="{LDIMS[k][0]}" height="{LDIMS[k][1]}" alt="{t}" loading="lazy"><figcaption><b>{t}</b><span>{d}</span></figcaption></figure>' for k, t, d in BT)}</div>
 </div>"""
-    page("dress-code", "What to Wear | Royal Dress Code for Ghana at 70 UK London 2027", "The dress code for Ghana at 70 UK: Royalty Kente or Black Tie on Friday, Ankara print on Independence Day and Sunday best on Mothering Sunday.",
+    page("dress-code", "What to Wear | Royal Dress Code for Ghana at 70 UK London 2027", "The dress code for Ghana at 70 UK: Black Tie, ball gown or Kente on Friday, Ankara print on Independence Day and Sunday best on Mothering Sunday.",
          page_head("What to wear", "Dress as royalty.", "Three days, three dress codes, and the art of wearing Kente. Everything you need to arrive certain, and magnificent.", "black", "duafe",
-                   '<div class="chips"><a class="chip" href="#friday">Friday: Royalty Kente or Black Tie</a><a class="chip" href="#saturday">Saturday: print and denim</a><a class="chip" href="#sunday">Sunday best</a><a class="chip" href="#lookbook">Dress inspiration</a><a class="chip" href="#kente">How to wear Kente</a></div>', "The royal dress code") + f"""
+                   '<div class="chips"><a class="chip" href="#friday">Friday: Black Tie, ball gown or Kente</a><a class="chip" href="#saturday">Saturday: print and denim</a><a class="chip" href="#sunday">Sunday best</a><a class="chip" href="#lookbook">Dress inspiration</a><a class="chip" href="#kente">How to wear Kente</a></div>', "The royal dress code") + f"""
 <section class="band dc-dark dcx-band" id="dress-codes"><div class="wrap">
   <div class="dcx" data-xc data-xc-auto="7000">
     <div class="xc-top"><div class="xc-tabs dcx-tabs" role="tablist" aria-label="The three dress codes">
-      <button type="button" role="tab" class="xc-tab on" aria-selected="true" data-xc-go="0"><span>I</span>Friday · Royalty Kente or Black Tie</button>
+      <button type="button" role="tab" class="xc-tab on" aria-selected="true" data-xc-go="0"><span>I</span>Friday · Black Tie, ball gown or Kente</button>
       <button type="button" role="tab" class="xc-tab" aria-selected="false" data-xc-go="1"><span>II</span>Saturday · Ankara print</button>
       <button type="button" role="tab" class="xc-tab" aria-selected="false" data-xc-go="2"><span>III</span>Sunday · Sunday best</button></div>
       <div class="xc-arrows"><button type="button" class="xc-btn" data-xc-prev aria-label="Previous dress code"><i></i></button><button type="button" class="xc-btn next" data-xc-next aria-label="Next dress code"><i></i></button></div></div>
@@ -2666,7 +2666,7 @@ Interviews, images and accreditation: SITEURL/press"""
 <section class="band white" id="dress-faq"><div class="wrap split">
   <div class="stack"><span class="eyebrow">Dress code questions</span><h2>Before you dress.</h2><p class="lead">Still unsure? Call Asantewaa on <span data-phone>07824 555307</span> and she will help.</p></div>
   <div class="faq-list">
-    <details><summary>Do I have to wear Kente to the Gala?</summary><p>No. Royalty Kente or Black Tie Gala means either is perfect. A long evening gown, a dinner jacket or a fugu smock are all welcome.</p></details>
+    <details><summary>Do I have to wear Kente to the Gala?</summary><p>No. Black Tie, ball gown or Kente: any of them is perfect. A long evening gown, a dinner jacket or a fugu smock are all welcome.</p></details>
     <details><summary>Can I wear a short dress to the Gala?</summary><p>The Gala is a long gown evening. Please choose a floor length or ankle length gown, or Kente cloth, rather than a short dress. Black is always welcome.</p></details>
     <details><summary>I am not Ghanaian. Can I wear Kente?</summary><p>Yes. Kente and Ghanaian cloth are for everyone, worn with respect and joy. New to Kente? Add it when you book and we help you wear it properly.</p></details>
     <details><summary>Can I wear the dress of another African nation?</summary><p>Yes. Wear your heritage proudly. Agbada, boubou, kitenge and every royal dress of the continent belong at the Gala.</p></details>
@@ -2746,7 +2746,7 @@ Interviews, images and accreditation: SITEURL/press"""
 
 ## Events
 - The Royal Jubilee Gala of Kings and Queens: Friday 5 March 2027, Banking Hall, 14 Cornhill, City of London, moments from the Bank of England, 18:30 to 00:30. A spectacular Ghanaian gala dinner and party of royals with highlife, hiplife, Afrobeats and everything in between, live, and a midnight toast. Dress code Black Tie, ball gown or Kente. {G} per guest{fr(f', first release {G_FR}, up to 2 per order')}. {TABLE_LINE}. {SITE_URL}/royal-gala
-- Ghana Day Festival: Saturday 6 March 2027 (Ghana Independence Day), Banking Hall, 11:00 to 18:00. The Ghana Day Festival: DJ and dancing all day, forty chosen stands, quiz and dance circle, bar, come and go all day. Ages 5 and over, no pushchairs or buggies. GBP 50. {SITE_URL}/ghana-day
+- Ghana Day Festival: Saturday 6 March 2027 (Ghana Independence Day), Banking Hall, 11:00 to 18:00. The Ghana Day Festival: DJ and dancing all day, forty chosen stands, quiz and dance circle, bar, come and go all day. All ages welcome, children with an adult, no pushchairs or buggies. GBP 50. {SITE_URL}/ghana-day
 - Women of the Motherland: Sunday 7 March 2027 (Mothering Sunday), Banking Hall, for women of African heritage and their families, doors 11:00, one sitting with everyone together from 12:00, networking hour at 16:00, close 18:30. Afternoon tea, the Wall of Mothers, Voices of the Motherland poems and stories, a family portrait and the networking hour. Talks and masterclasses not yet confirmed: guests register their interest. GBP 150 per guest. {SITE_URL}/women-of-the-motherland
 
 ## Booking
@@ -2761,8 +2761,8 @@ Interviews, images and accreditation: SITEURL/press"""
 - How much are tickets? The Royal Jubilee Gala {GALA_FROM}. Ghana Day Festival {G_DAY}. Women of the Motherland {G_SUN}. {WKND_LINE} Prices include VAT and booking fees.
 - Are there booking fees? No. Every price shown is the full price.
 - Where do I buy tickets? Only on the official website, {SITE_URL}/tickets. All sales are final, tickets can be transferred to a named guest, and every ticket is refunded in full if the event is cancelled.
-- What is the dress code? Friday: Royalty Kente or Black Tie. Saturday: print and denim, Ankara or a Black Stars shirt. Sunday: Sunday best.
-- Can children come? Ages 5 and over on all three days, under 18s with an adult and every guest with a ticket. No under 5s, high chairs, pushchairs or buggies. The bar is for over 18s only.
+- What is the dress code? Friday: Black Tie, ball gown or Kente. Saturday: print and denim, Ankara or a Black Stars shirt. Sunday: Sunday best.
+- Can children come? Yes. All ages are welcome on all three days. Children come with an adult and every guest holds a ticket. No pushchairs or buggies. The bar is for over 18s only.
 - Is there a Ghana Independence party or dance in London in 2027? Yes. The Royal Jubilee Gala is the dinner and dance on the eve, Friday 5 March, and the Ghana Day Festival is the daytime party with a DJ and dancing on Independence Day, Saturday 6 March.
 - Is there a Mothers Day event for African women in London? Yes. Women of the Motherland, a Mothering Sunday afternoon tea for women of African heritage and their families, Sunday 7 March 2027.
 - Is alcohol included? No ticket includes alcohol. The bar takes card only.
