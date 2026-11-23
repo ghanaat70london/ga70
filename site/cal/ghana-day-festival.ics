@@ -1,0 +1,42 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Ghana at 70 UK//Save the date//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:ghanaday-2027@ghanaat70
+DTSTAMP:20261116T120000Z
+DTSTART:20270306T110000Z
+DTEND:20270306T180000Z
+SUMMARY:Ghana at 70 UK: Ghana Day Festival
+LOCATION:Banking Hall\, 14 Cornhill\, London EC3V 3ND
+DESCRIPTION:GHANA AT 70 UK: GHANA DAY FESTIVAL\nSaturday 6 March 2027 · 1
+ 1:00 to 18:00\n\nTIMINGS\n11:00  Doors open. DJ and dancing all day\n12:00
+   The anniversary moment\n16:30  Last entry\n18:00  Doors close\n\nDRESS C
+ ODE\nPrint and denim. Relaxed and ready to dance. A print top or shirt wit
+ h jeans\, Ankara\, or your Black Stars shirt. Flat shoes or clean trainers
+ . Full Kente cloth is for Friday.\n\nVENUE\nBanking Hall\, 14 Cornhill\, L
+ ondon EC3V 3ND\n\nNEAREST TUBE\nBank: Central\, Northern\, Waterloo and Ci
+ ty lines and the DLR\, about 2 minutes on foot\nMonument: District and Cir
+ cle lines\, about 5 minutes on foot\nLiverpool Street: Elizabeth line and 
+ mainline trains\, about 10 minutes on foot\nThere is very little parking i
+ n the City. Come by Tube\, train or taxi.\n\nBRING\nYour ticket QR code on
+  your phone\, and photo ID.\n\nGOOD TO KNOW\nSeventy years to the day: Ind
+ ependence Day\nKeep your wristband on\, and come and go as you please\nAll
+  ages welcome. No pushchairs or buggies. Card only bar for over 18s\, Chal
+ lenge 25\nThe venue is on two floors connected by stairs only.\n\nQuestion
+ s: call Asantewaa on +44 7824 555307\nhttps://ghanaat70uk.com/ghana-day
+URL:https://ghanaat70uk.com/ghana-day
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Ghana at 70 UK: Ghana Day Festival is tomorrow. Dress: Print a
+ nd denim
+TRIGGER:-P1D
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Ghana at 70 UK: Ghana Day Festival. Nearest Tube: Bank
+TRIGGER:-PT2H
+END:VALARM
+END:VEVENT
+END:VCALENDAR

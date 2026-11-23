@@ -23,6 +23,12 @@ const TYPES = {
   checkout: { pipeline: "GA70 Tickets", stage: "Checkout started", tag: "GA70 Checkout", reply: "Thank you for choosing Ghana at 70 UK. If you completed payment, your golden tickets follow by email. If you have not paid yet, nothing is reserved until payment is made, and your secure payment link follows shortly." },
   sessions: { pipeline: "GA70 Tickets", stage: "Registered interest", tag: "GA70 Session Interest", reply: "Medaase. Your ideas for Women of the Motherland are with our programme team. We tell you first when talks and masterclasses are confirmed. Registering does not reserve a place." },
   alliance: { pipeline: "GA70 Partnerships", stage: "Alliance request", tag: "GA70 Alliance Partner", reply: "Thank you for asking to become an alliance partner of Ghana at 70 UK. Your one page agreement and personal booking link follow within one working day." },
+  connect: { pipeline: "GA70 Partnerships", stage: "Diaspora connection request", tag: "GA70 Connect", reply: "Thank you for getting in touch with Ghana at 70 UK about reaching the diaspora. Our partnerships team will reply within one working day." },
+  draw: { pipeline: "GA70 Tickets", stage: "Hamper draw entry", tag: "GA70 Hamper Draw", reply: "You are entered in the free Ghana at 70 UK hamper draw. The winner is drawn on Independence Day, Saturday 6 March 2027, and told by email within 3 working days." },
+  exinterest: { pipeline: "GA70 Exhibitors", stage: "Registered interest", tag: "GA70 Exhibitor Interest", reply: "Thank you for registering your interest in exhibiting at Ghana at 70 UK. Our exhibitions team will be in touch with the details." },
+  quophi: { pipeline: "GA70 Enquiries", stage: "Quophi Akotuah interest", tag: "GA70 Quophi Akotuah", reply: "Thank you for registering your interest with Quophi Akotuah, Fashion Partner of Ghana at 70 UK. You will hear from us soon." },
+  interest: { pipeline: "GA70 Tickets", stage: "Registered interest", tag: "GA70 Ghana Day Interest", reply: "Thank you for registering your interest in Saturday 6 March 2027 at Ghana at 70 UK. You will hear first when the details are confirmed." },
+  sunint: { pipeline: "GA70 Tickets", stage: "Registered interest", tag: "GA70 Sunday Interest", reply: "Thank you for registering your interest in Women of the Motherland on Sunday 7 March 2027. You will hear first when the details are confirmed." },
   compete: { pipeline: "GA70 Competitions", stage: "Entered", tag: "GA70 Competitor", reply: "You are entered for the Ghana Day Festival games. Rules and your call times arrive by email in February 2027." }
 };
 const clip = (s, n) => String(s == null ? "" : s).slice(0, n);
@@ -98,6 +104,21 @@ module.exports = async (req, res) => {
     submittedAt: new Date().toISOString()
   };
 
+  // Every other field the form sent (dates, rooms, what an exhibitor sells and so on), so nothing is lost on the way to the CRM
+  const NAMED = new Set(["website", "consent", "type", "page", "source", "email", "firstName", "lastName", "title", "phone", "organisation", "interests",
+    "partySize", "category", "standType", "galaWanted", "galaSeats", "heardFrom", "message", "motherName", "basket", "day", "quantity", "unitPrice",
+    "value", "sitting", "masterclass", "checkoutUrl", "payBy", "giftFor", "news", "organisationUrl", "invitedBy", "ref", "utm_source", "utm_medium",
+    "utm_campaign", "utm_term", "utm_content", "gclid", "fbclid", "ttclid", "li_fat_id", "device", "language", "screen", "timezone", "referrer", "landing"]);
+  const details = {};
+  Object.keys(body).forEach((k) => {
+    if (NAMED.has(k) || Object.keys(details).length >= 40) return;
+    const v = body[k];
+    if (v == null || v === "") return;
+    details[clip(k, 40)] = Array.isArray(v) ? v.map((x) => clip(x, 200)).join(", ") : clip(typeof v === "object" ? JSON.stringify(v) : v, 500);
+  });
+  record.details = details;
+  record.detailsText = Object.entries(details).map(([k, v]) => k + ": " + v).join("\n").slice(0, 4000);
+
   const tasks = [];
   const ghl = process.env.GHL_WEBHOOK_URL;
   const resendKey = process.env.RESEND_API_KEY;
@@ -117,7 +138,7 @@ module.exports = async (req, res) => {
     }).then((r) => { if (!r.ok) throw new Error("Email " + r.status); });
 
     if (process.env.NOTIFY_EMAIL) {
-      const rows = Object.entries(record).filter(([k]) => k !== "tags")
+      const rows = Object.entries(record).filter(([k]) => k !== "tags" && k !== "details")
         .map(([k, v]) => `<tr><td style="padding:4px 12px 4px 0;color:#4A5A52">${esc(k)}</td><td style="padding:4px 0">${esc(Array.isArray(v) ? v.join(", ") : v)}</td></tr>`).join("");
       tasks.push(send({
         from: process.env.FROM_EMAIL,

@@ -1,0 +1,44 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Ghana at 70 UK//Save the date//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:gala-2027@ghanaat70
+DTSTAMP:20261116T120000Z
+DTSTART:20270305T183000Z
+DTEND:20270306T003000Z
+SUMMARY:Ghana at 70 UK: The Royal Jubilee Gala
+LOCATION:Banking Hall\, 14 Cornhill\, London EC3V 3ND
+DESCRIPTION:GHANA AT 70 UK: THE ROYAL JUBILEE GALA\nFriday 5 March 2027 ·
+  18:30 to 00:30\n\nTIMINGS\n18:30  Doors and red carpet\n19:45  Last entry
+ . The drums begin\n20:00  Seated for dinner\n23:30  Dancing ends\n00:00  T
+ he midnight toast\, as Independence Day begins\n00:30  Venue closes\n\nDRE
+ SS CODE\nBlack Tie or Kente. Kente\, gold and black tie. Ladies: Kente kab
+ a and slit or a long evening gown. Gentlemen: full Kente worn toga style o
+ ver the left shoulder\, or black tie with a Kente stole. Miniature decorat
+ ions may be worn.\n\nVENUE\nBanking Hall\, 14 Cornhill\, London EC3V 3ND\n
+ \nNEAREST TUBE\nBank: Central\, Northern\, Waterloo and City lines and the
+  DLR\, about 2 minutes on foot\nMonument: District and Circle lines\, abou
+ t 5 minutes on foot\nLiverpool Street: Elizabeth line and mainline trains\
+ , about 10 minutes on foot\nThere is very little parking in the City. Come
+  by Tube\, train or taxi.\n\nBRING\nYour ticket QR code on your phone\, an
+ d photo ID.\n\nGOOD TO KNOW\nDoors close at 19:45\, so arrive early and en
+ joy the red carpet\nNo alcohol is included in the ticket. Bar for over 18s
+ \, Challenge 25\nThe venue is on two floors connected by stairs only.\n\nQ
+ uestions: call Asantewaa on +44 7824 555307\nhttps://ghanaat70uk.com/royal
+ -gala
+URL:https://ghanaat70uk.com/royal-gala
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Ghana at 70 UK: The Royal Jubilee Gala is tomorrow. Dress: Bla
+ ck Tie or Kente
+TRIGGER:-P1D
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Ghana at 70 UK: The Royal Jubilee Gala. Nearest Tube: Bank
+TRIGGER:-PT2H
+END:VALARM
+END:VEVENT
+END:VCALENDAR

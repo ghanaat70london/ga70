@@ -1,0 +1,42 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Ghana at 70 UK//Save the date//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:sunday-2027@ghanaat70
+DTSTAMP:20261116T120000Z
+DTSTART:20270307T110000Z
+DTEND:20270307T183000Z
+SUMMARY:Ghana at 70 UK: Women of the Motherland
+LOCATION:Banking Hall\, 14 Cornhill\, London EC3V 3ND
+DESCRIPTION:GHANA AT 70 UK: WOMEN OF THE MOTHERLAND\nSunday 7 March 2027 
+ · 11:00 to 18:30\n\nTIMINGS\n11:00  Doors open\n12:00  The Market and the
+  portrait studio\n13:00  Afternoon tea is served\n14:00  The Wall of Mothe
+ rs\n16:00  Networking hour\n18:30  Close\n\nDRESS CODE\nSunday best. Strai
+ ght from church. Lace or print\, a duku headwrap\, gold and beads. Familie
+ s in toning colours.\n\nVENUE\nBanking Hall\, 14 Cornhill\, London EC3V 3N
+ D\n\nNEAREST TUBE\nBank: Central\, Northern\, Waterloo and City lines and 
+ the DLR\, about 2 minutes on foot\nMonument: District and Circle lines\, a
+ bout 5 minutes on foot\nLiverpool Street: Elizabeth line and mainline trai
+ ns\, about 10 minutes on foot\nThere is very little parking in the City. C
+ ome by Tube\, train or taxi.\n\nBRING\nYour ticket QR code on your phone\,
+  and photo ID.\n\nGOOD TO KNOW\nEvery mother honoured is named aloud at 14
+ :00\nAll ages welcome. Children with an adult\nNo pushchairs or buggies\, 
+ two floors by stairs\nThe venue is on two floors connected by stairs only.
+ \n\nQuestions: call Asantewaa on +44 7824 555307\nhttps://ghanaat70uk.com/
+ women-of-the-motherland
+URL:https://ghanaat70uk.com/women-of-the-motherland
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Ghana at 70 UK: Women of the Motherland is tomorrow. Dress: Su
+ nday best
+TRIGGER:-P1D
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Ghana at 70 UK: Women of the Motherland. Nearest Tube: Bank
+TRIGGER:-PT2H
+END:VALARM
+END:VEVENT
+END:VCALENDAR
