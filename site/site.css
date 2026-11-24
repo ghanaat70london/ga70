@@ -237,3 +237,8 @@ html.nav-open .site-header .nav-book{display:none}
 }
 [id]{scroll-margin-top: 110px}
 h1,h2,h3{overflow-wrap: break-word}
+
+/* Royalty note in the footer, 24 November 2026 */
+.ft-copy > span{display:block}
+.ft-copy > span + span{margin-top:4px}
+@media (min-width: 621px){.ft-copy{display:block;text-align:left}}
