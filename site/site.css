@@ -217,3 +217,13 @@ h1,h2,h3{overflow-wrap: break-word}
 /* Fewer, sharper images, 24 November 2026: one sharp piece from the collection until the full collection opens */
 .qa-coll-one .qa-works{grid-template-columns:minmax(0,460px);justify-content:center}
 .qa-coll-one .qa-work img{width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;border-radius:14px;box-shadow:0 24px 60px -30px rgba(10,40,30,.45)}
+/* Book now, always in view on phones, 24 November 2026 */
+@media (max-width: 700px){
+html .site-header .nav-book{display:inline-flex;order:1;padding:9px 14px;font-size:.72rem;letter-spacing:.12em;white-space:nowrap}
+html .site-header .nav-toggle .nt-l{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+html .site-header .nav-toggle{padding:12px}
+html.nav-open .site-header .nav-book{display:none}
+}
+@media (max-width: 360px){html .site-header .nav-book{padding:8px 10px;font-size:.66rem;letter-spacing:.08em}}
+@media (max-width: 420px){html .site-header .nav{gap:6px}html .site-header .nav-book{padding:9px 11px;letter-spacing:.09em}html .site-header .nav-toggle{padding:10px}}
+@media (max-width: 360px){html .site-header .brand img,html .site-header .brand svg{max-width:112px;height:auto}html .site-header .nav{padding-left:14px;padding-right:14px}}
