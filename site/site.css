@@ -7,6 +7,10 @@
 .ev-more{position:relative}
 .ev-more::after{content:"";position:absolute;left:0;right:0;top:-10px;bottom:-10px}
 
+/* Fewer, sharper images, 24 November 2026: one sharp piece from the collection until the full collection opens */
+.qa-coll-one .qa-works{grid-template-columns:minmax(0,460px);justify-content:center}
+.qa-coll-one .qa-work img{width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;border-radius:14px;box-shadow:0 24px 60px -30px rgba(10,40,30,.45)}
+
 /* Luxury menu, 24 November 2026.
    Phones and tablets: one calm screen with everything visible at once.
    The three days as calendar tiles, Saturday's four worlds as tiles,
