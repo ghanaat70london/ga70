@@ -18,6 +18,12 @@ html.nav-open .site-header .nav-book{display:none}
 @media (max-width: 420px){html .site-header .nav{gap:6px}html .site-header .nav-book{padding:9px 11px;letter-spacing:.09em}html .site-header .nav-toggle{padding:10px}}
 @media (max-width: 360px){html .site-header .brand img,html .site-header .brand svg{max-width:112px;height:auto}html .site-header .nav{padding-left:14px;padding-right:14px}}
 
+/* Capital and connections, 24 November 2026: lists on light bands */
+.band.white .access-list b,.band.ivory .access-list b{color:var(--emerald)}
+.band.white .access-list span,.band.ivory .access-list span{color:var(--ink-soft)}
+.band.white .access-list li,.band.ivory .access-list li{border-color:color-mix(in srgb,var(--gold) 40%,transparent)}
+.band.white .access-list a,.band.ivory .access-list a{color:var(--emerald)}
+
 /* Fewer, sharper images, 24 November 2026: one sharp piece from the collection until the full collection opens */
 .qa-coll-one .qa-works{grid-template-columns:minmax(0,460px);justify-content:center}
 .qa-coll-one .qa-work img{width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;border-radius:14px;box-shadow:0 24px 60px -30px rgba(10,40,30,.45)}
