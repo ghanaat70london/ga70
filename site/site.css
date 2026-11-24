@@ -268,3 +268,8 @@ html.nav-open .site-header .nav-book{display:none}
     padding: 22px 14px 14px;
   }
 }
+
+/* Royalty note in the footer, 24 November 2026 */
+.ft-copy > span{display:block}
+.ft-copy > span + span{margin-top:4px}
+@media (min-width: 621px){.ft-copy{display:block;text-align:left}}
