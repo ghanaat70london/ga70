@@ -6,3 +6,40 @@
 .ft-phone{display:inline-block;padding-block:4px;min-height:24px}
 .ev-more{position:relative}
 .ev-more::after{content:"";position:absolute;left:0;right:0;top:-10px;bottom:-10px}
+
+/* Responsive polish, 24 November 2026.
+   1. Landscape phones: the hero and header no longer take more than one screen.
+   2. Touch: no iPhone zoom on form fields, larger tap areas, hover effects only where a mouse exists.
+   3. Readability: small labels never below 12px on phones and tablets.
+   4. Anchors land below the sticky header, and long words never break the layout. */
+@media (max-height: 520px) and (orientation: landscape){
+  .page-head{min-height: auto;padding-block: 72px 40px}
+  .page-head .ph-scroll{display: none}
+  .site-header{padding-block: 6px}
+  .site-header .brand img,.site-header .brand svg{max-height: 44px;width: auto}
+  .hero{min-height: auto}
+  .hero .arch{max-width: 460px;margin-inline: auto}
+}
+@media (max-width: 900px), (pointer: coarse){
+  input:not([type=checkbox]):not([type=radio]):not([type=range]),select,textarea{font-size: 16px}
+}
+@media (pointer: coarse){
+  .spl-dot{position: relative}
+  .spl-dot::after{content: "";position: absolute;inset: -10px}
+  .spl-dots{gap: 14px}
+  .site-footer a,.ft-col a,.ph-link,.ev-more,.wn-band a,.dir-open a{display: inline-block;padding-block: 8px}
+  .chip{min-height: 40px;display: inline-flex;align-items: center}
+  .gd4 b a{display: inline-block;padding-block: 6px}
+}
+@media (max-width: 1023px){
+  .eyebrow,.xc-k,.xt-k,.xf-k,.vb-k,.k,.sp-avail,.tm-role,.rsvp-kicker,.rsvp-date,.sd-h,.fog-who,
+  .co-steps li,.co-tabs button b,.co-tabs button small,.co-tabs button span,.site-footer p,
+  .gt-stub span,.rt-card i,.sd-tile span,.pj-then i,.pj-now i,.ct-grid li span,.pjm-ladder li span,.dir-glance li span,
+  .ls-item legend,blockquote cite,th{font-size: 12px !important}
+  .wrap > p > a{font-size: inherit}
+}
+@media (hover: none){
+  .gd4 b a:hover{color: inherit}
+}
+[id]{scroll-margin-top: 110px}
+h1,h2,h3{overflow-wrap: break-word}
