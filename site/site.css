@@ -243,6 +243,8 @@ h1,h2,h3{overflow-wrap: break-word}
 .ft-copy > span + span{margin-top:4px}
 @media (min-width: 621px){.ft-copy{display:block;text-align:left}}
 
-/* Held until 20 January 2027: Women of the Motherland is not promoted before then. Delete data-hold="20-jan" to show again. */
+/* Held until 20 January 2027: the Sunday promotions on the home page and the Sunday gift card. Sunday stays in the menu, tickets, visit and gallery, quietly. Delete this rule on 20 January. */
 [data-hold="20-jan"]{display:none !important}
-@media (max-width: 1180px){html .site-header .nav-links.open > li:nth-child(1){grid-column:1 / span 3}html .site-header .nav-links.open > li.dd-saturday > .dd-btn{grid-column:4 / span 3}}
+
+/* Royal explained in the home hero, 24 November 2026 */
+.hero-royal{max-width:40ch;margin:6px auto 4px;font-style:italic;font-size:clamp(.95rem,2.6vw,1.1rem);line-height:1.5;color:var(--gold-hi);text-align:center}
