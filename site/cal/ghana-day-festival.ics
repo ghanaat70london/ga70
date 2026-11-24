@@ -7,32 +7,32 @@ BEGIN:VEVENT
 UID:ghanaday-2027@ghanaat70
 DTSTAMP:20261116T120000Z
 DTSTART:20270306T083000Z
-DTEND:20270306T180000Z
+DTEND:20270306T170000Z
 SUMMARY:Ghana at 70 UK: Ghana Day Festival
 LOCATION:Banking Hall\, 14 Cornhill\, London EC3V 3ND
-DESCRIPTION:GHANA AT 70 UK: GHANA DAY FESTIVAL\nSaturday 6 March 2027 · 0
- 8:30 to 18:00\n\nTIMINGS\n08:30  Doors open. The Art Morning\n08:30  The B
- usiness Hub\, by appointment\, until 14:00\n11:00  The exhibition opens\, 
- until 18:00\n12:00  The drums\, then the DJ\n15:00  The Fashion Show\n16:3
- 0  Last entry\n18:00  Doors close\n\nDRESS CODE\nPrint and denim. Relaxed 
- and ready to dance. A print top or shirt with jeans\, Ankara\, or your Bla
- ck Stars shirt. Flat shoes or clean trainers. Save the ball gown for Frida
- y.\n\nVENUE\nBanking Hall\, 14 Cornhill\, London EC3V 3ND\n\nNEAREST TUBE\
- nBank: Central\, Northern\, Waterloo and City lines and the DLR\, about 2 
- minutes on foot\nMonument: District and Circle lines\, about 5 minutes on 
- foot\nLiverpool Street: Elizabeth line and mainline trains\, about 10 minu
- tes on foot\nThere is very little parking in the City. Come by Tube\, trai
- n or taxi.\n\nBRING\nYour ticket QR code on your phone\, and photo ID.\n\n
- GOOD TO KNOW\nSeventy years to the day: Independence Day\nKeep your wristb
- and on\, and come and go as you please\nAll ages welcome. No pushchairs or
-  buggies. Card only bar for over 18s\, Challenge 25\nThe venue is on two f
- loors connected by stairs only.\n\nQuestions: call Asantewaa on +44 7824 5
- 55307\nhttps://ghanaat70uk.com/ghana-day
+DESCRIPTION:GHANA AT 70 UK: GHANA DAY FESTIVAL\nSaturday 6 March 2027 · 08
+ :30 to 17:00\n\nTIMINGS\n08:30  Doors open. The Art Morning\n08:30  The Bu
+ siness Hub\, by appointment\, until 14:00\n09:00  The exhibition opens\, u
+ ntil 17:00\n12:00  The drums\, then the DJ\n15:00  The Fashion Show\n16:00
+   Last entry\n17:00  Doors close\n\nDRESS CODE\nPrint and denim. Relaxed a
+ nd ready to dance. A print top or shirt with jeans\, Ankara\, or your Blac
+ k Stars shirt. Flat shoes or clean trainers. Save the ball gown for Friday
+ .\n\nVENUE\nBanking Hall\, 14 Cornhill\, London EC3V 3ND\n\nNEAREST TUBE\n
+ Bank: Central\, Northern\, Waterloo and City lines and the DLR\, about 2 m
+ inutes on foot\nMonument: District and Circle lines\, about 5 minutes on f
+ oot\nLiverpool Street: Elizabeth line and mainline trains\, about 10 minut
+ es on foot\nThere is very little parking in the City. Come by Tube\, train
+  or taxi.\n\nBRING\nYour ticket QR code on your phone\, and photo ID.\n\nG
+ OOD TO KNOW\nSeventy years to the day: Independence Day\nKeep your wristba
+ nd on\, and come and go as you please\nAll ages welcome. No pushchairs or 
+ buggies. Card only bar for over 18s\, Challenge 25\nThe venue is on two fl
+ oors connected by stairs only.\n\nQuestions: call Asantewaa on +44 7824 55
+ 5307\nhttps://ghanaat70uk.com/ghana-day
 URL:https://ghanaat70uk.com/ghana-day
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Ghana at 70 UK: Ghana Day Festival is tomorrow. Dress: Print a
- nd denim
+DESCRIPTION:Ghana at 70 UK: Ghana Day Festival is tomorrow. Dress: Print an
+ d denim
 TRIGGER:-P1D
 END:VALARM
 BEGIN:VALARM
