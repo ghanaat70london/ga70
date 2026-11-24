@@ -6,3 +6,21 @@
 .ft-phone{display:inline-block;padding-block:4px;min-height:24px}
 .ev-more{position:relative}
 .ev-more::after{content:"";position:absolute;left:0;right:0;top:-10px;bottom:-10px}
+
+/* Ghana Day: Why visit, why exhibit (24 November 2026) */
+.gd-why .section-head h2{font-family: var(--display)}
+.why-grid{display: grid;grid-template-columns: repeat(2, minmax(0, 1fr));gap: clamp(18px, 2.4vw, 32px);margin-top: clamp(28px, 4vw, 48px)}
+.why{position: relative;border-radius: 28px;padding: clamp(40px, 5vw, 72px) clamp(26px, 4vw, 64px);text-align: center;display: flex;flex-direction: column;align-items: center;gap: 16px;overflow: hidden;min-width: 0}
+.why::after{content: "";position: absolute;inset: 12px;border-radius: 20px;border: 1px solid currentColor;opacity: .22;pointer-events: none}
+.why-visit{background: radial-gradient(120% 120% at 20% 0%, #145c42, var(--emerald) 50%, var(--emerald-deep));color: var(--ivory)}
+.why-exhibit{background: linear-gradient(145deg, var(--gold-hi) 0%, var(--gold) 52%, var(--gold-lo) 100%);color: #14110a}
+.why-k{font-size: .78rem;letter-spacing: .26em;text-transform: uppercase;font-weight: 600}
+.why-visit .why-k{color: var(--gold-on-dark)}
+.why h3{font-family: var(--display);font-weight: 500;font-size: clamp(2.6rem, 5vw, 4.2rem);line-height: 1;margin: 4px 0 6px;letter-spacing: -.01em}
+.why p{max-width: 34rem;margin: 0;font-size: clamp(1.05rem, 1.4vw, 1.2rem);line-height: 1.7}
+.why .why-small{font-size: .95rem;opacity: .78;letter-spacing: .02em}
+.why-btn{margin-top: 14px;display: inline-flex;align-items: center;justify-content: center;min-height: 48px;padding: 14px 34px;border-radius: 999px;border: 1px solid currentColor;color: inherit !important;text-decoration: none !important;font-size: .8rem;letter-spacing: .22em;text-transform: uppercase;transition: background .3s ease, color .3s ease}
+.why-visit .why-btn:hover{background: var(--ivory);color: var(--emerald) !important}
+.why-exhibit .why-btn{background: #14110a;border-color: #14110a;color: var(--ivory) !important}
+.why-exhibit .why-btn:hover{background: #000}
+@media (max-width: 860px){.why-grid{grid-template-columns: 1fr}.why{border-radius: 22px}.why::after{inset: 9px;border-radius: 15px}}
