@@ -1,10 +1,185 @@
 try{document.querySelectorAll("[data-pl]").forEach(function(e){e.setAttribute("pathLength",e.getAttribute("data-pl"));});}catch{}
-var SITE_CONFIG={contactEmail:"hello@ghanaat70uk.com",contactPhone:"+44 7824 555307",endpoint:"/api/register",anniversary:"2027-03-06T00:00:00Z",ticketTailor:{widgetScript:"https://cdn.tickettailor.com/js/widgets/min/widget.js",boxOffice:"interopa",customDomain:"",events:{gala:"2542641",ghanaday:"2542611",sunday:"2542630",weekend:""},links:{gala:"https://buytickets.at/interopa/2542641",ghanaday:"https://buytickets.at/interopa/2542611",sunday:"https://buytickets.at/interopa/2542630",weekend:"",boxoffice:""},},earlyBird:{gala:150,full:200,on:true,perOrder:2},tableFree:{gala:10},tracking:{ga4:"",googleAds:"",metaPixel:"",tiktok:"",linkedin:"",snapchat:"",clarity:"",adsLeadLabel:"",adsPartnerLabel:"",adsPurchaseLabel:"",linkedinLead:"",linkedinPartner:""},};(function(){var TT=SITE_CONFIG.ticketTailor||{},ev=TT.events||{},ln=TT.links||{};var DAYS=["gala","ghanaday","sunday","weekend"];var live=function(d){return!!(TT.widgetScript&&TT.boxOffice&&ev[d]);};var link=function(d){return ln[d]||ln.boxoffice||"";};var any=DAYS.some(live)||!!ln.boxoffice;window.GA70TT={live:live,any:any};if(!any)return;document.documentElement.classList.add("tt-on");if(DAYS.some(live)){var sc=document.createElement("script");sc.src=TT.widgetScript;sc.async=true;document.head.appendChild(sc);}
-var setHref=function(){document.querySelectorAll("[data-pay]").forEach(function(a){var d=a.getAttribute("data-pay"),u=d==="pick"?ln.boxoffice||"":link(d);if(u&&a.tagName==="A"){a.href=u;a.rel="noopener";}});document.querySelectorAll("[data-tt-link]").forEach(function(a){var u=link(a.getAttribute("data-tt-link"));if(u){a.href=u;a.closest("[data-tt-fallback]")&&(a.closest("[data-tt-fallback]").hidden=false);}});document.querySelectorAll("[data-tt-show]").forEach(function(el){el.hidden=false;});};if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",setHref);else setHref();document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest("[data-pay]");if(!a||e.metaKey||e.ctrlKey||e.shiftKey||e.button===1)return;var d=a.getAttribute("data-pay");if(d==="pick"){var all=document.getElementById("all-days");if(all){e.preventDefault();e.stopImmediatePropagation();all.scrollIntoView({behavior:"smooth",block:"start"});return;}
-if(ln.boxoffice){e.stopImmediatePropagation();return;}
-e.preventDefault();e.stopImmediatePropagation();location.href="tickets.html#all-days";return;}
-if(DAYS.indexOf(d)<0||!(live(d)||link(d)))return;e.stopImmediatePropagation();if(live(d)&&window.TTWidget&&typeof window.TTWidget.loadEvent==="function"){e.preventDefault();try{if(TT.customDomain)window.TTWidget.loadEvent(TT.boxOffice,ev[d],"website",TT.customDomain);else window.TTWidget.loadEvent(TT.boxOffice,ev[d],"website");return;}catch{}}
-var u=link(d);if(u){e.preventDefault();location.href=u;}},true,);})();(function(){var root=document.documentElement;var setComfort=function(on){root.classList.toggle("comfort",on);document.querySelectorAll("[data-comfort]").forEach(function(b){b.setAttribute("aria-pressed",on?"true":"false");});try{localStorage.setItem("ga70-comfort",on?"1":"0");}catch{}};var savedComfort=null;try{savedComfort=localStorage.getItem("ga70-comfort");}catch{}
+var SITE_CONFIG={contactEmail:"hello@ghanaat70uk.com",contactPhone:"+44 7824 555307",endpoint:"/api/register",anniversary:"2027-03-06T00:00:00Z",ticketTailor:{widgetScript:"https://cdn.tickettailor.com/js/widgets/min/widget.js",boxOffice:"interopa",customDomain:"",events:{gala:"2542641",ghanaday:"2542611",sunday:"2542630",weekend:""},links:{gala:"https://buytickets.at/interopa/2542641",ghanaday:"https://buytickets.at/interopa/2542611",sunday:"https://buytickets.at/interopa/2542630",weekend:"",boxoffice:""},},earlyBird:{gala:150,full:200,on:true,perOrder:2},tableFree:{gala:10},tracking:{ga4:"",googleAds:"",metaPixel:"",tiktok:"",linkedin:"",snapchat:"",clarity:"",adsLeadLabel:"",adsPartnerLabel:"",adsPurchaseLabel:"",linkedinLead:"",linkedinPartner:""},};
+/* ===== Ticket Tailor: official pop-out checkout, with a plain link fallback. No card data touches this site. ===== */
+(function () {
+  var TT = SITE_CONFIG.ticketTailor || {},
+    ev = TT.events || {},
+    ln = TT.links || {};
+  var DAYS = ["gala", "ghanaday", "sunday", "weekend"];
+  var live = function (d) {
+    return !!(TT.widgetScript && TT.boxOffice && ev[d]);
+  };
+  var link = function (d) {
+    return ln[d] || (live(d) ? ln.boxoffice : "") || "";
+  };
+  var any = DAYS.some(live) || !!ln.boxoffice;
+  window.GA70TT = { live: live, any: any };
+  if (!any) return;
+  document.documentElement.classList.add("tt-on");
+  /* Pop-up checkout: a dialog on this site holding the official Ticket Tailor inline widget for the chosen event.
+     The widget code is exactly what Ticket Tailor gives under Promote > Website embed code > Event listing widget,
+     with that event's ID. Ticket Tailor takes the payment inside its own frame. */
+  var NAMES = { gala: "The Royal Jubilee Gala", ghanaday: "Ghana Day Festival", sunday: "Women of the Motherland", weekend: "The Weekend Pass" };
+  var ttUrl = function (d) {
+    return (
+      "https://www.tickettailor.com/events/" + encodeURIComponent(TT.boxOffice) + "/" + encodeURIComponent(ev[d]) +
+      "/select-date?ref=website_widget&show_search_filter=true&show_date_filter=true&show_sort=true"
+    );
+  };
+  var dlg = null,
+    lastFocus = null,
+    slowTimer = 0;
+  var closeTT = function () {
+    if (!dlg || dlg.hidden) return;
+    dlg.hidden = true;
+    clearTimeout(slowTimer);
+    dlg.querySelector("[data-tt-body]").innerHTML = "";
+    document.documentElement.classList.remove("co-open");
+    if (lastFocus && lastFocus.focus) lastFocus.focus();
+  };
+  var openTT = function (d, opener) {
+    if (!dlg) {
+      dlg = document.createElement("div");
+      dlg.className = "co co-tt";
+      dlg.hidden = true;
+      dlg.innerHTML =
+        '<div class="co-back" data-tt-close></div>' +
+        '<div class="co-panel" role="dialog" aria-modal="true" aria-labelledby="tt-title">' +
+        '<button class="co-x" type="button" data-tt-close aria-label="Close">×</button>' +
+        '<h2 id="tt-title" class="tt-title"></h2>' +
+        '<div class="tt-body" data-tt-body></div>' +
+        '<p class="tt-alt">Trouble with this window? <a data-tt-alt target="_blank" rel="noopener">Open the booking page</a></p>' +
+        "</div>";
+      document.body.appendChild(dlg);
+      dlg.addEventListener("click", function (e) {
+        if (e.target.closest("[data-tt-close]")) closeTT();
+      });
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") closeTT();
+      });
+    }
+    lastFocus = opener;
+    dlg.querySelector(".tt-title").textContent = NAMES[d] || "Tickets";
+    dlg.querySelector("[data-tt-alt]").href = link(d);
+    var body = dlg.querySelector("[data-tt-body]");
+    body.innerHTML = '<p class="tt-wait">Opening the secure Ticket Tailor checkout</p>';
+    var w = document.createElement("div");
+    w.className = "tt-widget";
+    var sc = document.createElement("script");
+    sc.src = TT.widgetScript;
+    var at = {
+      "data-url": ttUrl(d),
+      "data-type": "inline",
+      "data-inline-minimal": "true",
+      "data-inline-show-logo": "false",
+      "data-inline-bg-fill": "true",
+      "data-inline-inherit-ref-from-url-param": "",
+      "data-inline-ref":
+        (function () {
+          try {
+            return (new URLSearchParams(location.search).get("ref") || sessionStorage.getItem("ref") || "").replace(/[^\w .'-]/g, "").slice(0, 120);
+          } catch (e) {
+            return "";
+          }
+        })() || "website_widget",
+    };
+    for (var k in at) sc.setAttribute(k, at[k]);
+    sc.onerror = function () {
+      location.href = link(d);
+    };
+    w.appendChild(sc);
+    body.appendChild(w);
+    dlg.hidden = false;
+    document.documentElement.classList.add("co-open");
+    dlg.querySelector(".co-x").focus();
+    /* If the widget has not drawn its frame after 10 seconds, point the guest at the booking page */
+    clearTimeout(slowTimer);
+    slowTimer = setTimeout(function () {
+      if (!body.querySelector("iframe")) {
+        var wait = body.querySelector(".tt-wait");
+        if (wait) wait.textContent = "The checkout is slow to open. Use the link below to book on the Ticket Tailor page.";
+      } else {
+        var wt = body.querySelector(".tt-wait");
+        if (wt) wt.remove();
+      }
+    }, 10000);
+    var poll = setInterval(function () {
+      if (dlg.hidden) return clearInterval(poll);
+      if (body.querySelector("iframe")) {
+        var wt = body.querySelector(".tt-wait");
+        if (wt) wt.remove();
+        clearInterval(poll);
+      }
+    }, 250);
+  };
+  /* Real links on every booking button, so no script, a long press or a new tab still reaches the box office */
+  var setHref = function () {
+    document.querySelectorAll("[data-pay]").forEach(function (a) {
+      var d = a.getAttribute("data-pay"),
+        u = d === "pick" ? ln.boxoffice || "" : link(d);
+      if (u && a.tagName === "A") {
+        a.href = u;
+        a.rel = "noopener";
+      }
+    });
+    document.querySelectorAll("[data-tt-link]").forEach(function (a) {
+      var u = link(a.getAttribute("data-tt-link"));
+      if (u) {
+        a.href = u;
+        a.closest("[data-tt-fallback]") && (a.closest("[data-tt-fallback]").hidden = false);
+      }
+    });
+    document.querySelectorAll("[data-tt-show]").forEach(function (el) {
+      el.hidden = false;
+    });
+    document.querySelectorAll("[data-tt-hide]").forEach(function (el) {
+      el.hidden = true;
+    });
+  };
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", setHref);
+  else setHref();
+  document.addEventListener(
+    "click",
+    function (e) {
+      var a = e.target.closest && e.target.closest("[data-pay]");
+      if (!a || e.metaKey || e.ctrlKey || e.shiftKey || e.button === 1) return;
+      var d = a.getAttribute("data-pay");
+      if (d === "pick") {
+        var all = document.getElementById("all-days");
+        if (all) {
+          e.preventDefault();
+          e.stopImmediatePropagation();
+          all.scrollIntoView({ behavior: "smooth", block: "start" });
+          return;
+        }
+        if (ln.boxoffice) {
+          e.stopImmediatePropagation();
+          return;
+        }
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        location.href = "tickets.html#all-days";
+        return;
+      }
+      if (DAYS.indexOf(d) < 0 || !(live(d) || link(d))) return;
+      e.stopImmediatePropagation();
+      if (live(d)) {
+        e.preventDefault();
+        try {
+          openTT(d, a);
+          return;
+        } catch {}
+      }
+      var u = link(d);
+      if (u) {
+        e.preventDefault();
+        location.href = u;
+      }
+    },
+    true,
+  );
+})();
+(function(){var root=document.documentElement;var setComfort=function(on){root.classList.toggle("comfort",on);document.querySelectorAll("[data-comfort]").forEach(function(b){b.setAttribute("aria-pressed",on?"true":"false");});try{localStorage.setItem("ga70-comfort",on?"1":"0");}catch{}};var savedComfort=null;try{savedComfort=localStorage.getItem("ga70-comfort");}catch{}
 if(savedComfort==="1"||(savedComfort===null&&window.matchMedia&&window.matchMedia("(prefers-contrast: more)").matches))
 setComfort(true);document.querySelectorAll("[data-comfort]").forEach(function(b){b.addEventListener("click",function(){setComfort(!root.classList.contains("comfort"));});});var toggle=document.querySelector(".nav-toggle");var links=document.getElementById("nav-links");if(toggle&&links){toggle.addEventListener("click",function(){var open=links.classList.toggle("open");toggle.setAttribute("aria-expanded",open?"true":"false");var l=toggle.querySelector(".nt-l");if(l)l.textContent=open?"Close":"Menu";else toggle.textContent=open?"Close":"Menu";var hd=document.querySelector(".site-header");if(hd)
 document.documentElement.style.setProperty("--hdr",Math.round(hd.getBoundingClientRect().bottom)+"px",);document.documentElement.classList.toggle("nav-open",open);});links.addEventListener("click",function(e){if(e.target.closest("a")&&links.classList.contains("open")){links.classList.remove("open");toggle.setAttribute("aria-expanded","false");var l=toggle.querySelector(".nt-l");if(l)l.textContent="Menu";document.documentElement.classList.remove("nav-open");}});document.addEventListener("keydown",function(e){if(e.key==="Escape"&&links.classList.contains("open")){toggle.click();toggle.focus();}});window.matchMedia("(min-width: 1181px)").addEventListener("change",function(m){if(m.matches&&links.classList.contains("open"))toggle.click();});}

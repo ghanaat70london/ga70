@@ -227,3 +227,44 @@ html.nav-open .site-header .nav-book{display:none}
 @media (max-width: 360px){html .site-header .nav-book{padding:8px 10px;font-size:.66rem;letter-spacing:.08em}}
 @media (max-width: 420px){html .site-header .nav{gap:6px}html .site-header .nav-book{padding:9px 11px;letter-spacing:.09em}html .site-header .nav-toggle{padding:10px}}
 @media (max-width: 360px){html .site-header .brand img,html .site-header .brand svg{max-width:112px;height:auto}html .site-header .nav{padding-left:14px;padding-right:14px}}
+
+/* Ticket Tailor pop-up checkout */
+.co-tt .co-panel {
+  width: min(760px, 100%);
+  height: min(860px, calc(100dvh - 32px));
+  grid-template-rows: auto 1fr auto;
+  padding: 28px 22px 18px;
+}
+.co-tt .tt-title {
+  margin: 0;
+  padding-right: 48px;
+  font-size: clamp(1.4rem, 3.4vw, 2rem);
+}
+.co-tt .tt-body {
+  min-height: 0;
+  overflow: auto;
+}
+.co-tt .tt-body iframe {
+  width: 100%;
+  border: 0;
+}
+.co-tt .tt-wait,
+.co-tt .tt-alt {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #4a5a52;
+}
+.co-tt .tt-alt a {
+  color: #0e5238;
+}
+@media (max-width: 600px) {
+  .co.co-tt {
+    padding: 0;
+  }
+  .co-tt .co-panel {
+    height: 100dvh;
+    max-height: none;
+    border-radius: 0;
+    padding: 22px 14px 14px;
+  }
+}
