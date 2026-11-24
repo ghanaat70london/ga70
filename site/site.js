@@ -1,190 +1,15 @@
 try{document.querySelectorAll("[data-pl]").forEach(function(e){e.setAttribute("pathLength",e.getAttribute("data-pl"));});}catch{}
-var SITE_CONFIG={contactEmail:"hello@ghanaat70uk.com",contactPhone:"+44 7824 555307",endpoint:"/api/register",anniversary:"2027-03-06T00:00:00Z",ticketTailor:{widgetScript:"https://cdn.tickettailor.com/js/widgets/min/widget.js",boxOffice:"interopa",customDomain:"",events:{gala:"2542641",ghanaday:"2542611",sunday:"2542630",weekend:""},links:{gala:"https://buytickets.at/interopa/2542641",ghanaday:"https://buytickets.at/interopa/2542611",sunday:"https://buytickets.at/interopa/2542630",weekend:"",boxoffice:""},},earlyBird:{gala:150,full:200,on:true,perOrder:2},tableFree:{gala:10},tracking:{ga4:"",googleAds:"",metaPixel:"",tiktok:"",linkedin:"",snapchat:"",clarity:"",adsLeadLabel:"",adsPartnerLabel:"",adsPurchaseLabel:"",linkedinLead:"",linkedinPartner:""},};
-/* ===== Ticket Tailor: official pop-out checkout, with a plain link fallback. No card data touches this site. ===== */
-(function () {
-  var TT = SITE_CONFIG.ticketTailor || {},
-    ev = TT.events || {},
-    ln = TT.links || {};
-  var DAYS = ["gala", "ghanaday", "sunday", "weekend"];
-  var live = function (d) {
-    return !!(TT.widgetScript && TT.boxOffice && ev[d]);
-  };
-  var link = function (d) {
-    return ln[d] || (live(d) ? ln.boxoffice : "") || "";
-  };
-  var any = DAYS.some(live) || !!ln.boxoffice;
-  window.GA70TT = { live: live, any: any };
-  if (!any) return;
-  document.documentElement.classList.add("tt-on");
-  /* Pop-up checkout: a dialog on this site holding the official Ticket Tailor inline widget for the chosen event.
-     The widget code is exactly what Ticket Tailor gives under Promote > Website embed code > Event listing widget,
-     with that event's ID. Ticket Tailor takes the payment inside its own frame. */
-  var NAMES = { gala: "The Royal Jubilee Gala", ghanaday: "Ghana Day Festival", sunday: "Women of the Motherland", weekend: "The Weekend Pass" };
-  var ttUrl = function (d) {
-    return (
-      "https://www.tickettailor.com/events/" + encodeURIComponent(TT.boxOffice) + "/" + encodeURIComponent(ev[d]) +
-      "/select-date?ref=website_widget&show_search_filter=true&show_date_filter=true&show_sort=true"
-    );
-  };
-  var dlg = null,
-    lastFocus = null,
-    slowTimer = 0;
-  var closeTT = function () {
-    if (!dlg || dlg.hidden) return;
-    dlg.hidden = true;
-    clearTimeout(slowTimer);
-    dlg.querySelector("[data-tt-body]").innerHTML = "";
-    document.documentElement.classList.remove("co-open");
-    if (lastFocus && lastFocus.focus) lastFocus.focus();
-  };
-  var openTT = function (d, opener) {
-    if (!dlg) {
-      dlg = document.createElement("div");
-      dlg.className = "co co-tt";
-      dlg.hidden = true;
-      dlg.innerHTML =
-        '<div class="co-back" data-tt-close></div>' +
-        '<div class="co-panel" role="dialog" aria-modal="true" aria-labelledby="tt-title">' +
-        '<button class="co-x" type="button" data-tt-close aria-label="Close">×</button>' +
-        '<h2 id="tt-title" class="tt-title"></h2>' +
-        '<div class="tt-body" data-tt-body></div>' +
-        '<p class="tt-alt">Trouble with this window? <a data-tt-alt target="_blank" rel="noopener">Open the booking page</a></p>' +
-        "</div>";
-      document.body.appendChild(dlg);
-      dlg.addEventListener("click", function (e) {
-        if (e.target.closest("[data-tt-close]")) closeTT();
-      });
-      document.addEventListener("keydown", function (e) {
-        if (e.key === "Escape") closeTT();
-      });
-    }
-    lastFocus = opener;
-    dlg.querySelector(".tt-title").textContent = NAMES[d] || "Tickets";
-    dlg.querySelector("[data-tt-alt]").href = link(d);
-    var body = dlg.querySelector("[data-tt-body]");
-    body.innerHTML = '<p class="tt-wait">Opening the secure Ticket Tailor checkout</p>';
-    var w = document.createElement("div");
-    w.className = "tt-widget";
-    var sc = document.createElement("script");
-    sc.src = TT.widgetScript;
-    var at = {
-      "data-url": ttUrl(d),
-      "data-type": "inline",
-      "data-inline-minimal": "true",
-      "data-inline-show-logo": "false",
-      "data-inline-bg-fill": "true",
-      "data-inline-inherit-ref-from-url-param": "",
-      "data-inline-ref":
-        (function () {
-          try {
-            return (new URLSearchParams(location.search).get("ref") || sessionStorage.getItem("ref") || "").replace(/[^\w .'-]/g, "").slice(0, 120);
-          } catch (e) {
-            return "";
-          }
-        })() || "website_widget",
-    };
-    for (var k in at) sc.setAttribute(k, at[k]);
-    sc.onerror = function () {
-      location.href = link(d);
-    };
-    w.appendChild(sc);
-    body.appendChild(w);
-    dlg.hidden = false;
-    document.documentElement.classList.add("co-open");
-    dlg.querySelector(".co-x").focus();
-    /* If the widget has not drawn its frame after 10 seconds, point the guest at the booking page */
-    clearTimeout(slowTimer);
-    slowTimer = setTimeout(function () {
-      if (!body.querySelector("iframe")) {
-        var wait = body.querySelector(".tt-wait");
-        if (wait) wait.textContent = "The checkout is slow to open. Use the link below to book on the Ticket Tailor page.";
-      } else {
-        var wt = body.querySelector(".tt-wait");
-        if (wt) wt.remove();
-      }
-    }, 10000);
-    var poll = setInterval(function () {
-      if (dlg.hidden) return clearInterval(poll);
-      if (body.querySelector("iframe")) {
-        var wt = body.querySelector(".tt-wait");
-        if (wt) wt.remove();
-        clearInterval(poll);
-      }
-    }, 250);
-  };
-  /* Real links on every booking button, so no script, a long press or a new tab still reaches the box office */
-  var setHref = function () {
-    document.querySelectorAll("[data-pay]").forEach(function (a) {
-      var d = a.getAttribute("data-pay"),
-        u = d === "pick" ? ln.boxoffice || "" : link(d);
-      if (u && a.tagName === "A") {
-        a.href = u;
-        a.rel = "noopener";
-      }
-    });
-    document.querySelectorAll("[data-tt-link]").forEach(function (a) {
-      var u = link(a.getAttribute("data-tt-link"));
-      if (u) {
-        a.href = u;
-        a.closest("[data-tt-fallback]") && (a.closest("[data-tt-fallback]").hidden = false);
-      }
-    });
-    document.querySelectorAll("[data-tt-show]").forEach(function (el) {
-      el.hidden = false;
-    });
-    document.querySelectorAll("[data-tt-hide]").forEach(function (el) {
-      el.hidden = true;
-    });
-  };
-  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", setHref);
-  else setHref();
-  document.addEventListener(
-    "click",
-    function (e) {
-      var a = e.target.closest && e.target.closest("[data-pay]");
-      if (!a || e.metaKey || e.ctrlKey || e.shiftKey || e.button === 1) return;
-      var d = a.getAttribute("data-pay");
-      if (d === "pick") {
-        var all = document.getElementById("all-days");
-        if (all) {
-          e.preventDefault();
-          e.stopImmediatePropagation();
-          all.scrollIntoView({ behavior: "smooth", block: "start" });
-          return;
-        }
-        if (ln.boxoffice) {
-          e.stopImmediatePropagation();
-          return;
-        }
-        e.preventDefault();
-        e.stopImmediatePropagation();
-        location.href = "tickets.html#all-days";
-        return;
-      }
-      if (DAYS.indexOf(d) < 0 || !(live(d) || link(d))) return;
-      e.stopImmediatePropagation();
-      if (live(d)) {
-        e.preventDefault();
-        try {
-          openTT(d, a);
-          return;
-        } catch {}
-      }
-      var u = link(d);
-      if (u) {
-        e.preventDefault();
-        location.href = u;
-      }
-    },
-    true,
-  );
-})();
-(function(){var root=document.documentElement;var setComfort=function(on){root.classList.toggle("comfort",on);document.querySelectorAll("[data-comfort]").forEach(function(b){b.setAttribute("aria-pressed",on?"true":"false");});try{localStorage.setItem("ga70-comfort",on?"1":"0");}catch{}};var savedComfort=null;try{savedComfort=localStorage.getItem("ga70-comfort");}catch{}
+var SITE_CONFIG={contactEmail:"hello@ghanaat70uk.com",contactPhone:"+44 7824 555307",endpoint:"/api/register",anniversary:"2027-03-06T00:00:00Z",ticketTailor:{widgetScript:"https://cdn.tickettailor.com/js/widgets/min/widget.js",boxOffice:"interopa",customDomain:"",events:{gala:"2542641",ghanaday:"2542611",sunday:"2542630",weekend:""},links:{gala:"https://buytickets.at/interopa/2542641",ghanaday:"https://buytickets.at/interopa/2542611",sunday:"https://buytickets.at/interopa/2542630",weekend:"",boxoffice:""},},earlyBird:{gala:150,full:200,on:true,perOrder:2},tableFree:{gala:10},tracking:{ga4:"",googleAds:"",metaPixel:"",tiktok:"",linkedin:"",snapchat:"",clarity:"",adsLeadLabel:"",adsPartnerLabel:"",adsPurchaseLabel:"",linkedinLead:"",linkedinPartner:""},};(function(){var TT=SITE_CONFIG.ticketTailor||{},ev=TT.events||{},ln=TT.links||{};var DAYS=["gala","ghanaday","sunday","weekend"];var live=function(d){return!!(TT.widgetScript&&TT.boxOffice&&ev[d]);};var link=function(d){return ln[d]||ln.boxoffice||"";};var any=DAYS.some(live)||!!ln.boxoffice;window.GA70TT={live:live,any:any};if(!any)return;document.documentElement.classList.add("tt-on");if(DAYS.some(live)){var sc=document.createElement("script");sc.src=TT.widgetScript;sc.async=true;document.head.appendChild(sc);}
+var setHref=function(){document.querySelectorAll("[data-pay]").forEach(function(a){var d=a.getAttribute("data-pay"),u=d==="pick"?ln.boxoffice||"":link(d);if(u&&a.tagName==="A"){a.href=u;a.rel="noopener";}});document.querySelectorAll("[data-tt-link]").forEach(function(a){var u=link(a.getAttribute("data-tt-link"));if(u){a.href=u;a.closest("[data-tt-fallback]")&&(a.closest("[data-tt-fallback]").hidden=false);}});document.querySelectorAll("[data-tt-show]").forEach(function(el){el.hidden=false;});};if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",setHref);else setHref();document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest("[data-pay]");if(!a||e.metaKey||e.ctrlKey||e.shiftKey||e.button===1)return;var d=a.getAttribute("data-pay");if(d==="pick"){var all=document.getElementById("all-days");if(all){e.preventDefault();e.stopImmediatePropagation();all.scrollIntoView({behavior:"smooth",block:"start"});return;}
+if(ln.boxoffice){e.stopImmediatePropagation();return;}
+e.preventDefault();e.stopImmediatePropagation();location.href="tickets.html#all-days";return;}
+if(DAYS.indexOf(d)<0||!(live(d)||link(d)))return;e.stopImmediatePropagation();if(live(d)&&window.TTWidget&&typeof window.TTWidget.loadEvent==="function"){e.preventDefault();try{if(TT.customDomain)window.TTWidget.loadEvent(TT.boxOffice,ev[d],"website",TT.customDomain);else window.TTWidget.loadEvent(TT.boxOffice,ev[d],"website");return;}catch{}}
+var u=link(d);if(u){e.preventDefault();location.href=u;}},true,);})();(function(){var root=document.documentElement;var setComfort=function(on){root.classList.toggle("comfort",on);document.querySelectorAll("[data-comfort]").forEach(function(b){b.setAttribute("aria-pressed",on?"true":"false");});try{localStorage.setItem("ga70-comfort",on?"1":"0");}catch{}};var savedComfort=null;try{savedComfort=localStorage.getItem("ga70-comfort");}catch{}
 if(savedComfort==="1"||(savedComfort===null&&window.matchMedia&&window.matchMedia("(prefers-contrast: more)").matches))
 setComfort(true);document.querySelectorAll("[data-comfort]").forEach(function(b){b.addEventListener("click",function(){setComfort(!root.classList.contains("comfort"));});});var toggle=document.querySelector(".nav-toggle");var links=document.getElementById("nav-links");if(toggle&&links){toggle.addEventListener("click",function(){var open=links.classList.toggle("open");toggle.setAttribute("aria-expanded",open?"true":"false");var l=toggle.querySelector(".nt-l");if(l)l.textContent=open?"Close":"Menu";else toggle.textContent=open?"Close":"Menu";var hd=document.querySelector(".site-header");if(hd)
 document.documentElement.style.setProperty("--hdr",Math.round(hd.getBoundingClientRect().bottom)+"px",);document.documentElement.classList.toggle("nav-open",open);});links.addEventListener("click",function(e){if(e.target.closest("a")&&links.classList.contains("open")){links.classList.remove("open");toggle.setAttribute("aria-expanded","false");var l=toggle.querySelector(".nt-l");if(l)l.textContent="Menu";document.documentElement.classList.remove("nav-open");}});document.addEventListener("keydown",function(e){if(e.key==="Escape"&&links.classList.contains("open")){toggle.click();toggle.focus();}});window.matchMedia("(min-width: 1181px)").addEventListener("change",function(m){if(m.matches&&links.classList.contains("open"))toggle.click();});}
 var dds=[].slice.call(document.querySelectorAll(".dd"));var closeAll=function(except){dds.forEach(function(d){if(d!==except){d.classList.remove("open");d.querySelector(".dd-btn").setAttribute("aria-expanded","false");}});};var desktop=window.matchMedia("(min-width: 1181px) and (hover: hover)");dds.forEach(function(d){var b=d.querySelector(".dd-btn"),t=null;b.addEventListener("click",function(){if(desktop.matches&&d.classList.contains("open")&&Date.now()-(d._hov||0)<600)return;var o=!d.classList.contains("open");closeAll(d);d.classList.toggle("open",o);b.setAttribute("aria-expanded",o?"true":"false");});d.addEventListener("mouseenter",function(){if(!desktop.matches)return;clearTimeout(t);closeAll(d);if(!d.classList.contains("open"))d._hov=Date.now();d.classList.add("open");b.setAttribute("aria-expanded","true");});d.addEventListener("mouseleave",function(){if(!desktop.matches)return;t=setTimeout(function(){d.classList.remove("open");b.setAttribute("aria-expanded","false");},180);});d.addEventListener("focusout",function(e){if(desktop.matches&&!d.contains(e.relatedTarget)){d.classList.remove("open");b.setAttribute("aria-expanded","false");}});});document.addEventListener("click",function(e){if(!e.target.closest(".dd")&&!e.target.closest(".nav-toggle"))closeAll();});document.addEventListener("keydown",function(e){if(e.key==="Escape"){var o=document.querySelector(".dd.open .dd-btn");closeAll();if(o)o.focus();}});if(toggle)
-toggle.addEventListener("click",function(){var h=document.querySelector(".dd.here")||document.querySelector(".dd");if(h&&!desktop.matches&&links.classList.contains("open")){h.classList.add("open");h.querySelector(".dd-btn").setAttribute("aria-expanded","true");}});document.querySelectorAll("[data-email]").forEach(function(el){el.textContent=SITE_CONFIG.contactEmail;if(el.tagName==="A")el.href="mailto:"+SITE_CONFIG.contactEmail;});document.querySelectorAll("[data-phone]").forEach(function(el){el.textContent=SITE_CONFIG.contactPhone;if(el.tagName==="A")el.href="tel:"+SITE_CONFIG.contactPhone.replace(/\s/g,"");});document.querySelectorAll("[data-year]").forEach(function(el){el.textContent=new Date().getFullYear();});var cd=document.querySelector("[data-countdown]");if(cd){var target=new Date(SITE_CONFIG.anniversary).getTime();var cells={d:cd.querySelector("[data-d]"),h:cd.querySelector("[data-h]"),m:cd.querySelector("[data-m]"),s:cd.querySelector("[data-s]"),};var tick=function(){var diff=Math.max(0,target-Date.now());var d=Math.floor(diff/86400000);var h=Math.floor(diff/3600000)%24;var m=Math.floor(diff/60000)%60;var s=Math.floor(diff/1000)%60;cells.d.textContent=d;cells.h.textContent=String(h).padStart(2,"0");if(cells.m)cells.m.textContent=String(m).padStart(2,"0");if(cells.s)cells.s.textContent=String(s).padStart(2,"0");};tick();setInterval(tick,1000);}
+toggle.addEventListener("click",function(){var h=document.querySelector(".dd.here");if(h&&!desktop.matches&&links.classList.contains("open")){h.classList.add("open");h.querySelector(".dd-btn").setAttribute("aria-expanded","true");}});document.querySelectorAll("[data-email]").forEach(function(el){el.textContent=SITE_CONFIG.contactEmail;if(el.tagName==="A")el.href="mailto:"+SITE_CONFIG.contactEmail;});document.querySelectorAll("[data-phone]").forEach(function(el){el.textContent=SITE_CONFIG.contactPhone;if(el.tagName==="A")el.href="tel:"+SITE_CONFIG.contactPhone.replace(/\s/g,"");});document.querySelectorAll("[data-year]").forEach(function(el){el.textContent=new Date().getFullYear();});var cd=document.querySelector("[data-countdown]");if(cd){var target=new Date(SITE_CONFIG.anniversary).getTime();var cells={d:cd.querySelector("[data-d]"),h:cd.querySelector("[data-h]"),m:cd.querySelector("[data-m]"),s:cd.querySelector("[data-s]"),};var tick=function(){var diff=Math.max(0,target-Date.now());var d=Math.floor(diff/86400000);var h=Math.floor(diff/3600000)%24;var m=Math.floor(diff/60000)%60;var s=Math.floor(diff/1000)%60;cells.d.textContent=d;cells.h.textContent=String(h).padStart(2,"0");if(cells.m)cells.m.textContent=String(m).padStart(2,"0");if(cells.s)cells.s.textContent=String(s).padStart(2,"0");};tick();setInterval(tick,1000);}
 document.querySelectorAll("[data-weave]").forEach(function(canvas){if(!canvas.getContext)return;var ctx=canvas.getContext("2d");var reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;var draw=function(t){var w=canvas.clientWidth,h=canvas.clientHeight,dpr=Math.min(window.devicePixelRatio||1,3);if(!w||!h){if(!reduce)requestAnimationFrame(draw);return;}
 if(canvas.width!==Math.round(w*dpr)||canvas.height!==Math.round(h*dpr)){canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);}
 ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,w,h);var step=36,phase=(t||0)/4000;for(var x=0;x<w+step;x+=step){var i=x/step;var a=0.05+0.07*(0.5+0.5*Math.sin(phase+i*0.55));ctx.fillStyle="rgba(252,224,138,"+a.toFixed(3)+")";ctx.fillRect(x,0,i%4===0?6:2,h);}
@@ -216,8 +41,7 @@ if(!(window.Lenis&&!reduceMotion&&window.matchMedia("(pointer: fine)").matches))
 var lenis=null;if(window.Lenis&&!reduceMotion&&window.matchMedia("(pointer: fine)").matches){lenis=new window.Lenis({duration:1.15,easing:function(x){return Math.min(1,1.001-Math.pow(2,-10*x));},smoothWheel:true,});var raf=function(time){lenis.raf(time);requestAnimationFrame(raf);};requestAnimationFrame(raf);window.__ga70lenis=lenis;if(!location.hash&&navType!=="back_forward")lenis.scrollTo(0,{immediate:true});document.documentElement.classList.add("smooth");window.addEventListener("load",function(){lenis.resize();});if(document.fonts&&document.fonts.ready)
 document.fonts.ready.then(function(){lenis.resize();});document.querySelectorAll('a[href*="#"]').forEach(function(a){a.addEventListener("click",function(e){var href=a.getAttribute("href"),hash=href.slice(href.indexOf("#"));var samePage=href.charAt(0)==="#"||pageName(href.split("#")[0])===pageName(location.pathname);var target=hash.length>1&&document.querySelector(hash);if(samePage&&target){e.preventDefault();lenis.resize();lenis.scrollTo(target,{offset:-96});history.replaceState(null,"",hash);}});});}
 var headerEl=document.querySelector(".site-header");var compact=function(){if(headerEl)headerEl.classList.toggle("compact",window.scrollY>60);};window.addEventListener("scroll",compact,{passive:true});compact();var heroEl=document.querySelector(".hero"),archEl=heroEl&&heroEl.querySelector(".arch"),drapes=heroEl?heroEl.querySelectorAll(".drape"):[];if(heroEl&&archEl&&!reduceMotion){var heroTick=false;var heroScroll=function(){heroTick=false;var h=heroEl.offsetHeight,p=Math.max(0,Math.min(1,window.scrollY/h));archEl.style.transform="translate3d(0,"+(p*60).toFixed(1)+"px,0) scale("+(1-p*0.08).toFixed(4)+")";archEl.style.opacity=(1-p*0.5).toFixed(3);drapes.forEach(function(d,i){d.style.transform="translate3d(0,"+(p*(i?-90:90)).toFixed(1)+"px,0)";});};window.addEventListener("scroll",function(){if(!heroTick){heroTick=true;requestAnimationFrame(heroScroll);}},{passive:true},);}
-document.querySelectorAll(".days, .cards, .bento, .master, .speakers, .adinkra, .facts, .regalia, .invite, .tickets",).forEach(function(g){Array.prototype.forEach.call(g.children,function(c,i){c.style.setProperty("--i",i%6);});});document.querySelectorAll(".days, .master").forEach(function(g){var dots=document.createElement("div");dots.className="dots";dots.setAttribute("aria-hidden","true");Array.prototype.forEach.call(g.children,function(){dots.appendChild(document.createElement("i"));});g.after(dots);var upd=function(){var kids=g.children,best=0,bd=1e9,mid=g.scrollLeft+g.clientWidth/2;for(var i=0;i<kids.length;i++){var c=kids[i].offsetLeft+kids[i].offsetWidth/2,d=Math.abs(c-mid);if(d<bd){bd=d;best=i;}}
-Array.prototype.forEach.call(dots.children,function(d,i){d.classList.toggle("on",i===best);});};g.addEventListener("scroll",function(){requestAnimationFrame(upd);},{passive:true},);upd();});var local=document.querySelector("[data-localnav]"),ph=document.querySelector(".page-head");if(local&&ph){var ln=function(){local.classList.toggle("show",ph.getBoundingClientRect().bottom<70);};window.addEventListener("scroll",ln,{passive:true});ln();}
+document.querySelectorAll(".days, .cards, .bento, .master, .speakers, .adinkra, .facts, .regalia, .invite, .tickets",).forEach(function(g){Array.prototype.forEach.call(g.children,function(c,i){c.style.setProperty("--i",i%6);});});var local=document.querySelector("[data-localnav]"),ph=document.querySelector(".page-head");if(local&&ph){var ln=function(){local.classList.toggle("show",ph.getBoundingClientRect().bottom<70);};window.addEventListener("scroll",ln,{passive:true});ln();}
 if(ph&&!reduceMotion){var phIn=ph.querySelector(".ph-inner"),phW=ph.querySelector(".watermark"),phTick=false;window.addEventListener("scroll",function(){if(phTick)return;phTick=true;requestAnimationFrame(function(){phTick=false;var p=Math.max(0,Math.min(1,window.scrollY/ph.offsetHeight));if(phIn){phIn.style.transform="translate3d(0,"+(p*70).toFixed(1)+"px,0)";phIn.style.opacity=(1-p*0.6).toFixed(3);}
 if(phW)
 phW.style.transform="translateY(-50%) rotate("+
@@ -258,7 +82,7 @@ ttq.track(ttMap[ev],{currency:"GBP",value:p.value||0,content_id:p.day,quantity:p
 if(slug==="tickets")
 setTimeout(function(){track("view_item",{day:"weekend",name:"All tickets",price:0,qty:1,value:0});},1200);document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest("[data-pay]");if(!a||!window.GA70TT||!window.GA70TT.any)return;var d=a.getAttribute("data-pay");if(d==="pick")d=PAGEDAY[slug]||"gala";track("begin_checkout",{day:d,name:NAMES[d]||d,price:PRICE[d]||0,qty:1,value:PRICE[d]||0,});},true,);document.addEventListener("ga70:lead",function(e){var d=(e&&e.detail)||{};track("lead",{leadType:d.type||"guest",sector:d.category||""});});if(/^(partners|exhibit|contact)$/.test(slug)){try{if(window.gtag)gtag("event","view_partnership",{page:slug});}catch(e){}
 if(consent==="yes")setTimeout(function(){try{if(window.fbq)fbq("trackCustom","ViewPartnership",{page:slug});}catch(e){}try{if(window.ttq)ttq.track("ViewContent",{content_id:"partnership",content_type:"product"});}catch(e){}},1200);}
-var DAYS={gala:{name:"The Royal Jubilee Gala",short:"Fri 5 March",tab:"Gala",when:"Friday 5 March 2027 · 18:30 to 00:30",price:200,field:"Royal Jubilee Gala",valid:"This ticket is for The Royal Jubilee Gala only: Friday 5 March 2027, 18:30 to 00:30, Banking Hall, London. It does not include the Ghana Day Festival or Women of the Motherland, which are separate events with their own tickets.",tone:"black",line:"Banking Hall, moments from the Bank of England · Tables of ten · The Ghanaian inspired dinner, the band and the midnight toast · Black Tie, ball gown or Kente",presets:[[1,"1"],[2,"2"],[4,"4"],[10,"Table of ten, GBP 1,800"],],cal:"https://calendar.google.com/calendar/render?action=TEMPLATE&text=Ghana%20at%2070%20UK%3A%20The%20Royal%20Jubilee%20Gala&dates=20270305T183000Z/20270306T003000Z&details=Doors%2018%3A30.%20We%20start%20on%20time.%20Your%20ticket%20arrives%20by%20email.&location=Banking%20Hall%2C%2014%20Cornhill%2C%20London%20EC3V%203ND",},ghanaday:{name:"Ghana Day Festival",short:"Sat 6 March",tab:"Festival",when:"Saturday 6 March 2027 · 11:00 to 18:00",price:50,hidePrice:true,hiddenTab:true,field:"Ghana Day",valid:"This ticket is for the Ghana Day Festival only: Saturday 6 March 2027, 11:00 to 18:00, Banking Hall, London. It does not include The Royal Jubilee Gala or Women of the Motherland, which are separate events with their own tickets.",tone:"green",line:"Banking Hall · Independence Day · DJ and dancing · All ages welcome, no pushchairs",presets:[[1,"1"],[2,"2"],[4,"4"],[6,"Quiz team, 6 tickets"],],cal:"https://calendar.google.com/calendar/render?action=TEMPLATE&text=Ghana%20at%2070%20UK%3A%20Ghana%20Day%20Festival&dates=20270306T110000Z/20270306T180000Z&details=Independence%20Day%20at%20Banking%20Hall.%20Your%20ticket%20arrives%20by%20email.&location=Banking%20Hall%2C%2014%20Cornhill%2C%20London%20EC3V%203ND",},sunday:{name:"Women of the Motherland",short:"Sun 7 March",tab:"Women",hidePrice:true,hiddenTab:true,when:"Sunday 7 March 2027 · 11:00 to 18:30",price:150,field:"Women of the Motherland",valid:"This ticket is for Women of the Motherland only: Sunday 7 March 2027, 11:00 to 18:30, Banking Hall, London. It does not include The Royal Jubilee Gala or the Ghana Day Festival, which are separate events with their own tickets.",tone:"gold",line:"Mothering Sunday · Family afternoon tea, one sitting, a full day · Her name on the Wall of Mothers",presets:[[1,"1"],[2,"2"],[3,"3"],[5,"Family table, 5 tickets"],],cal:"https://calendar.google.com/calendar/render?action=TEMPLATE&text=Ghana%20at%2070%20UK%3A%20Women%20of%20the%20Motherland&dates=20270307T110000Z/20270307T183000Z&details=Mothering%20Sunday%20at%20Banking%20Hall.%20Doors%2011%3A00.%20Your%20ticket%20arrives%20by%20email.&location=Banking%20Hall%2C%2014%20Cornhill%2C%20London%20EC3V%203ND",},weekend:{name:"The Weekend Pass",short:"All three",tab:"Weekend Pass",hiddenTab:true,when:"Friday 5 to Sunday 7 March 2027",price:330,field:"Weekend Pass",valid:"This pass gives one entry to each of three separate events, each on its own date: The Royal Jubilee Gala on Friday 5 March 2027, 18:30 to 00:30, the Ghana Day Festival on Saturday 6 March 2027, 11:00 to 18:00, and Women of the Motherland on Sunday 7 March 2027, 11:00 to 18:30, all at Banking Hall, London.",tone:"black",line:"Banking Hall · All three days · One entry to each event",presets:[[1,"1"],[2,"2"],[4,"4"],],cal:"",},};var gbp=function(n){return"GBP "+n.toLocaleString("en-GB");};var eb=SITE_CONFIG.earlyBird,ebOn=!!(eb&&eb.on);if(eb){DAYS.gala.price=ebOn?eb.gala:eb.full;if(ebOn)
+var DAYS={gala:{name:"The Royal Jubilee Gala",short:"Fri 5 March",tab:"Gala",when:"Friday 5 March 2027 · 18:30 to 00:30",price:200,field:"Royal Jubilee Gala",valid:"This ticket is for The Royal Jubilee Gala only: Friday 5 March 2027, 18:30 to 00:30, Banking Hall, London. It does not include the Ghana Day Festival or Women of the Motherland, which are separate events with their own tickets.",tone:"black",line:"Banking Hall, moments from the Bank of England · Tables of ten · The Ghanaian inspired dinner, the band and the midnight toast · Black Tie, ball gown or Kente",presets:[[1,"1"],[2,"2"],[4,"4"],[10,"Table of ten, GBP 1,800"],],cal:"https://calendar.google.com/calendar/render?action=TEMPLATE&text=Ghana%20at%2070%20UK%3A%20The%20Royal%20Jubilee%20Gala&dates=20270305T183000Z/20270306T003000Z&details=Doors%2018%3A30.%20We%20start%20on%20time.%20Your%20ticket%20arrives%20by%20email.&location=Banking%20Hall%2C%2014%20Cornhill%2C%20London%20EC3V%203ND",},ghanaday:{name:"Ghana Day Festival",short:"Sat 6 March",tab:"Festival",when:"Saturday 6 March 2027 · 08:30 to 18:00",price:50,hidePrice:false,hiddenTab:false,field:"Ghana Day",valid:"This ticket is for the Ghana Day Festival only: Saturday 6 March 2027, 08:30 to 18:00, Banking Hall, London. It does not include The Royal Jubilee Gala or Women of the Motherland, which are separate events with their own tickets.",tone:"green",line:"Banking Hall · Independence Day · Art, fashion and business · All ages welcome, no pushchairs",presets:[[1,"1"],[2,"2"],[4,"4"],[6,"Group of six"],],cal:"https://calendar.google.com/calendar/render?action=TEMPLATE&text=Ghana%20at%2070%20UK%3A%20Ghana%20Day%20Festival&dates=20270306T083000Z/20270306T180000Z&details=Independence%20Day%20at%20Banking%20Hall.%20Your%20ticket%20arrives%20by%20email.&location=Banking%20Hall%2C%2014%20Cornhill%2C%20London%20EC3V%203ND",},sunday:{name:"Women of the Motherland",short:"Sun 7 March",tab:"Women",hidePrice:false,hiddenTab:false,when:"Sunday 7 March 2027 · 11:00 to 18:30",price:150,field:"Women of the Motherland",valid:"This ticket is for Women of the Motherland only: Sunday 7 March 2027, 11:00 to 18:30, Banking Hall, London. It does not include The Royal Jubilee Gala or the Ghana Day Festival, which are separate events with their own tickets.",tone:"gold",line:"Mothering Sunday · Family afternoon tea, one sitting, a full day · Her name on the Wall of Mothers",presets:[[1,"1"],[2,"2"],[3,"3"],[5,"Family table, 5 tickets"],],cal:"https://calendar.google.com/calendar/render?action=TEMPLATE&text=Ghana%20at%2070%20UK%3A%20Women%20of%20the%20Motherland&dates=20270307T110000Z/20270307T183000Z&details=Mothering%20Sunday%20at%20Banking%20Hall.%20Doors%2011%3A00.%20Your%20ticket%20arrives%20by%20email.&location=Banking%20Hall%2C%2014%20Cornhill%2C%20London%20EC3V%203ND",},weekend:{name:"The Weekend Pass",short:"All three",tab:"Weekend Pass",hiddenTab:true,when:"Friday 5 to Sunday 7 March 2027",price:330,field:"Weekend Pass",valid:"This pass gives one entry to each of three separate events, each on its own date: The Royal Jubilee Gala on Friday 5 March 2027, 18:30 to 00:30, the Ghana Day Festival on Saturday 6 March 2027, 08:30 to 18:00, and Women of the Motherland on Sunday 7 March 2027, 11:00 to 18:30, all at Banking Hall, London.",tone:"black",line:"Banking Hall · All three days · One entry to each event",presets:[[1,"1"],[2,"2"],[4,"4"],],cal:"",},};var gbp=function(n){return"GBP "+n.toLocaleString("en-GB");};var eb=SITE_CONFIG.earlyBird,ebOn=!!(eb&&eb.on);if(eb){DAYS.gala.price=ebOn?eb.gala:eb.full;if(ebOn)
 DAYS.gala.line="First release "+
 gbp(eb.gala)+", up to "+(eb.perOrder||2)+" per order"+", then "+
 gbp(eb.full)+" · "+
@@ -344,8 +168,7 @@ if(to===null)to=0;}
 glide(to,1100);run();});});var on=function(){hold=true;run();},off=function(){hold=false;run();};g.addEventListener("mouseenter",on);g.addEventListener("mouseleave",off);g.addEventListener("focusin",on);g.addEventListener("focusout",function(e){if(!g.contains(e.relatedTarget))off();});t.addEventListener("touchstart",function(){if(anim){cancelAnimationFrame(anim);anim=null;t.classList.remove("is-gliding");}
 on();},{passive:true},);t.addEventListener("touchend",function(){setTimeout(off,4000);},{passive:true},);t.addEventListener("scroll",function(){requestAnimationFrame(upd);},{passive:true},);if("IntersectionObserver"in window)
 new IntersectionObserver(function(es){seen=es[0].isIntersecting;run();},{threshold:0.35},).observe(t);else{seen=true;}
-document.addEventListener("visibilitychange",function(){if(document.hidden){clearInterval(timer);timer=null;}else run();});window.addEventListener("resize",upd);upd();run();});})();(function(){var c=document.querySelectorAll(".cine");if(!c.length)return;if(!("IntersectionObserver"in window)){[].forEach.call(c,function(e){e.classList.add("is-in");});return;}
-var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("is-in");io.unobserve(e.target);}});},{threshold:0.2},);[].forEach.call(c,function(e){io.observe(e);});})();(function(){var f=document.querySelector(".site-footer");if(!f||!("IntersectionObserver"in window))return;new IntersectionObserver(function(e){document.documentElement.classList.toggle("ft-in",e[0].isIntersecting);},{rootMargin:"0px 0px -35% 0px"},).observe(f);})();(function(){var els=document.querySelectorAll("[data-rsvp]");if(!els.length)return;function open(el){el.classList.add("open");}
+document.addEventListener("visibilitychange",function(){if(document.hidden){clearInterval(timer);timer=null;}else run();});window.addEventListener("resize",upd);upd();run();});})();(function(){var f=document.querySelector(".site-footer");if(!f||!("IntersectionObserver"in window))return;new IntersectionObserver(function(e){document.documentElement.classList.toggle("ft-in",e[0].isIntersecting);},{rootMargin:"0px 0px -35% 0px"},).observe(f);})();(function(){var els=document.querySelectorAll("[data-rsvp]");if(!els.length)return;function open(el){el.classList.add("open");}
 if(!("IntersectionObserver"in window)||matchMedia("(prefers-reduced-motion: reduce)").matches){els.forEach(open);return;}
 var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){var t=e.target;setTimeout(function(){open(t);},350);io.unobserve(t);}});},{threshold:0.35},);els.forEach(function(el){io.observe(el);var s=el.querySelector(".rsvp-seal");if(s)
 s.addEventListener("click",function(){open(el);});});})();(function(){var imgs=[].slice.call(document.querySelectorAll("img[data-heads]"));if(!imgs.length)return;var parse=function(s){return s.split(";").map(function(b){return b.split(",").map(Number);});};var place=function(im){var cs=getComputedStyle(im);if(cs.objectFit!=="cover")return;var w=im.clientWidth,h=im.clientHeight,nw=im.naturalWidth,nh=im.naturalHeight;if(!w||!h||!nw||!nh)return;var boxes=im._heads||(im._heads=parse(im.getAttribute("data-heads")));var s=Math.max(w/nw,h/nh),vw=w/s/nw,vh=h/s/nh;var fit=function(b){return b[2]-b[0]<=vw+0.001&&b[3]-b[1]<=vh+0.001;};var b=fit(boxes[0])?boxes[0]:fit(boxes[1])?boxes[1]:null;var fig=im.parentElement;if(!b){im.classList.add("heads-safe");if(fig){fig.classList.add("heads-safe-wrap");fig.style.setProperty("--heads-bg",'url("'+(im.currentSrc||im.src)+'")');}
@@ -363,7 +186,7 @@ if(!nm||!hasPh||!Number(pr)){status.textContent="Piece "+i+" needs a photo, a na
 any=true;}
 if(!any){status.textContent="Please add at least one piece, with a photo, a name and a price.";return;}
 submit.disabled=true;status.textContent="Sending your pieces. Please keep this page open.";fetch("/api/listing",{method:"POST",body:fd}).then(function(r){return r.json().catch(function(){return{};}).then(function(j){return{ok:r.ok,j:j};});}).then(function(res){if(res.ok){form.reset();shrunk={};form.querySelectorAll("[data-ls-prev]").forEach(function(p){p.hidden=true;});form.querySelectorAll("[data-ls-drop]").forEach(function(d){d.classList.remove("has");});var n=res.j.pieces||0;status.textContent="Medaase. Your "+(n===1?"piece has":n+" pieces have")+" arrived. We confirm by email before anything goes online.";}
-else status.textContent=(res.j&&res.j.error)||"We could not send your pieces. Please try again, or email hello@ghanaat70uk.com.";}).catch(function(){status.textContent="We could not send your pieces. Please check your connection and try again.";}).then(function(){submit.disabled=false;});});})();document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest("[data-qa-piece]");if(!a)return;var form=document.querySelector("#qa-connect form");if(!form)return;var sel=form.querySelector("select[name=interests]"),msg=form.querySelector("textarea[name=message]");if(sel)sel.value="A piece from the collection";if(msg&&msg.value.indexOf(a.getAttribute("data-qa-piece"))<0)msg.value="I would like to order: "+a.getAttribute("data-qa-piece")+(msg.value?"\n"+msg.value:"");});(function(){var ids=["list-your-pieces","plan","from-ghana"];function openFor(h){var id=(h||"").replace("#","");if(ids.indexOf(id)<0)return;var el=document.getElementById(id);if(el)el.querySelectorAll("details.more").forEach(function(d){d.open=true;});}
+else status.textContent=(res.j&&res.j.error)||"We could not send your pieces. Please try again, or email hello@ghanaat70uk.com.";}).catch(function(){status.textContent="We could not send your pieces. Please check your connection and try again.";}).then(function(){submit.disabled=false;});});})();document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest("[data-qa-piece]");if(!a)return;var form=document.querySelector("#qa-connect form");if(!form)return;var sel=form.querySelector("select[name=interests]"),msg=form.querySelector("textarea[name=message]");if(sel)sel.value="A piece from the collection";if(msg&&msg.value.indexOf(a.getAttribute("data-qa-piece"))<0)msg.value="I would like to order: "+a.getAttribute("data-qa-piece")+(msg.value?"\n"+msg.value:"");});(function(){var ids=["list-your-pieces","plan","from-ghana","interest"];function openFor(h){var id=(h||"").replace("#","");if(ids.indexOf(id)<0)return;var el=document.getElementById(id);if(el)el.querySelectorAll("details.more").forEach(function(d){d.open=true;});}
 openFor(location.hash);window.addEventListener("hashchange",function(){openFor(location.hash);});document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest('a[href*="#"]');if(a)openFor(a.getAttribute("href").split("#")[1]);});})();(function(){document.querySelectorAll("[data-spl]").forEach(function(root){var track=root.querySelector(".spl-track");var slides=root.querySelectorAll(".spl-slide");if(!track||slides.length<2)return;var dots=root.querySelectorAll(".spl-dot");var cur=0,timer=null,hold=false;var reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;function go(i){cur=(i+slides.length)%slides.length;track.scrollTo({left:cur*track.clientWidth,behavior:reduce?"auto":"smooth"});mark();}
 function mark(){dots.forEach(function(d,k){d.setAttribute("aria-current",k===cur?"true":"false");});}
 root.querySelector(".spl-prev").addEventListener("click",function(){go(cur-1);restart();});root.querySelector(".spl-next").addEventListener("click",function(){go(cur+1);restart();});dots.forEach(function(d,k){d.addEventListener("click",function(){go(k);restart();});});track.addEventListener("keydown",function(e){if(e.key==="ArrowRight"){go(cur+1);e.preventDefault();}if(e.key==="ArrowLeft"){go(cur-1);e.preventDefault();}});var t;track.addEventListener("scroll",function(){clearTimeout(t);t=setTimeout(function(){var w=track.clientWidth||1;cur=Math.round(track.scrollLeft/w);mark();},80);});function restart(){if(timer)clearInterval(timer);if(reduce)return;timer=setInterval(function(){if(!hold&&!document.hidden)go(cur+1);},7000);}
