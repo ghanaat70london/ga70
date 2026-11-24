@@ -214,3 +214,6 @@ h1,h2,h3{overflow-wrap: break-word}
 @media (min-width: 1181px) and (max-width: 1400px){
   .site-header .dd-involved .dd-panel{left: auto !important;right: -40px !important;transform: none !important}
 }
+/* Fewer, sharper images, 24 November 2026: one sharp piece from the collection until the full collection opens */
+.qa-coll-one .qa-works{grid-template-columns:minmax(0,460px);justify-content:center}
+.qa-coll-one .qa-work img{width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;border-radius:14px;box-shadow:0 24px 60px -30px rgba(10,40,30,.45)}
