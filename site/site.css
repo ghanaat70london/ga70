@@ -242,3 +242,7 @@ h1,h2,h3{overflow-wrap: break-word}
 .ft-copy > span{display:block}
 .ft-copy > span + span{margin-top:4px}
 @media (min-width: 621px){.ft-copy{display:block;text-align:left}}
+
+/* Held until 20 January 2027: Women of the Motherland is not promoted before then. Delete data-hold="20-jan" to show again. */
+[data-hold="20-jan"]{display:none !important}
+@media (max-width: 1180px){html .site-header .nav-links.open > li:nth-child(1){grid-column:1 / span 3}html .site-header .nav-links.open > li.dd-saturday > .dd-btn{grid-column:4 / span 3}}
