@@ -6,3 +6,14 @@
 .ft-phone{display:inline-block;padding-block:4px;min-height:24px}
 .ev-more{position:relative}
 .ev-more::after{content:"";position:absolute;left:0;right:0;top:-10px;bottom:-10px}
+
+/* Book now, always in view on phones, 24 November 2026 */
+@media (max-width: 700px){
+html .site-header .nav-book{display:inline-flex;order:1;padding:9px 14px;font-size:.72rem;letter-spacing:.12em;white-space:nowrap}
+html .site-header .nav-toggle .nt-l{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+html .site-header .nav-toggle{padding:12px}
+html.nav-open .site-header .nav-book{display:none}
+}
+@media (max-width: 360px){html .site-header .nav-book{padding:8px 10px;font-size:.66rem;letter-spacing:.08em}}
+@media (max-width: 420px){html .site-header .nav{gap:6px}html .site-header .nav-book{padding:9px 11px;letter-spacing:.09em}html .site-header .nav-toggle{padding:10px}}
+@media (max-width: 360px){html .site-header .brand img,html .site-header .brand svg{max-width:112px;height:auto}html .site-header .nav{padding-left:14px;padding-right:14px}}
