@@ -286,68 +286,82 @@ html.nav-open .site-header .nav-book{display:none}
 /* Only the Gala is on sale: Ghana Day and Sunday cards register interest, 25 November 2026 */
 .gt-wrap:has(.gt[data-buy="ghanaday"])::after,.gt-wrap:has(.gt[data-buy="sunday"])::after{content: "Register your interest"}
 
-/* Ghana Day register your interest, in the House of Clio manner: ivory page, two tone headline, white card, spaced capitals, underlined fields, a dark band with a square button. 25 November 2026 */
-.gd-reg{background:var(--ivory);color:var(--ink)}
-.gd-reg .wrap{max-width:52rem}
-.gd-reg .reg-head{max-width:36rem;margin:0 auto 40px;text-align:center;display:grid;justify-items:center;gap:18px}
-.gd-reg .reg-eye{font-family:var(--heavy);font-size:.68rem;letter-spacing:.34em;text-transform:uppercase;color:var(--ink-soft)}
-.gd-reg h2,.gd-reg .reg-done h3{font-family:var(--display);font-weight:500;font-size:clamp(2.1rem,6.5vw,3.3rem);line-height:1.08;color:var(--emerald);margin:0;display:grid}
-.gd-reg h2 em,.gd-reg .reg-done h3 em{font-style:italic;color:var(--gold-on-light)}
-.gd-reg .reg-rule{width:56px;height:1px;background:var(--gold)}
-.gd-reg .reg-lead{font-family:var(--body);font-size:1.05rem;line-height:1.75;color:var(--ink);margin:0}
-.gd-reg .reg-it{font-family:var(--body);font-style:italic;color:var(--emerald);margin:0}
-.gd-reg .reg-notes{list-style:none;margin:4px 0 0;padding:20px 26px;text-align:left;background:color-mix(in srgb,var(--gold) 7%,#fff);border:1px solid color-mix(in srgb,var(--gold) 30%,transparent);display:grid;gap:10px;font-family:var(--body);font-weight:300;color:var(--ink)}
-.gd-reg .reg-notes li::before{content:"·";color:var(--gold-on-light);margin-right:8px}
-.gd-reg .reg-plate{height:clamp(150px,28vw,260px);background:radial-gradient(90% 120% at 70% 20%,#0e4a32 0%,var(--emerald) 45%,var(--emerald-deep) 100%);display:grid;place-items:center}
-.gd-reg .reg-glyph{font-family:var(--display);font-style:italic;font-weight:500;font-size:clamp(5rem,16vw,9rem);line-height:1;color:color-mix(in srgb,var(--gold) 38%,transparent)}
-.gd-reg .reg-card{background:#fff;padding:0;border:0;outline:0;box-shadow:0 30px 60px -30px rgba(10,53,35,.25)}
-.gd-reg .reg-form{display:grid;gap:0}
-.gd-reg .reg-sec{border:0;margin:0;padding:clamp(28px,5vw,48px) clamp(20px,6vw,64px) 8px;display:grid;gap:22px;min-width:0}
-.gd-reg .reg-sec legend{float:left;width:100%;padding:0;margin:0 0 6px;display:flex;align-items:baseline;gap:14px;font-family:var(--display);font-weight:500;font-size:1.6rem;color:var(--emerald)}
-.gd-reg .reg-sec legend span{font-family:var(--display);font-style:italic;color:var(--gold-on-light);font-size:1.1rem;min-width:22px}
-.gd-reg .reg-sec + .reg-sec{border-top:1px solid color-mix(in srgb,var(--gold) 25%,transparent)}
-.gd-reg .reg-lab,.gd-reg .field label{font-family:var(--heavy);font-size:.68rem;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:var(--gold-on-light);margin:0}
-.gd-reg .field{display:grid;gap:6px}
-.gd-reg .field input,.gd-reg .field textarea{background:transparent;border:0;border-bottom:1px solid color-mix(in srgb,var(--emerald) 22%,transparent);border-radius:0;padding:10px 0;min-height:44px;color:var(--ink);font-family:var(--body);font-size:1.05rem;box-shadow:none}
-.gd-reg .field input::placeholder,.gd-reg .field textarea::placeholder{color:color-mix(in srgb,var(--emerald) 45%,transparent);font-style:italic}
-.gd-reg .field input:focus,.gd-reg .field textarea:focus{outline:0;border-bottom-color:var(--gold)}
-.gd-reg .choice-row{display:flex;flex-wrap:wrap;gap:4px 28px;padding:0;margin:0;border:0;background:none}
-.gd-reg .choice-q{flex:1 0 100%;margin:0 0 2px;font-family:var(--body);font-style:italic;color:var(--emerald)}
-.gd-reg .chip-check{cursor:pointer;position:relative;-webkit-tap-highlight-color:transparent}
-.gd-reg .chip-check input{position:absolute;opacity:0;width:1px;height:1px}
-.gd-reg .chip-check span{display:inline-flex;align-items:center;gap:12px;min-height:44px;font-family:var(--body);font-size:1rem;color:var(--ink);background:none;border:0;padding:0}
-.gd-reg .chip-check span::before{content:"";flex:0 0 8px;width:8px;height:8px;transform:rotate(45deg);border:1px solid var(--gold-on-light);transition:background .2s}
-.gd-reg .chip-check input:checked + span{color:var(--emerald)}
-.gd-reg .chip-check input:checked + span::before{background:var(--gold)}
-.gd-reg .chip-check input:focus-visible + span{outline:1px solid var(--gold);outline-offset:4px}
-.gd-reg .chips-check{display:grid;grid-template-columns:repeat(auto-fill,minmax(13.5rem,1fr));gap:0 28px}
-.gd-reg .appts{display:grid;border-top:1px solid color-mix(in srgb,var(--gold) 25%,transparent)}
-.gd-reg .appt{display:block;position:relative;cursor:pointer;-webkit-tap-highlight-color:transparent}
-.gd-reg .appt input{position:absolute;opacity:0;width:1px;height:1px}
-.gd-reg .appt-in{display:grid;grid-template-columns:1fr auto;align-items:center;gap:2px 18px;padding:16px 0;border-bottom:1px solid color-mix(in srgb,var(--gold) 25%,transparent);background:none;border-radius:0;box-shadow:none}
-.gd-reg .appt-in b{font-family:var(--display);font-weight:500;font-size:1.35rem;color:var(--emerald)}
-.gd-reg .appt-in span{grid-column:1;font-family:var(--body);font-weight:300;font-size:.95rem;color:var(--ink-soft)}
-.gd-reg .appt-in i{grid-row:1 / span 2;grid-column:2;display:grid;place-items:center;width:26px;height:26px;border:1px solid var(--gold-on-light);transform:rotate(45deg)}
-.gd-reg .appt-in i::after{content:"";width:10px;height:10px;background:var(--gold);opacity:0;transition:opacity .2s}
-.gd-reg .appt input:checked + .appt-in b{font-style:italic;color:var(--gold-on-light)}
-.gd-reg .appt input:checked + .appt-in i::after{opacity:1}
-.gd-reg .appt input:focus-visible + .appt-in{outline:1px solid var(--gold);outline-offset:2px}
-.gd-reg .appts.is-off{opacity:.35}
-.gd-reg .consent{display:flex;gap:12px;align-items:flex-start;font-family:var(--body);font-weight:300;font-size:.95rem;color:var(--ink)}
-.gd-reg .consent input{accent-color:var(--emerald);width:18px;height:18px;margin-top:3px;flex:0 0 18px}
-.gd-reg .consent a{color:var(--emerald)}
-.gd-reg .reg-foot{margin-top:28px;background:var(--emerald-deep);padding:22px clamp(20px,6vw,64px);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px}
-.gd-reg .reg-foot p{margin:0;font-family:var(--body);font-style:italic;color:color-mix(in srgb,var(--ivory) 75%,transparent)}
-.gd-reg .reg-foot .form-status{flex:1 0 100%;order:3;margin:0;color:var(--gold-hi)}
-.gd-reg .reg-send{display:inline-grid;place-items:center;min-height:52px;padding:0 42px;background:transparent;border:1px solid var(--gold);color:var(--gold-on-dark);font-family:var(--heavy);font-size:.74rem;font-weight:500;letter-spacing:.32em;text-transform:uppercase;text-decoration:none;cursor:pointer;transition:background .25s,color .25s}
-.gd-reg .reg-send:hover,.gd-reg .reg-send:focus-visible{background:var(--gold);color:var(--emerald-deep)}
-.gd-reg .reg-done{padding:clamp(36px,7vw,64px) clamp(20px,6vw,64px);text-align:center;display:grid;justify-items:center;gap:20px}
-.gd-reg .reg-done h3{font-size:clamp(2rem,6vw,3rem)}
-.gd-reg .reg-next{margin:4px 0;display:grid;gap:14px;text-align:left}
-.gd-reg .reg-next div{display:grid;grid-template-columns:9.5rem 1fr;gap:16px;align-items:baseline}
-.gd-reg .reg-next dt{font-family:var(--heavy);font-size:.64rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold-on-light)}
-.gd-reg .reg-next dd{margin:0;font-family:var(--body);color:var(--ink)}
-.gd-reg .reg-done .reg-send{color:var(--emerald);border-color:var(--emerald)}
-.gd-reg .reg-done .reg-send:hover{background:var(--emerald);color:var(--ivory)}
-@media (max-width:560px){.gd-reg .reg-next div{grid-template-columns:1fr;gap:2px}.gd-reg .reg-foot{justify-content:center;text-align:center}.gd-reg .reg-send{width:100%}}
+/* Register your interest, Ghana Day and Mothering Sunday: an open invitation on the page, no card. Ivory, emerald and gold, Cormorant and Jost. 25 November 2026 */
+.invite{background:var(--ivory);color:var(--ink)}
+.invite .inv-wrap{max-width:40rem;margin:0 auto}
+.invite .inv-head,.invite .inv-done{text-align:center;display:grid;justify-items:center;gap:20px}
+.invite .inv-emblem{display:block;position:static;width:40px;height:auto;margin:0 0 6px;opacity:.9}
+.invite .inv-eye{font-family:var(--heavy);font-size:.66rem;font-weight:500;letter-spacing:.34em;text-transform:uppercase;color:var(--ink-soft)}
+.invite h2,.invite .inv-done h3{display:grid;gap:2px;margin:0;font-family:var(--display);font-weight:500;font-size:clamp(2.2rem,7vw,3.5rem);line-height:1.06;color:var(--emerald);letter-spacing:-.005em}
+.invite h2 em,.invite .inv-done h3 em{font-style:italic;color:var(--gold-on-light)}
+.invite .inv-rule{display:block;width:56px;height:1px;background:var(--gold)}
+.invite .inv-lead{margin:0;font-family:var(--body);font-weight:300;font-size:1.08rem;line-height:1.8;color:var(--ink)}
+.invite .inv-it{margin:0;font-family:var(--display);font-style:italic;font-size:1.25rem;line-height:1.5;color:var(--emerald)}
+.invite .inv-form{display:grid;margin-top:clamp(36px,6vw,56px)}
+.invite .inv-sec{border:0;border-top:1px solid color-mix(in srgb,var(--gold) 40%,transparent);margin:0;padding:clamp(32px,6vw,48px) 0 8px;display:grid;gap:22px;min-width:0}
+.invite .inv-sec legend{float:left;width:100%;padding:0;margin:0 0 4px;display:grid;justify-items:center;gap:6px;text-align:center;font-family:var(--display);font-weight:500;font-size:clamp(1.6rem,5vw,2rem);color:var(--emerald)}
+.invite .inv-sec legend span{font-style:italic;font-size:1.05rem;color:var(--gold-on-light)}
+.invite .inv-lab,.invite .field label{margin:0;font-family:var(--heavy);font-size:.66rem;font-weight:500;letter-spacing:.28em;text-transform:uppercase;color:var(--gold-on-light)}
+.invite .inv-lab{text-align:center}
+.invite .inv-choice{display:flex;flex-wrap:wrap;justify-content:center;gap:0 30px;text-align:center}
+.invite .inv-choice p{flex:1 0 100%;margin:0 0 4px;font-family:var(--display);font-style:italic;font-size:1.2rem;color:var(--emerald)}
+.invite .inv-opts{display:grid;grid-template-columns:repeat(auto-fill,minmax(14rem,1fr));gap:0 32px}
+.invite .inv-opt{position:relative;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.invite .inv-opts .inv-opt{border-bottom:1px solid color-mix(in srgb,var(--gold) 20%,transparent)}
+.invite .inv-opt input{position:absolute;opacity:0;width:1px;height:1px}
+.invite .inv-opt span{display:flex;align-items:center;gap:14px;min-height:48px;font-family:var(--body);font-size:1.02rem;color:var(--ink)}
+.invite .inv-opt span::before{content:"";flex:0 0 8px;width:8px;height:8px;transform:rotate(45deg);border:1px solid var(--gold-on-light);transition:background .2s}
+.invite .inv-opt input:checked + span{color:var(--emerald);font-style:italic}
+.invite .inv-opt input:checked + span::before{background:var(--gold);border-color:var(--gold)}
+.invite .inv-opt input:focus-visible + span{outline:1px solid var(--gold);outline-offset:4px}
+.invite .inv-rows{display:grid;border-top:1px solid color-mix(in srgb,var(--gold) 30%,transparent)}
+.invite .inv-row{display:block;position:relative;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.invite .inv-row input{position:absolute;opacity:0;width:1px;height:1px}
+.invite .inv-row-in{display:grid;grid-template-columns:1fr auto;align-items:center;gap:4px 20px;padding:20px 2px;border-bottom:1px solid color-mix(in srgb,var(--gold) 30%,transparent)}
+.invite .inv-row-in b{font-family:var(--display);font-weight:500;font-size:1.5rem;line-height:1.1;color:var(--emerald)}
+.invite .inv-row-in span{grid-column:1;font-family:var(--body);font-weight:300;font-size:.97rem;color:var(--ink-soft)}
+.invite .inv-row-in i{grid-row:1 / span 2;grid-column:2;display:grid;place-items:center;width:24px;height:24px;margin-right:6px;border:1px solid var(--gold-on-light);transform:rotate(45deg)}
+.invite .inv-row-in i::after{content:"";width:10px;height:10px;background:var(--gold);opacity:0;transition:opacity .2s}
+.invite .inv-row input:checked + .inv-row-in b{font-style:italic;color:var(--gold-on-light)}
+.invite .inv-row input:checked + .inv-row-in i::after{opacity:1}
+.invite .inv-row input:focus-visible + .inv-row-in{outline:1px solid var(--gold);outline-offset:2px}
+.invite .appts.is-off{opacity:.35}
+.invite .field{display:grid;gap:6px}
+.invite .field input,.invite .field textarea{background:transparent;border:0;border-bottom:1px solid color-mix(in srgb,var(--emerald) 25%,transparent);border-radius:0;padding:10px 0;min-height:46px;color:var(--ink);font-family:var(--body);font-size:1.06rem;box-shadow:none}
+.invite .field input::placeholder,.invite .field textarea::placeholder{color:color-mix(in srgb,var(--emerald) 45%,transparent);font-style:italic}
+.invite .field input:focus,.invite .field textarea:focus{outline:0;border-bottom-color:var(--gold)}
+.invite .consent{display:flex;gap:12px;align-items:flex-start;font-family:var(--body);font-weight:300;font-size:.95rem;color:var(--ink)}
+.invite .consent input{accent-color:var(--emerald);width:18px;height:18px;margin-top:3px;flex:0 0 18px}
+.invite .consent a{color:var(--emerald)}
+.invite .inv-foot{margin-top:36px;padding-top:32px;border-top:1px solid color-mix(in srgb,var(--gold) 40%,transparent);display:grid;justify-items:center;gap:18px;text-align:center}
+.invite .inv-foot p{margin:0;font-family:var(--display);font-style:italic;font-size:1.2rem;color:var(--emerald)}
+.invite .form-status{margin:0;color:#8a1c1c}
+.invite .inv-send{display:inline-grid;place-items:center;min-height:54px;min-width:15rem;padding:0 44px;background:var(--emerald);border:1px solid var(--emerald);color:var(--ivory);font-family:var(--heavy);font-size:.74rem;font-weight:500;letter-spacing:.34em;text-transform:uppercase;text-decoration:none;cursor:pointer;transition:background .25s,color .25s,border-color .25s}
+.invite .inv-send:hover,.invite .inv-send:focus-visible{background:transparent;color:var(--emerald);border-color:var(--gold)}
+.invite .inv-done{padding-top:8px}
+.invite .inv-next{margin:6px 0;display:grid;gap:16px;text-align:left}
+.invite .inv-next div{display:grid;grid-template-columns:9.5rem 1fr;gap:18px;align-items:baseline}
+.invite .inv-next dt{font-family:var(--heavy);font-size:.64rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold-on-light)}
+.invite .inv-next dd{margin:0;font-family:var(--body);color:var(--ink)}
+@media (max-width:560px){.invite .inv-next div{grid-template-columns:1fr;gap:2px}.invite .inv-send{width:100%}}
 html.in-reg .mobile-cta{transform:translateY(120%);opacity:0;pointer-events:none;transition:transform .25s,opacity .25s}
+/* The invitation sits on the page on its own: no grid, card, border or side rule from older section styles */
+html .band.invite{display:block;border:0;border-radius:0;box-shadow:none;padding-block:clamp(64px,10vw,120px)}
+html .band.invite > .wrap.inv-wrap{display:block;width:auto;max-width:40rem;margin-inline:auto;border:0;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px));background:none;box-shadow:none}
+html .band.invite .inv-head,html .band.invite .inv-form,html .band.invite .inv-done{width:100%;grid-template-columns:none}
+html .band.invite .inv-next,html .band.invite .inv-next div{border:0;background:none;padding-left:0;padding-right:0}
+html .band.invite div,html .band.invite fieldset,html .band.invite form{border-right:0}
+html .band.invite b{text-transform:none;letter-spacing:0;font-weight:500}
+html .band.invite .inv-rows,html .band.invite .inv-opts,html .band.invite .inv-row-in{text-align:left}
+html .band.invite .inv-row-in b{font-family:var(--display);font-size:1.5rem;color:var(--emerald)}
+html .band.invite .inv-row input:checked + .inv-row-in b{font-style:italic;color:var(--gold-on-light)}
+html .band.invite *{border-right:0 !important}
+html .band.invite .inv-form{text-align:left}
+html .band.invite .inv-sec legend,html .band.invite .inv-lab,html .band.invite .inv-choice,html .band.invite .inv-foot{text-align:center}
+html .band.invite .inv-rows,html .band.invite .inv-opts,html .band.invite .inv-sec,html .band.invite .row2{justify-items:stretch;justify-content:stretch}
+html .band.invite .inv-row,html .band.invite .inv-opt,html .band.invite .field{width:100%;text-align:left}
+html .band.invite .field label{text-align:left}
+html .band.invite .inv-next{justify-self:stretch;width:100%}
+html .band.invite .inv-next div{border-bottom:1px solid color-mix(in srgb,var(--gold) 25%,transparent) !important;border-top:0 !important;border-left:0 !important;padding:0 0 14px}
+html .band.invite .inv-row-in i{border:1px solid var(--gold-on-light) !important}
+html .band.invite .inv-choice .inv-opt{width:auto}
