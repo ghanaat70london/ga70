@@ -14742,10 +14742,6 @@ h3 {
   }
 }
 
-/* Held until 20 January 2027: the Sunday promotions on the home page and the Sunday gift card. Sunday stays in the menu, tickets, visit and gallery, quietly. Delete this rule on 20 January. */
-[data-hold="20-jan"] {
-  display: none !important;
-}
 
 /* Royal explained in the home hero, 24 November 2026 */
 .hero-royal {
@@ -16877,5 +16873,15 @@ html body main i {
 }
 html body .site-footer .ft-wa span {
   font-size: 13px !important;
+}
+/* Event cards: the date tile fits the longest day name */
+html body .ev-date {
+  width: auto;
+  min-width: 96px;
+  padding: 12px 14px 10px;
+}
+html body .ev-date span,
+html body .ev-date i {
+  letter-spacing: 0.14em !important;
 }
 
