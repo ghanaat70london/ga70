@@ -178,7 +178,7 @@ var SITE_CONFIG={contactEmail:"hello@ghanaat70uk.com",contactPhone:"+44 7824 555
           here = (location.pathname.split("/").pop() || "index.html").replace(/^$/, "index.html");
         if (here === parts[0] || here + ".html" === parts[0]) {
           var t = document.getElementById(parts[1]);
-          if (t) t.scrollIntoView({ behavior: "smooth", block: "start" });
+          if (t) t.scrollIntoView({ block: "start" });
         } else location.href = reg;
         return;
       }
@@ -412,3 +412,42 @@ root.addEventListener("mouseenter",function(){hold=true;});root.addEventListener
 if(!("IntersectionObserver"in window)){rows.forEach(wake);return;}
 var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){wake(e.target);io.unobserve(e.target);}});},{rootMargin:"100% 0px"});rows.forEach(function(r){io.observe(r);});})();(function(){var hd=document.querySelector(".site-header");if(!hd)return;function set(){document.documentElement.style.setProperty("--hdr",Math.round(hd.getBoundingClientRect().bottom)+"px");}
 set();if("ResizeObserver"in window)new ResizeObserver(set).observe(hd);else window.addEventListener("resize",set);})();
+/* Stepped forms (data-steps): one short step at a time, at most five appointments */
+(function () {
+  document.querySelectorAll("form[data-steps]").forEach(function (form) {
+    var steps = form.querySelectorAll(".reg-step"),
+      dots = form.querySelectorAll(".reg-steps li"),
+      cur = 0;
+    var show = function (n) {
+      cur = n;
+      steps.forEach(function (s, i) {
+        s.hidden = i !== n;
+      });
+      dots.forEach(function (d, i) {
+        d.className = i === n ? "on" : "";
+      });
+      var top = form.getBoundingClientRect().top;
+      if (top < 0) form.scrollIntoView({ block: "start" });
+    };
+    form.addEventListener("click", function (e) {
+      if (e.target.closest("[data-next]") && cur < steps.length - 1) show(cur + 1);
+      else if (e.target.closest("[data-prev]") && cur > 0) show(cur - 1);
+    });
+    form.querySelectorAll("[data-max]").forEach(function (box) {
+      var max = +box.getAttribute("data-max");
+      box.addEventListener("change", function () {
+        var all = box.querySelectorAll("input[type=checkbox]"),
+          on = box.querySelectorAll("input:checked").length;
+        all.forEach(function (x) {
+          x.disabled = !x.checked && on >= max;
+        });
+      });
+    });
+    form.addEventListener("keydown", function (e) {
+      if (e.key === "Enter" && e.target.tagName === "INPUT" && cur < steps.length - 1) {
+        e.preventDefault();
+        show(cur + 1);
+      }
+    });
+  });
+})();
