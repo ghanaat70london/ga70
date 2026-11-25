@@ -427,3 +427,4 @@ html .band.invite .inv-done>:nth-child(n+9){animation-delay:1.75s}
 @keyframes invDraw{from{opacity:0;transform:scaleX(0)}to{opacity:1;transform:scaleX(1)}}
 @media (prefers-reduced-motion:reduce){html .band.invite .inv-done:not([hidden])>*{animation:none}}
 html .band.invite .inv-done h3 [data-first]{display:block;font:inherit;font-style:normal;font-size:inherit;letter-spacing:inherit;text-transform:none;color:var(--inv-em)}
+html .band.invite .inv-sec legend span,html .band.invite .inv-steps b{display:block;width:8px;height:8px;margin:2px auto 6px;border:0 !important;background:none;border-radius:0;box-shadow:inset 0 0 0 1px var(--inv-bronze);transform:rotate(45deg);font-size:0}
