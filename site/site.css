@@ -11838,18 +11838,6 @@ img.heads-safe {
 .etq-band .nat-grid span {
   color: var(--ink-soft);
 }
-.prot-band .access-list b {
-  color: var(--emerald);
-}
-.prot-band .access-list span {
-  color: var(--ink-soft);
-}
-.prot-band .access-list li {
-  border-color: color-mix(in srgb, var(--gold) 40%, transparent);
-}
-.prot-band .access-list a {
-  color: var(--emerald);
-}
 .vb-price span {
   text-transform: uppercase;
   letter-spacing: 0.18em;
@@ -13334,7 +13322,7 @@ figcaption,
 .gdg-t,
 .hn-k,
 .wn-when {
-  font-size: 12px !important;
+  font-size: 13px !important;
 }
 .spl-dot {
   position: relative;
@@ -13998,7 +13986,7 @@ figcaption,
   .ls-item legend,
   blockquote cite,
   th {
-    font-size: 12px !important;
+    font-size: 13px !important;
   }
   .wrap > p > a {
     font-size: inherit;
@@ -16175,7 +16163,6 @@ html.sm-js .sm-env:not(.is-open){opacity:0}
   line-height: 1.08;
 }
 .site-footer.ft .ft-quote cite {
-  font-size: 0.68rem !important;
   line-height: 1.9;
 }
 .ft-cta {
@@ -16769,3 +16756,126 @@ html.sm-js .sm-env:not(.is-open){opacity:0}
     display: none;
   }
 }
+
+/* ==========================================================
+   READABILITY: crisp for every eye, after Apple's guidance.
+   Reading text at 17px or more in regular weight, no label
+   under 13px, display type one step heavier, muted text darker.
+   Last in the file so it wins. 25 November 2026.
+   ========================================================== */
+:root {
+  --ink-soft: #3d4741;
+}
+html body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-size: 17.5px;
+}
+/* Display type: regular instead of light, so the strokes hold on every screen */
+html body h1,
+html body h2,
+html body .display,
+html body .script,
+html body .fog-script,
+html body [class*="-script"] {
+  font-weight: 400 !important;
+}
+html body h3,
+html body .h3,
+html body .h4,
+html body h4 {
+  font-weight: 500 !important;
+}
+/* Reading text: regular weight, never light */
+html body .lead,
+html body p,
+html body li,
+html body dd {
+  font-weight: 400 !important;
+}
+html body .lead {
+  font-size: max(1.12rem, 18px);
+}
+html body main li,
+html body main dd,
+html body main td {
+  font-size: max(1em, 15.5px);
+}
+/* Labels in capitals: never under 13px, medium weight, a little less tracking */
+html body .eyebrow,
+html body .k,
+html body .chip,
+html body .ln-meta,
+html body .btn,
+html body .ft-h,
+html body .xt-k,
+html body .tag,
+html body .pf-level,
+html body .ps-h,
+html body .gdg-t,
+html body .wn-when,
+html body .ft-cta-when,
+html body .more-s,
+html body .cd-lbl,
+html body th,
+html body dt,
+html body .ft-quote cite,
+html body .pw-cap i,
+html body .ev-kicker,
+html body .hn-k {
+  font-size: max(0.8125rem, 13px) !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.16em !important;
+}
+/* Header: larger, brighter, the dates easy to read */
+html body .nav-links a,
+html body .nav-links .dd-btn {
+  font-size: 0.78rem !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.12em !important;
+}
+html body .nav-d {
+  font-size: 1rem;
+  font-weight: 500;
+  font-style: italic;
+  color: #f3d27a;
+  bottom: calc(100% + 2px);
+}
+/* Footer: every line readable */
+html body .site-footer .ft-col a,
+html body .site-footer .ft-mail,
+html body .site-footer .ft-call-line,
+html body .site-footer .ft-base,
+html body .site-footer .ft-base a,
+html body .site-footer .ft-copy,
+html body .site-footer .ft-brand .ft-when {
+  font-size: max(0.95rem, 15px) !important;
+  color: #e9f0eb !important;
+}
+html body .site-footer .ft-h {
+  color: #e3bd5f !important;
+}
+html body .site-footer .ft-wa {
+  font-size: 0.8rem !important;
+}
+/* Muted text on light bands: darker grey green, at least 7 to 1 */
+html body .muted,
+html body .hn-d,
+html body .pw-cap i {
+  color: #3d4741;
+}
+html body .site-header .nav-book,
+html body .xt-tags li,
+html body .xt-foot,
+html body main i {
+  font-size: max(0.8125rem, 13px) !important;
+}
+html body .xt-foot,
+html body main i {
+  font-size: max(0.9rem, 14px) !important;
+}
+html body .site-footer .ft-wa span {
+  font-size: 13px !important;
+}
+
