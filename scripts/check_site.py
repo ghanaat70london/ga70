@@ -120,7 +120,7 @@ if "--base" in sys.argv:
     base = sys.argv[sys.argv.index("--base") + 1]
     changed = subprocess.run(["git", "diff", "--name-only", f"{base}...HEAD"], cwd=ROOT, capture_output=True, text=True).stdout.split()
     for p in changed:
-        if p.startswith(("api/", "functions/")) or p == "vercel.json":
+        if p.startswith("api/") or p == "vercel.json":
             notes.append(f"protected file changed, developer review: {p}")
     diff = subprocess.run(["git", "diff", f"{base}...HEAD", "--", "site/site.js"], cwd=ROOT, capture_output=True, text=True).stdout
     if re.search(r"^[-+].*ticketTailor", diff, re.M):

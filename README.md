@@ -1,61 +1,63 @@
 # Ghana at 70 UK website
 
-The UK celebration of the Ghana 70th Platinum Jubilee, Banking Hall, London, 5 to 7 March 2027.
-Main address: https://ghanaat70uk.com
+The Platinum Jubilee of Ghana, Banking Hall, London, 5 to 7 March 2027.
+Live at https://ghanaat70uk.com. Hosted on Vercel from `main`. No build step.
 
-## How the site works now
+## Who does what
 
-Since 24 November 2026 the website is the `site/` folder: finished HTML pages, `site.css`, `site.js` and
-the images, taken from Gigi's approved preview. Vercel serves that folder as it is. There is no build step.
+1. **Claude builds and ships the website.** Every change goes through a pull request, passes the automatic Site checks, is merged and confirmed live on Vercel. Nothing waits for review.
+2. **The developer does set up only:** Vercel settings, keys, domains, and anything that needs a login Claude cannot use. Open setup jobs are GitHub issues titled for the developer. Do the issue, comment Live, close it.
+3. **Gigi decides.** Her standing decisions are in the project docs.
+
+## Where things are
 
 ```
-site/                       the website: every page, site.css, site.js, images, calendar files
-site/site.js                SITE_CONFIG at the top: contact details, Ticket Tailor, prices, tracking
-api/register.js             form handler on Vercel at /api/register, posts each form to GoHighLevel
-functions/api/register.js   the same handler for Cloudflare Pages, kept in step
-scripts/check_site.py       the release checks, also run on every pull request
-serve.py                    local server with a stand in form handler: python serve.py
-vercel.json                 serve site/ with clean URLs and security headers
+site/                     the website: 25 pages, site.css, site.js, images
+site/site.js              SITE_CONFIG at the top: contacts, Ticket Tailor event ids, prices, tracking ids
+api/register.js           every form posts here, then to GoHighLevel and the hello@ inbox
+api/tt-webhook.js         Ticket Tailor order webhook
+scripts/check_site.py     the automatic checks, run on every pull request
+scripts/bump_version.py   refreshes the ?v= cache versions on site.css and site.js
+serve.py                  local preview with a stand in form handler: python serve.py
+vercel.json               clean URLs, security headers, cache rules
 ```
 
-## Change something: the release rhythm
+## Signatures: never remove, never flatten
 
-Two releases a week, Tuesday and Friday. One release branch and one pull request each time.
+The golden ticket, the RSVP envelope with its wax seal (with full depth and shadow), the Kente drapes on the
+home hero, the woven Kente bands, the tricolour bars, the diamond dividers, the countdown and the Banking Hall
+gallery. They are listed again at the end of `site/site.css`.
 
-1. Every change is a commit on the open release branch, never on `main`, never a new pull request.
-2. Each commit adds one numbered line to the pull request list. The list always matches the branch.
-3. Cut off: 18:00 the evening before release day (Monday for Tuesday, Thursday for Friday).
-4. Release day: the developer reviews the one list, checks the Vercel preview, merges once.
-5. After the merge the next release branch starts from the new `main`, so nothing conflicts.
-6. Anything waiting for a decision sits in its own pull request titled HOLD. It is never mixed into a release.
-7. Before a commit: `python scripts/check_site.py`, then `python serve.py` and look at the page on phone and desktop.
+## Rules that keep the site safe
+
+1. Never commit to `main`. One branch and one pull request per release.
+2. Run `python scripts/bump_version.py` then `python scripts/check_site.py` before every commit.
+3. Do not delete repeated CSS rules automatically. Order matters, and it breaks the header menu.
+4. No stock photographs, no white clothing, Quophi Akotuah images only on the fashion page and his partner card.
+5. Women of the Motherland and Ghana Day are register your interest only. Only the Gala is on sale.
+6. No keys, tokens or passwords in any file.
 
 ## Automatic checks
 
-Every pull request runs `scripts/check_site.py` on GitHub (`.github/workflows/checks.yml`). A red cross means do not merge.
-It fails on: Reserve wording, Sobolo, capacity or scarcity claims, selling the venue, the pound sign, dashes,
-apostrophes, exclamation marks, wrong fixed times (carriages 00:30, drums and DJ 11:00, Ghana Day 08:30 to 17:00),
-broken links, missing images, links to missing sections, ids used twice, invalid structured data, missing titles
-or descriptions, unused images (dead files) and anything that looks like a secret key. It lists, without failing,
-any change to api, functions, vercel.json or SITE_CONFIG.ticketTailor so the developer reviews it.
+`scripts/check_site.py` fails a pull request on: Reserve wording, Sobolo, capacity or scarcity claims, the pound
+sign, dashes, apostrophes, exclamation marks, wrong fixed times, broken links, missing images, links to missing
+sections, ids used twice, invalid structured data, missing titles or descriptions, unused images, stale cache
+versions and anything that looks like a secret. A red cross means do not merge.
 
-Prices appear in two places: `earlyBird` and the event prices in `SITE_CONFIG` in `site/site.js` (used by the
-booking panel), and in the page text. Change both together.
-
-## Settings in Vercel
+## Settings in Vercel (developer)
 
 1. `GHL_WEBHOOK_URL`: the GoHighLevel inbound webhook. Every form posts there.
-2. Optional email copies: `RESEND_API_KEY`, `FROM_EMAIL`, `NOTIFY_EMAIL`.
-3. Domains: `ghanaat70uk.com` as the main domain, with `www` and `ghanaat70uk.co.uk` redirecting to it.
+2. `RESEND_API_KEY`, `FROM_EMAIL`, `NOTIFY_EMAIL` (hello@ghanaat70uk.com): email copies of every registration.
+3. Domains: `ghanaat70uk.com` main, `www` and `ghanaat70uk.co.uk` redirect to it.
 
 ## Ticket Tailor
 
-`SITE_CONFIG.ticketTailor` in `site/site.js` holds the box office `interopa` and the event IDs:
-Gala 2542641, Ghana Day Festival 2542611, Women of the Motherland 2542630. Book now opens the Ticket Tailor
-checkout in a pop up on the site, with the event page as the fallback. There is no Weekend Pass.
+Box office `interopa`. Gala 2542641, Ghana Day Festival 2542611, Women of the Motherland 2542630.
+Only the Gala links to Ticket Tailor. Ghana Day and Sunday route to their register your interest forms through
+`SITE_CONFIG.register`.
 
 ## Forms
 
-Every form posts JSON to `/api/register` with a `type`. Each type has its pipeline, stage and tag in
-`api/register.js`. Any field the handler does not name is still sent to GoHighLevel, in `details` and
+Every form posts JSON to `/api/register` with a `type`. Each type has its pipeline, stage, tag and reply in
+`api/register.js`. Any field the handler does not name is still sent to GoHighLevel in `details` and
 `detailsText`, so nothing a guest types is lost.
