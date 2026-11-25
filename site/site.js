@@ -1,5 +1,7 @@
 try{document.querySelectorAll("[data-pl]").forEach(function(e){e.setAttribute("pathLength",e.getAttribute("data-pl"));});}catch{}
 var SITE_CONFIG={contactEmail:"hello@ghanaat70uk.com",contactPhone:"+44 7824 555307",endpoint:"/api/register",anniversary:"2027-03-06T00:00:00Z",ticketTailor:{widgetScript:"https://cdn.tickettailor.com/js/widgets/min/widget.js",boxOffice:"interopa",customDomain:"",events:{gala:"2542641",ghanaday:"2542611",sunday:"2542630",weekend:""},links:{gala:"https://buytickets.at/interopa/2542641",ghanaday:"https://buytickets.at/interopa/2542611",sunday:"https://buytickets.at/interopa/2542630",weekend:"",boxoffice:""},},earlyBird:{gala:150,full:200,on:true,perOrder:2},tableFree:{gala:10},tracking:{ga4:"",googleAds:"",metaPixel:"",tiktok:"",linkedin:"",snapchat:"",clarity:"",adsLeadLabel:"",adsPartnerLabel:"",adsPurchaseLabel:"",linkedinLead:"",linkedinPartner:""},};
+/* Days that register interest instead of selling. Remove a line to put that day on sale. */
+SITE_CONFIG.register={ghanaday:"ghana-day.html#interest",sunday:"women-of-the-motherland.html#sunday-interest"};
 /* ===== Ticket Tailor: official pop-out checkout, with a plain link fallback. No card data touches this site. ===== */
 (function () {
   var TT = SITE_CONFIG.ticketTailor || {},
@@ -154,7 +156,7 @@ var SITE_CONFIG={contactEmail:"hello@ghanaat70uk.com",contactPhone:"+44 7824 555
       var a = e.target.closest && e.target.closest("[data-buy]");
       if (!a || (e.key !== "Enter" && e.key !== " ")) return;
       var d = a.getAttribute("data-buy");
-      if (DAYS.indexOf(d) < 0 || !link(d)) return;
+      if (DAYS.indexOf(d) < 0 || !(link(d) || (SITE_CONFIG.register || {})[d])) return;
       e.preventDefault();
       e.stopImmediatePropagation();
       a.click();
@@ -167,11 +169,20 @@ var SITE_CONFIG={contactEmail:"hello@ghanaat70uk.com",contactPhone:"+44 7824 555
       var a = e.target.closest && e.target.closest("[data-pay], [data-buy]");
       if (!a || e.metaKey || e.ctrlKey || e.shiftKey || e.button === 1) return;
       var d = a.getAttribute("data-pay") || a.getAttribute("data-buy");
-      if (d === "pick") {
-        /* On an event page, Book now opens that event checkout in one click */
-        var pg = (location.pathname.split("/").pop() || "index").replace(/\.html$/, "");
-        var own = { "royal-gala": "gala", "ghana-day": "ghanaday", fashion: "ghanaday", creatives: "ghanaday", exhibit: "ghanaday", "women-of-the-motherland": "sunday" }[pg];
-        if (own && link(own)) d = own;
+      /* Only the Gala is on sale: Book now opens the Gala checkout in one click */
+      if (d === "pick" && link("gala")) d = "gala";
+      /* Ghana Day and Sunday register interest (SITE_CONFIG.register) until they go on sale */
+      var reg = (SITE_CONFIG.register || {})[d];
+      if (reg) {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        var parts = reg.split("#"),
+          here = (location.pathname.split("/").pop() || "index.html").replace(/^$/, "index.html");
+        if (here === parts[0] || here + ".html" === parts[0]) {
+          var t = document.getElementById(parts[1]);
+          if (t) t.scrollIntoView({ block: "start" });
+        } else location.href = reg;
+        return;
       }
       if (d === "pick") {
         var all = document.getElementById("all-days");
@@ -403,3 +414,64 @@ root.addEventListener("mouseenter",function(){hold=true;});root.addEventListener
 if(!("IntersectionObserver"in window)){rows.forEach(wake);return;}
 var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){wake(e.target);io.unobserve(e.target);}});},{rootMargin:"100% 0px"});rows.forEach(function(r){io.observe(r);});})();(function(){var hd=document.querySelector(".site-header");if(!hd)return;function set(){document.documentElement.style.setProperty("--hdr",Math.round(hd.getBoundingClientRect().bottom)+"px");}
 set();if("ResizeObserver"in window)new ResizeObserver(set).observe(hd);else window.addEventListener("resize",set);})();
+/* Stepped forms (data-steps): one short step at a time, at most five appointments */
+(function () {
+  document.querySelectorAll("form[data-steps]").forEach(function (form) {
+    /* While the form is on screen, the bottom Register bar steps aside */
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(function (es) {
+        document.documentElement.classList.toggle("in-reg", es[0].isIntersecting);
+      }, { rootMargin: "-80px 0px -80px 0px" }).observe(form.closest(".reg-card") || form);
+    }
+    var steps = form.querySelectorAll(".reg-step"),
+      dots = form.querySelectorAll(".reg-steps li"),
+      cur = 0;
+    var show = function (n) {
+      cur = n;
+      steps.forEach(function (s, i) {
+        s.hidden = i !== n;
+      });
+      dots.forEach(function (d, i) {
+        d.className = i === n ? "on" : "";
+      });
+      var top = form.getBoundingClientRect().top;
+      if (top < 0) form.scrollIntoView({ block: "start" });
+    };
+    form.addEventListener("click", function (e) {
+      if (e.target.closest("[data-next]") && cur < steps.length - 1) show(cur + 1);
+      else if (e.target.closest("[data-prev]") && cur > 0) show(cur - 1);
+    });
+    /* No appointments wanted: the appointment cards rest, and nothing is sent from them */
+    var appt = form.querySelector(".appts");
+    var syncAppt = function () {
+      var no = form.querySelector('input[name="appointments"]:checked');
+      if (!appt || !no) return;
+      var off = /^No/.test(no.value);
+      appt.classList.toggle("is-off", off);
+      appt.querySelectorAll("input").forEach(function (x) {
+        if (off) x.checked = false;
+        x.disabled = off;
+      });
+    };
+    form.addEventListener("change", function (e) {
+      if (e.target.name === "appointments") syncAppt();
+    });
+    syncAppt();
+    form.querySelectorAll("[data-max]").forEach(function (box) {
+      var max = +box.getAttribute("data-max");
+      box.addEventListener("change", function () {
+        var all = box.querySelectorAll("input[type=checkbox]"),
+          on = box.querySelectorAll("input:checked").length;
+        all.forEach(function (x) {
+          x.disabled = !x.checked && on >= max;
+        });
+      });
+    });
+    form.addEventListener("keydown", function (e) {
+      if (e.key === "Enter" && e.target.tagName === "INPUT" && cur < steps.length - 1) {
+        e.preventDefault();
+        show(cur + 1);
+      }
+    });
+  });
+})();

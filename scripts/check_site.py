@@ -33,6 +33,7 @@ WORDS = [
     ("No exclamation marks", r"[A-Za-z]!", []),
     ("No dashes in text", r"\s[–—]\s|[A-Za-z]—[A-Za-z]|\s-\s", []),
     ("No apostrophes", r"[A-Za-z]['’][A-Za-z]", []),
+    ("Ghana Day has no price until tickets go on sale in the New Year", r"(?<!and )GBP 50\b(?!,\d)", []),
     ("No placeholders", r"\blorem\b|\bTODO\b|\bTBC\b|\bTBD\b|\bXXX\b", []),
 ]
 TIMES = [  # facts that must stay the same on every page
@@ -95,6 +96,16 @@ for path in glob.glob(os.path.join(SITE, "images", "**", "*"), recursive=True):
         rel = os.path.relpath(path, SITE).replace(os.sep, "/")
         if rel not in all_text and os.path.basename(path) not in all_text and rel != "images/og.jpg":
             fails.append(f"unused file, delete it: site/{rel}")
+
+# Cache: every page must load site.js and site.css with a version that matches their content,
+# or phones keep the old file for up to an hour after a release
+import hashlib
+for asset in ("site.js", "site.css"):
+    want = hashlib.md5(open(os.path.join(SITE, asset), "rb").read()).hexdigest()[:8]
+    for path in pages:
+        for v in re.findall(re.escape(asset) + r"\?v=([a-z0-9]+)", open(path, encoding="utf-8").read()):
+            if v != want:
+                fails.append(f"{os.path.basename(path)}: {asset}?v={v} is out of date, run python scripts/bump_version.py")
 
 # Secrets must never be in the repository
 for path in subprocess.run(["git", "ls-files"], cwd=ROOT, capture_output=True, text=True).stdout.split():
