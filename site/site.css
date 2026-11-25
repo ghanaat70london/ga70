@@ -282,3 +282,6 @@ html.nav-open .site-header .nav-book{display:none}
 
 /* Header Book now on phones: a full 44px tap target, 25 November 2026 */
 @media (max-width: 700px){html .site-header .nav-book{min-height:44px;align-items:center}}
+
+/* Only the Gala is on sale: Ghana Day and Sunday cards register interest, 25 November 2026 */
+.gt-wrap:has(.gt[data-buy="ghanaday"])::after,.gt-wrap:has(.gt[data-buy="sunday"])::after{content: "Register your interest"}

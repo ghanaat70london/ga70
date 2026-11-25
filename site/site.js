@@ -1,5 +1,5 @@
 try{document.querySelectorAll("[data-pl]").forEach(function(e){e.setAttribute("pathLength",e.getAttribute("data-pl"));});}catch{}
-var SITE_CONFIG={contactEmail:"hello@ghanaat70uk.com",contactPhone:"+44 7824 555307",endpoint:"/api/register",anniversary:"2027-03-06T00:00:00Z",ticketTailor:{widgetScript:"https://cdn.tickettailor.com/js/widgets/min/widget.js",boxOffice:"interopa",customDomain:"",events:{gala:"2542641",ghanaday:"2542611",sunday:"2542630",weekend:""},links:{gala:"https://buytickets.at/interopa/2542641",ghanaday:"https://buytickets.at/interopa/2542611",sunday:"https://buytickets.at/interopa/2542630",weekend:"",boxoffice:""},},earlyBird:{gala:150,full:200,on:true,perOrder:2},tableFree:{gala:10},tracking:{ga4:"",googleAds:"",metaPixel:"",tiktok:"",linkedin:"",snapchat:"",clarity:"",adsLeadLabel:"",adsPartnerLabel:"",adsPurchaseLabel:"",linkedinLead:"",linkedinPartner:""},};
+var SITE_CONFIG={contactEmail:"hello@ghanaat70uk.com",contactPhone:"+44 7824 555307",endpoint:"/api/register",register:{ghanaday:"ghana-day.html#interest",sunday:"women-of-the-motherland.html#sunday-interest"},anniversary:"2027-03-06T00:00:00Z",ticketTailor:{widgetScript:"https://cdn.tickettailor.com/js/widgets/min/widget.js",boxOffice:"interopa",customDomain:"",events:{gala:"2542641",ghanaday:"2542611",sunday:"2542630",weekend:""},links:{gala:"https://buytickets.at/interopa/2542641",ghanaday:"https://buytickets.at/interopa/2542611",sunday:"https://buytickets.at/interopa/2542630",weekend:"",boxoffice:""},},earlyBird:{gala:150,full:200,on:true,perOrder:2},tableFree:{gala:10},tracking:{ga4:"",googleAds:"",metaPixel:"",tiktok:"",linkedin:"",snapchat:"",clarity:"",adsLeadLabel:"",adsPartnerLabel:"",adsPurchaseLabel:"",linkedinLead:"",linkedinPartner:""},};
 /* ===== Ticket Tailor: official pop-out checkout, with a plain link fallback. No card data touches this site. ===== */
 (function () {
   var TT = SITE_CONFIG.ticketTailor || {},
@@ -154,7 +154,7 @@ var SITE_CONFIG={contactEmail:"hello@ghanaat70uk.com",contactPhone:"+44 7824 555
       var a = e.target.closest && e.target.closest("[data-buy]");
       if (!a || (e.key !== "Enter" && e.key !== " ")) return;
       var d = a.getAttribute("data-buy");
-      if (DAYS.indexOf(d) < 0 || !link(d)) return;
+      if (DAYS.indexOf(d) < 0 || !(link(d) || (SITE_CONFIG.register || {})[d])) return;
       e.preventDefault();
       e.stopImmediatePropagation();
       a.click();
@@ -167,11 +167,20 @@ var SITE_CONFIG={contactEmail:"hello@ghanaat70uk.com",contactPhone:"+44 7824 555
       var a = e.target.closest && e.target.closest("[data-pay], [data-buy]");
       if (!a || e.metaKey || e.ctrlKey || e.shiftKey || e.button === 1) return;
       var d = a.getAttribute("data-pay") || a.getAttribute("data-buy");
-      if (d === "pick") {
-        /* On an event page, Book now opens that event checkout in one click */
-        var pg = (location.pathname.split("/").pop() || "index").replace(/\.html$/, "");
-        var own = { "royal-gala": "gala", "ghana-day": "ghanaday", fashion: "ghanaday", creatives: "ghanaday", exhibit: "ghanaday", "women-of-the-motherland": "sunday" }[pg];
-        if (own && link(own)) d = own;
+      /* Only the Gala is on sale: Book now opens the Gala checkout in one click */
+      if (d === "pick" && link("gala")) d = "gala";
+      /* Ghana Day and Sunday register interest (SITE_CONFIG.register) until they go on sale */
+      var reg = (SITE_CONFIG.register || {})[d];
+      if (reg) {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        var parts = reg.split("#"),
+          here = (location.pathname.split("/").pop() || "index.html").replace(/^$/, "index.html");
+        if (here === parts[0] || here + ".html" === parts[0]) {
+          var t = document.getElementById(parts[1]);
+          if (t) t.scrollIntoView({ behavior: "smooth", block: "start" });
+        } else location.href = reg;
+        return;
       }
       if (d === "pick") {
         var all = document.getElementById("all-days");
