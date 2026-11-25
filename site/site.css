@@ -16719,3 +16719,42 @@ html.sm-js .sm-env:not(.is-open){opacity:0}
     background-position: 0 0;
   }
 }
+/* The dates in the header, above each day, 25 November 2026 */
+.nav-d {
+  font-family: var(--heavy);
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  margin-right: 0.7em;
+  color: #d4a62a;
+}
+/* The Motherland is us: heading beside the story on wide screens, a shorter band */
+.band.dstory-duo {
+  padding-block: clamp(56px, 7vw, 96px);
+}
+@media (min-width: 900px) {
+  .dstory-duo .story-in {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    align-items: center;
+    justify-items: stretch;
+    gap: clamp(40px, 6vw, 88px);
+  }
+  .dstory-duo .story-head {
+    text-align: left;
+    justify-items: start;
+  }
+  .dstory-duo .story-head .divider {
+    margin-left: 0;
+  }
+  .dstory-duo .story-body .btn-row {
+    justify-content: flex-start !important;
+    margin-top: 12px !important;
+  }
+}
+
+@media (max-width: 1180px) {
+  .nav-d {
+    display: none;
+  }
+}
