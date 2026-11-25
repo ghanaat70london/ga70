@@ -286,37 +286,70 @@ html.nav-open .site-header .nav-book{display:none}
 /* Only the Gala is on sale: Ghana Day and Sunday cards register interest, 25 November 2026 */
 .gt-wrap:has(.gt[data-buy="ghanaday"])::after,.gt-wrap:has(.gt[data-buy="sunday"])::after{content: "Register your interest"}
 
-/* Ghana Day register your interest: three short steps, 25 November 2026 */
-.gd-reg .reg-head{max-width:46rem;margin:0 auto 28px;text-align:center}
-.reg-card{max-width:46rem;margin:0 auto;padding:clamp(20px,4vw,40px)}
-.reg-form{display:grid;gap:22px}
-.reg-steps{display:flex;gap:8px;list-style:none;margin:0;padding:0;justify-content:center}
-.reg-steps li{font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);padding:6px 12px;border-radius:999px;border:1px solid color-mix(in srgb,var(--gold) 45%,transparent)}
-.reg-steps li.on{background:var(--emerald);color:#fff;border-color:var(--emerald)}
-.reg-step{border:0;margin:0;padding:0;display:grid;gap:16px;min-width:0}
-.reg-step legend{font-family:var(--serif,inherit);font-size:clamp(1.15rem,3.6vw,1.45rem);line-height:1.3;padding:0;margin-bottom:6px;display:flex;gap:12px;align-items:baseline}
-.reg-n{display:inline-grid;place-items:center;flex:0 0 30px;height:30px;border-radius:50%;background:var(--gold);color:#16201b;font-size:.9rem}
-.appts{display:grid;gap:10px}
-.appt{display:block;cursor:pointer}
-.appt input{position:absolute;opacity:0;width:1px;height:1px}
-.appt-in{display:grid;grid-template-columns:1fr auto;gap:2px 12px;padding:16px 18px;border:1px solid color-mix(in srgb,var(--gold) 45%,transparent);border-radius:14px;background:#fff;transition:border-color .2s,box-shadow .2s,background .2s}
-.appt-in b{font-size:1.02rem}
-.appt-in span{grid-column:1;color:var(--ink-soft);font-size:.92rem}
-.appt-in i{grid-row:1 / span 2;grid-column:2;align-self:center;font-style:normal;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--emerald)}
-.appt input:checked + .appt-in{border-color:var(--emerald);box-shadow:0 0 0 2px var(--emerald);background:color-mix(in srgb,var(--emerald) 6%,#fff)}
-.appt input:focus-visible + .appt-in{outline:3px solid var(--gold);outline-offset:3px}
-.chips-check{display:flex;flex-wrap:wrap;gap:8px}
-.chip-check{cursor:pointer}
-.chip-check input{position:absolute;opacity:0;width:1px;height:1px}
-.chip-check span{display:inline-block;padding:10px 14px;min-height:44px;line-height:1.5;border-radius:999px;border:1px solid color-mix(in srgb,var(--gold) 45%,transparent);background:#fff;font-size:.92rem}
-.chip-check input:checked + span{background:var(--emerald);color:#fff;border-color:var(--emerald)}
-.chip-check input:focus-visible + span{outline:3px solid var(--gold);outline-offset:2px}
-.reg-nav{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
-.reg-step[data-step="1"] .reg-nav{justify-content:flex-end}
-.reg-done{text-align:center;display:grid;gap:12px}
-.reg-done .btn-row{justify-content:center}
-.reg-form{scroll-margin-top:110px}
-.choice-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:14px 16px;border-radius:14px;background:color-mix(in srgb,var(--gold) 10%,#fff)}
-.choice-q{flex:1 0 100%;margin:0 0 4px;font-size:.98rem}
-.appts.is-off{opacity:.45}
+/* Ghana Day register your interest: an invitation, not a form. Emerald, gold hairlines, serif type. 25 November 2026 */
+.gd-reg{background:radial-gradient(120% 80% at 50% 0%,#0d4a31 0%,var(--emerald) 45%,var(--emerald-deep) 100%);color:var(--ivory)}
+.gd-reg .reg-head{max-width:40rem;margin:0 auto clamp(28px,5vw,44px);text-align:center;display:grid;gap:14px}
+.gd-reg .reg-script{font-family:"Pinyon Script",cursive;font-size:clamp(1.9rem,6vw,2.6rem);color:var(--gold-on-dark);line-height:1;margin:0}
+.gd-reg .reg-head .eyebrow{color:var(--gold-on-dark)}
+.gd-reg .reg-head h2{font-family:var(--display);font-weight:500;font-size:clamp(2.2rem,7vw,3.4rem);line-height:1.05;color:var(--ivory);margin:0}
+.gd-reg .reg-head .lead{font-family:var(--body);font-weight:300;color:color-mix(in srgb,var(--ivory) 82%,transparent);margin:0}
+.gd-reg .reg-card{max-width:40rem;margin:0 auto;padding:clamp(26px,5vw,48px) clamp(20px,5vw,48px);background:color-mix(in srgb,var(--emerald-deep) 55%,transparent);border:1px solid color-mix(in srgb,var(--gold) 55%,transparent);outline:1px solid color-mix(in srgb,var(--gold) 22%,transparent);outline-offset:6px;border-radius:2px;box-shadow:0 30px 80px rgba(0,0,0,.35)}
+.gd-reg .reg-form{display:grid;gap:30px;scroll-margin-top:110px}
+.gd-reg .reg-steps{display:grid;grid-template-columns:repeat(3,1fr);list-style:none;margin:0;padding:0;counter-reset:st;position:relative}
+.gd-reg .reg-steps::before{content:"";position:absolute;left:16.6%;right:16.6%;top:15px;height:1px;background:color-mix(in srgb,var(--gold) 45%,transparent)}
+.gd-reg .reg-steps li{counter-increment:st;position:relative;display:grid;justify-items:center;gap:8px;font-family:var(--heavy);font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:color-mix(in srgb,var(--ivory) 55%,transparent);text-align:center;border:0;padding:0;background:none}
+.gd-reg .reg-steps li::before{content:counter(st,upper-roman);display:grid;place-items:center;width:31px;height:31px;border-radius:50%;border:1px solid color-mix(in srgb,var(--gold) 60%,transparent);background:var(--emerald-deep);font-family:var(--display);font-size:1rem;letter-spacing:0;color:var(--gold-on-dark)}
+.gd-reg .reg-steps li.on{color:var(--gold-on-dark);background:none}
+.gd-reg .reg-steps li.on::before{background:linear-gradient(180deg,#f3d27a,#d4a62a);color:#16201b;border-color:transparent}
+.gd-reg .reg-step{border:0;margin:0;padding:0;display:grid;gap:18px;min-width:0}
+.gd-reg .reg-step legend{font-family:var(--display);font-weight:500;font-size:clamp(1.5rem,5vw,1.95rem);line-height:1.2;color:var(--ivory);padding:0;margin:0 0 4px;display:block;text-align:center}
+.gd-reg .reg-n{display:none}
+.gd-reg .muted{color:color-mix(in srgb,var(--ivory) 70%,transparent);text-align:center;font-weight:300}
+.gd-reg .choice-row{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 28px;padding:18px 0;border-top:1px solid color-mix(in srgb,var(--gold) 30%,transparent);border-bottom:1px solid color-mix(in srgb,var(--gold) 30%,transparent);background:none;border-radius:0}
+.gd-reg .choice-q{flex:1 0 100%;margin:0 0 6px;text-align:center;font-family:var(--body);font-style:italic;color:color-mix(in srgb,var(--ivory) 85%,transparent)}
+.gd-reg .chip-check{cursor:pointer;position:relative}
+.gd-reg .chip-check input{position:absolute;opacity:0;width:1px;height:1px}
+.gd-reg .chip-check span{display:inline-flex;align-items:center;gap:10px;min-height:44px;padding:0;border:0;border-radius:0;background:none;font-family:var(--body);font-size:1rem;color:color-mix(in srgb,var(--ivory) 80%,transparent)}
+.gd-reg .chip-check span::before{content:"";width:9px;height:9px;transform:rotate(45deg);border:1px solid var(--gold);flex:0 0 9px;transition:background .2s}
+.gd-reg .chip-check input:checked + span{color:var(--gold-on-dark);background:none}
+.gd-reg .chip-check input:checked + span::before{background:var(--gold)}
+.gd-reg .chip-check input:focus-visible + span{outline:1px solid var(--gold);outline-offset:4px}
+.gd-reg .chips-check{display:grid;grid-template-columns:repeat(auto-fill,minmax(14rem,1fr));gap:0 24px}
+.gd-reg .chips-check .chip-check{border-bottom:1px solid color-mix(in srgb,var(--gold) 18%,transparent)}
+.gd-reg .appts{display:grid;gap:0;border-top:1px solid color-mix(in srgb,var(--gold) 35%,transparent)}
+.gd-reg .appt{display:block;cursor:pointer;position:relative}
+.gd-reg .appt input{position:absolute;opacity:0;width:1px;height:1px}
+.gd-reg .appt-in{display:grid;grid-template-columns:1fr auto;align-items:center;gap:4px 18px;padding:18px 4px;border:0;border-bottom:1px solid color-mix(in srgb,var(--gold) 35%,transparent);border-radius:0;background:none;transition:background .25s}
+.gd-reg .appt-in b{font-family:var(--display);font-weight:500;font-size:1.45rem;line-height:1.1;color:var(--ivory)}
+.gd-reg .appt-in span{grid-column:1;font-family:var(--body);font-weight:300;font-size:.95rem;color:color-mix(in srgb,var(--ivory) 70%,transparent)}
+.gd-reg .appt-in i{grid-row:1 / span 2;grid-column:2;display:grid;place-items:center;width:38px;height:38px;border-radius:50%;border:1px solid color-mix(in srgb,var(--gold) 70%,transparent);font-size:0;color:transparent}
+.gd-reg .appt-in i::after{content:"";width:11px;height:6px;border-left:2px solid #16201b;border-bottom:2px solid #16201b;transform:rotate(-45deg) translate(1px,-1px);opacity:0}
+.gd-reg .appt input:checked + .appt-in{background:linear-gradient(90deg,color-mix(in srgb,var(--gold) 10%,transparent),transparent);box-shadow:none}
+.gd-reg .appt input:checked + .appt-in b{color:var(--gold-on-dark)}
+.gd-reg .appt input:checked + .appt-in i{background:linear-gradient(180deg,#f3d27a,#d4a62a);border-color:transparent}
+.gd-reg .appt input:checked + .appt-in i::after{opacity:1}
+.gd-reg .appt input:focus-visible + .appt-in{outline:1px solid var(--gold);outline-offset:2px}
+.gd-reg .appts.is-off{opacity:.35}
+.gd-reg .appt-note{margin:0;text-align:center;font-family:var(--heavy);font-size:.64rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-on-dark)}
+.gd-reg .field label{font-family:var(--heavy);font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:color-mix(in srgb,var(--ivory) 70%,transparent)}
+.gd-reg .field input,.gd-reg .field textarea,.gd-reg .field select{background:transparent;border:0;border-bottom:1px solid color-mix(in srgb,var(--gold) 55%,transparent);border-radius:0;padding:10px 0;min-height:44px;color:var(--ivory);font-family:var(--body);font-size:1.08rem;box-shadow:none}
+.gd-reg .field select option{color:#16201b}
+.gd-reg .field input::placeholder,.gd-reg .field textarea::placeholder{color:color-mix(in srgb,var(--ivory) 40%,transparent);font-style:italic}
+.gd-reg .field input:focus,.gd-reg .field textarea:focus,.gd-reg .field select:focus{outline:0;border-bottom-color:var(--gold-hi)}
+.gd-reg .consent{color:color-mix(in srgb,var(--ivory) 80%,transparent)}
+.gd-reg .consent a{color:var(--gold-on-dark)}
+.gd-reg .reg-nav{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;padding-top:6px}
+.gd-reg .reg-step[data-step="1"] .reg-nav{justify-content:center}
+.gd-reg .reg-nav .btn{min-width:14rem}
+.gd-reg .co-backlink{color:color-mix(in srgb,var(--ivory) 75%,transparent);background:none;border:0;font-family:var(--heavy);font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;text-decoration:underline;text-underline-offset:4px;min-height:44px;cursor:pointer}
+.gd-reg .form-status{color:var(--gold-hi)}
+.gd-reg .reg-done{text-align:center;display:grid;gap:14px}
+.gd-reg .reg-done .eyebrow{color:var(--gold-on-dark)}
+.gd-reg .reg-done h3{font-family:"Pinyon Script",cursive;font-weight:400;font-size:clamp(2.4rem,8vw,3.2rem);color:var(--gold-on-dark);margin:0}
+.gd-reg .reg-done .muted{color:color-mix(in srgb,var(--ivory) 80%,transparent)}
+.gd-reg .reg-done .btn-row{justify-content:center}
 html.in-reg .mobile-cta{transform:translateY(120%);opacity:0;pointer-events:none;transition:transform .25s,opacity .25s}
+.gd-reg .consent,.gd-reg .consent span{color:color-mix(in srgb,var(--ivory) 82%,transparent)}
+.gd-reg .consent input{accent-color:var(--gold);width:20px;height:20px}
+.gd-reg .appt,.gd-reg .chip-check,.gd-reg .consent{-webkit-tap-highlight-color:transparent}
+.gd-reg .reg-card::before{display:none}
