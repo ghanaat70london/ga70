@@ -387,9 +387,10 @@ html .band.invite .inv-opt span{color:var(--inv-ink)}
 html .band.invite .inv-opt span::before{border-color:var(--inv-bronze);box-shadow:none}
 html .band.invite .inv-opt input:checked + span{color:var(--inv-em)}
 html .band.invite .inv-opt input:checked + span::before{background:var(--inv-em);border-color:var(--inv-em);box-shadow:none}
-html .band.invite .field input,html .band.invite .field textarea{border-image:none;border-bottom:1px solid rgba(11,53,38,.22)}
-html .band.invite .field input:focus,html .band.invite .field textarea:focus{border-image:none;border-bottom-color:var(--inv-em)}
-html .band.invite .field input::placeholder,html .band.invite .field textarea::placeholder{color:#8c918b}
+html .band.invite .field input,html .band.invite .field textarea{border-image:none;background:#e8efe9;border:1px solid rgba(11,53,38,.28);border-radius:3px;padding:14px 18px;min-height:54px;box-shadow:inset 0 1px 2px rgba(11,53,38,.06);transition:background .2s,border-color .2s,box-shadow .2s}
+html .band.invite .field input:hover,html .band.invite .field textarea:hover{border-color:rgba(11,53,38,.45)}
+html .band.invite .field input:focus,html .band.invite .field textarea:focus{border-image:none;outline:0;background:#fbfaf6;border-color:var(--inv-em);box-shadow:0 0 0 3px rgba(11,53,38,.14)}
+html .band.invite .field input::placeholder,html .band.invite .field textarea::placeholder{color:#5f7268}
 html .band.invite .consent a{color:var(--inv-em)}
 html .band.invite .inv-foot{border-top:1px solid var(--inv-hair)}
 html .band.invite .inv-send{background:var(--inv-em);border:1px solid var(--inv-em);color:#f7f3ea;box-shadow:none;border-radius:0}
@@ -428,3 +429,9 @@ html .band.invite .inv-done>:nth-child(n+9){animation-delay:1.75s}
 @media (prefers-reduced-motion:reduce){html .band.invite .inv-done:not([hidden])>*{animation:none}}
 html .band.invite .inv-done h3 [data-first]{display:block;font:inherit;font-style:normal;font-size:inherit;letter-spacing:inherit;text-transform:none;color:var(--inv-em)}
 html .band.invite .inv-sec legend span,html .band.invite .inv-steps b{display:block;width:8px;height:8px;margin:2px auto 6px;border:0 !important;background:none;border-radius:0;box-shadow:inset 0 0 0 1px var(--inv-bronze);transform:rotate(45deg);font-size:0}
+html .band.invite .field input,html .band.invite .field textarea{border-right:1px solid rgba(11,53,38,.28) !important}
+html .band.invite .field input:hover,html .band.invite .field textarea:hover{border-right-color:rgba(11,53,38,.45) !important}
+html .band.invite .field input:focus,html .band.invite .field textarea:focus{border-right-color:var(--inv-em) !important}
+html .band.invite .row2,html .band.invite .field{padding:0;border-bottom:0;background:none}
+html .band.invite .row2{gap:22px}
+html .band.invite .field{gap:10px}
