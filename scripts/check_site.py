@@ -33,6 +33,7 @@ WORDS = [
     ("No exclamation marks", r"[A-Za-z]!", []),
     ("No dashes in text", r"\s[–—]\s|[A-Za-z]—[A-Za-z]|\s-\s", []),
     ("No apostrophes", r"[A-Za-z]['’][A-Za-z]", []),
+    ("Ghana Day has no price until tickets go on sale in the New Year", r"(?<!and )GBP 50\b(?!,\d)", []),
     ("No placeholders", r"\blorem\b|\bTODO\b|\bTBC\b|\bTBD\b|\bXXX\b", []),
 ]
 TIMES = [  # facts that must stay the same on every page
