@@ -16920,3 +16920,10 @@ html .band.invite .inv-more-in {
   padding: 4px 0 22px;
 }
 
+/* The royal line in the footer, in gold */
+html body .site-footer .ft-copy > span + span {
+  color: #e3bd5f !important;
+  font-family: var(--display);
+  font-style: italic;
+  font-size: max(1.02rem, 16px) !important;
+}
