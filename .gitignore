@@ -1,6 +1,3 @@
-# Built site: Cloudflare or Vercel rebuilds it with python3 src/build.py
-ghana-at-70/
-
 # Python
 __pycache__/
 *.py[cod]
