@@ -504,3 +504,43 @@ main .kente,main .kband,main .tricolour,main + .tricolour,.tricolour:not(.site-h
 .band.white .access-list span,.band.ivory .access-list span{color:var(--ink-soft)}
 .dstory details.more > summary.more-s{color:#8f6d3f}
 .qa-facts b{color:#8f6d3f}
+
+/* ==========================================================
+   FORM CLARITY: every question readable, every choice a clear
+   tick box, chosen answers light up, one big Register button.
+   ========================================================== */
+/* Questions: readable sentences, not tiny capitals */
+html .band.invite .inv-lab,html .band.invite .field label{font-family:var(--display) !important;font-size:1.35rem !important;font-weight:400 !important;letter-spacing:0 !important;text-transform:none !important;color:var(--inv-em) !important;text-align:left !important;line-height:1.25}
+html .band.invite .inv-lab{margin-bottom:10px}
+html .band.invite .field label{margin-bottom:2px}
+html .band.invite .field input::placeholder,html .band.invite .field textarea::placeholder{color:rgba(247,243,234,.82) !important;font-style:normal}
+/* Choice rows (sectors, appointments, Sunday): a boxed tile with a square tick box */
+html .band.invite .inv-opts{gap:10px !important}
+html .band.invite .inv-opts .inv-opt{border:1px solid rgba(11,53,38,.3) !important;background:#fbf9f3;transition:background .2s,border-color .2s}
+html .band.invite .inv-opts .inv-opt:hover{border-color:var(--inv-em) !important}
+html .band.invite .inv-opt span{padding:0 16px;min-height:56px;font-size:1.05rem}
+html .band.invite .inv-opt span::before{width:20px !important;height:20px !important;flex:0 0 20px !important;transform:none !important;border:1.5px solid var(--inv-em) !important;background:#fff;display:grid;place-items:center;font-size:14px;line-height:1;color:#f7f3ea}
+html .band.invite .inv-opt input:checked + span{font-style:normal;font-weight:500}
+html .band.invite .inv-opt input:checked + span::before{content:"\2713";background:var(--inv-em) !important}
+html .band.invite .inv-opts .inv-opt:has(input:checked){background:rgba(11,53,38,.08);border-color:var(--inv-em) !important}
+/* Yes / No choice: same square box, laid side by side */
+html .band.invite .inv-choice{justify-content:flex-start !important;gap:10px !important;text-align:left !important}
+html .band.invite .inv-choice p{text-align:left;font-style:normal;font-size:1.35rem}
+html .band.invite .inv-choice .inv-opt{border:1px solid rgba(11,53,38,.3);background:#fbf9f3}
+html .band.invite .inv-choice .inv-opt:has(input:checked){background:rgba(11,53,38,.08);border-color:var(--inv-em)}
+/* Meeting rows: boxed, with a square tick box that fills */
+html .band.invite .inv-rows{border-top:0 !important;gap:10px}
+html .band.invite .inv-row-in{border:1px solid rgba(11,53,38,.3) !important;background:#fbf9f3 !important;padding:18px 18px !important}
+html .band.invite .inv-row:hover .inv-row-in{border-color:var(--inv-em) !important}
+html .band.invite .inv-row-in i{transform:none !important;width:22px !important;height:22px !important;border:1.5px solid var(--inv-em) !important;background:#fff;margin:0 !important}
+html .band.invite .inv-row-in i::after{content:"\2713" !important;width:auto !important;height:auto !important;background:none !important;color:#f7f3ea;font-style:normal;font-size:15px;line-height:1}
+html .band.invite .inv-row input:checked + .inv-row-in{background:rgba(11,53,38,.08) !important;border-color:var(--inv-em) !important;box-shadow:none !important}
+html .band.invite .inv-row input:checked + .inv-row-in i{background:var(--inv-em)}
+html .band.invite .inv-row input:checked + .inv-row-in b{font-style:normal}
+html .band.invite .inv-row input:disabled + .inv-row-in{opacity:.45}
+/* Consent boxes larger */
+html .band.invite .consent input{width:22px;height:22px;flex:0 0 22px}
+/* Register: full width, unmissable */
+html .band.invite .inv-send{width:100%;min-height:64px;font-size:.86rem !important;letter-spacing:.28em !important}
+html .band.invite .field{justify-items:start !important;text-align:left !important}html .band.invite .field label{justify-self:start;width:100%}html .band.invite .field input,html .band.invite .field textarea{width:100%}
+html .band.invite .inv-rows,html .band.invite .inv-opts,html .band.invite .inv-choice{padding:4px 0 !important;margin:0 !important}
