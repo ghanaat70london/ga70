@@ -8069,16 +8069,6 @@ main p a:not(.btn) {
 .gi-ph {
   display: block;
 }
-.who-joint {
-  text-align: center;
-  font-family: var(--display);
-  font-style: italic;
-  font-size: clamp(1.2rem, 2vw, 1.45rem);
-  margin: 0 auto 26px;
-  max-width: 52ch;
-  color: var(--ink);
-  text-wrap: balance;
-}
 .gal-nav {
   display: flex;
   flex-wrap: wrap;
