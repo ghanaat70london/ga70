@@ -445,3 +445,33 @@ html .band.invite .field input:-webkit-autofill{-webkit-text-fill-color:#f7f3ea;
 .qk-track img{width:100%;height:100%;object-fit:cover;object-position:50% 20%;display:block;transition:transform .8s cubic-bezier(.2,.7,.2,1)}
 @media (hover:hover){.qk-track figure:hover img{transform:scale(1.03)}}
 .qk-track figure::before,.qk-track figure::after{content:none;display:none}
+
+/* ==========================================================
+   MAISON: the house finish (Aman, Hermes).
+   One place to change the look of every button, chip, card
+   and photograph. Flat colour, square edges, no glow.
+   ========================================================== */
+:root{--m-gold:#c9a86a;--m-gold-2:#b8955a;--m-ink:#0b3526;--m-ivory:#f7f3ea;--m-hair:rgba(201,168,106,.55)}
+/* Buttons */
+.btn,html .site-header .nav-book,.mobile-cta .btn{border-radius:0 !important;box-shadow:none !important;filter:none !important;transform:none !important;background-image:none !important;font-size:.74rem;letter-spacing:.22em !important;padding:17px 30px;min-height:52px}
+.btn.gold,html .site-header .nav-book{background:var(--m-gold) !important;color:var(--m-ink) !important;border:1px solid var(--m-gold) !important}
+.btn.gold:hover,html .site-header .nav-book:hover{background:var(--m-gold-2) !important;border-color:var(--m-gold-2) !important}
+.btn.emerald{background:var(--m-ink) !important;color:var(--m-ivory) !important}
+.btn.line,.btn.line-dark{background:transparent !important;border:1px solid currentColor !important}
+.btn.line:hover,.btn.line-dark:hover{background:rgba(201,168,106,.12) !important}
+/* Chips */
+.chip{border-radius:0 !important;border-color:var(--m-hair) !important}
+/* Photographs: square, no frame glow */
+main figure,main figure img,main picture img{border-radius:0 !important;box-shadow:none !important}
+/* Cards: a hairline, not a shadow */
+.b,.day,.duo-card,.form-card,.dd-in,.mc,.ev,.wn-card,.tk{border-radius:0 !important;box-shadow:0 0 0 1px var(--line) !important}
+.day:hover,.mc:hover,.duo-card:hover,.ev:hover{transform:none !important}
+.seal{box-shadow:none !important}
+/* Floating controls */
+.to-top{border-radius:0 !important;background:var(--m-ink) !important;color:var(--m-gold) !important;border:1px solid var(--m-hair) !important;box-shadow:none !important}
+/* Maison: remaining soft corners and glow */
+.vb-art,.vc-top,.vb-card,.fog-card,.pw-box,.why,.xt,.xf,main video,.wn-card,.countdown,.spl-prev,.spl-next{border-radius:0 !important}
+.vb-art,.vb-card,.fog-card,.pw-box,.xt,main video,.wn-card,.gt-wrap,.gt,.book-panel,.rsvp-back,.rsvp-pocket,.ev,.ev-date{box-shadow:none !important}
+.vb-card,.wn-card,.fog-card,.pw-box,.xt{box-shadow:0 0 0 1px var(--line) !important}
+.ev-date{background:var(--m-gold) !important;color:var(--m-ink) !important}
+.gt-wrap:has(.gt[data-buy])::after{border-radius:0 !important;background:var(--m-gold) !important;color:var(--m-ink) !important;box-shadow:none !important}
