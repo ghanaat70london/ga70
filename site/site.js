@@ -12,6 +12,10 @@ SITE_CONFIG.register={ghanaday:"ghana-day.html#interest",sunday:"women-of-the-mo
     return !!(TT.widgetScript && TT.boxOffice && ev[d]);
   };
   var link = function (d) {
+    /* A day that registers interest (SITE_CONFIG.register) never links to its Ticket Tailor page,
+       even on a long press or open in new tab */
+    var reg = SITE_CONFIG.register || {};
+    if (reg[d]) return reg[d];
     return ln[d] || (live(d) ? ln.boxoffice : "") || "";
   };
   var any = DAYS.some(live) || !!ln.boxoffice;
