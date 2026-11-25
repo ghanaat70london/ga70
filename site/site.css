@@ -499,3 +499,8 @@ h1 em,h2 em,h3 em{font-weight:300}
 .divider::after{height:1px;background:currentColor;opacity:.55}
 main .kente,main .kband,main .tricolour,main + .tricolour,.tricolour:not(.site-header .tricolour):not(header .tricolour){display:none !important}
 .hero .drape{display:none !important}
+/* Lists on light bands: readable emerald and ink */
+.band.white .access-list b,.band.ivory .access-list b{color:var(--emerald)}
+.band.white .access-list span,.band.ivory .access-list span{color:var(--ink-soft)}
+.dstory details.more > summary.more-s{color:#8f6d3f}
+.qa-facts b{color:#8f6d3f}
