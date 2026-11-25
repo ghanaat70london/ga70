@@ -16212,3 +16212,520 @@ html.sm-js .sm-env:not(.is-open){opacity:0}
 }
 @media (prefers-reduced-motion: no-preference) {
   html.ft-in 
+/* SIGNATURE: What is your royal name? The Akan day name invitation in the shape of Ghana. Restored 25 November 2026. Protected, never remove. */
+.cd-acts [hidden],
+.rn-out[hidden]{
+  display: none;
+}
+.rn-form{
+  display: grid;
+  gap: 16px;
+}
+.rn-kq{
+  border: 0;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 10px 24px;
+  flex-wrap: wrap;
+}
+.co-more[open] summary,
+.rn-kq legend{
+  margin-bottom: 8px;
+}
+#royal-name .check{
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+#royal-name .rn-note{
+  font-size: 0.86rem;
+  color: rgba(255, 255, 255, 0.72);
+}
+.rn-out{
+  display: grid;
+  gap: 16px;
+  justify-items: center;
+}
+.rn-card{
+  width: min(440px, 100%);
+  height: auto;
+  box-shadow: 0 40px 80px -30px rgba(0, 0, 0, 0.7);
+}
+.rn-says{
+  margin: 0;
+  text-align: center;
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 1.35rem;
+  color: var(--gold-hi);
+}
+.rn-out .btn-row{
+  justify-content: center;
+}
+#royal-name label,
+#royal-name legend{
+  color: #f4efe3;
+}
+#royal-name .rn-kq .check{
+  background: #fbf7ec;
+  border: 1px solid rgba(212, 166, 42, 0.6);
+  border-radius: 999px;
+  padding: 12px 20px;
+  cursor: pointer;
+}
+#royal-name .rn-kq .check span{
+  color: #16201b;
+  font-weight: 500;
+}
+#royal-name .rn-kq .check:has(input:checked){
+  background: linear-gradient(180deg, #f3d27a, #d4a62a);
+  border-color: #d4a62a;
+}
+#royal-name .split:has(.rn-out:not([hidden])) .rn-preview{
+  display: none;
+}
+.rn-preview{
+  display: grid;
+  gap: 16px;
+  justify-items: center;
+}
+.rn-pc-s{
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #e9d9a8;
+}
+.rn-pc-n,
+.rn-pc-t{
+  font-family: var(--display);
+}
+.rn-pc-t{
+  font-style: italic;
+  font-size: 1.4rem;
+  color: #f3d27a;
+}
+.rn-pc-n{
+  font-size: clamp(3.2rem, 8vw, 4.6rem);
+  line-height: 1;
+  background: linear-gradient(180deg, #f8e3a0, #c9973a);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.rn-pc-l{
+  width: 60%;
+  border-top: 1px dotted rgba(212, 166, 42, 0.7);
+}
+.rn-pc-d{
+  font-size: 0.86rem;
+  color: #f4efe3;
+  letter-spacing: 0.06em;
+}
+#royal-name .row2,
+#royal-name .split > *,
+#royal-name fieldset,
+.bf-line li > div{
+  min-width: 0;
+}
+#royal-name input{
+  min-width: 0;
+  max-width: 100%;
+}
+.rn-gh{
+  position: relative;
+  width: min(460px, 100%);
+  aspect-ratio: 279/397.5;
+  margin-inline: auto;
+  transform: perspective(1200px) rotateY(-6deg) rotateX(2deg);
+  transition: transform 0.8s var(--ease, ease);
+}
+.rn-gh:hover{
+  transform: perspective(1200px) rotateY(0) rotateX(0);
+}
+.rn-gh .rn-gh-shadow{
+  background: #000;
+  transform: translate(14px, 18px);
+  filter: blur(2px);
+  opacity: 0.45;
+}
+.rn-gh .kente,
+.rn-gh .paper,
+.rn-gh .rn-gh-shadow{
+  position: absolute;
+  inset: 0;
+  clip-path: var(--ghana);
+}
+.rn-gh .paper{
+  background: radial-gradient(90% 70%at 45% 35%, #241c12 0, #0e0b08 70%);
+}
+.rn-gh .kente{
+  background: repeating-linear-gradient(
+    90deg,
+    rgba(212, 166, 42, 0) 0 18px,
+    rgba(212, 166, 42, 0.07) 18px 22px,
+    rgba(0, 107, 63, 0.08) 22px 30px,
+    rgba(212, 166, 42, 0) 30px 48px
+  );
+  mix-blend-mode: screen;
+}
+.rn-gh .outline{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 0 6px rgba(212, 166, 42, 0.45));
+}
+.rn-gh .content{
+  position: absolute;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  text-align: center;
+}
+.rn-gh .rn-pc-n{
+  text-wrap: balance;
+}
+.rn-gh .rn-pc-d{
+  line-height: 1.5;
+}
+@media (max-width: 760px){.rn-gh{
+    transform: none;
+  }}
+.rn-gh .rn-pc-n{
+  line-height: 0.95;
+}
+.rn-gh .rn-pc-f{
+  font-family: var(--display);
+  line-height: 1;
+  background: linear-gradient(180deg, #f8e3a0, #c9973a);
+}
+.rn-gh .rn-pc-f[hidden]{
+  display: none;
+}
+.rn-gh .rn-pc-g{
+  font-family: var(--display);
+  font-size: clamp(1.2rem, 2.4vw, 1.55rem);
+  margin-top: 2px;
+}
+.rn-gh .rn-pc-d{
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.rn-gh .rn-seal{
+  position: absolute;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(circle at 35% 30%, #f8e3a0, #b8862b 70%);
+}
+.rn-card{
+  aspect-ratio: 1080/1350;
+  border-radius: 6px;
+}
+.ex-gala-n,
+.rn-gh .kente,
+.rn-gh .rn-gh-shadow{
+  display: none;
+}
+.rn-gh{
+  transform: none !important;
+  filter: drop-shadow(0 34px 40px rgba(0, 0, 0, 0.45));
+}
+.rn-gh .paper{
+  background: radial-gradient(120% 90%at 40% 25%, #fffdf7 0, #f8f0de 55%, #efe2c4 100%);
+}
+.gfs .gi.is-on .gi-ph img,
+.rn-gh > .outline{
+  filter: none;
+}
+.rn-gh .content{
+  inset: 16% 23% 22% 19%;
+  gap: 6px;
+}
+.rn-gh .rn-pc-s{
+  color: #5b4a1e;
+  font-size: 0.66rem;
+  letter-spacing: 0.28em;
+}
+.rn-gh .rn-star svg{
+  width: 22px;
+  height: 22px;
+}
+.rn-gh .rn-pc-t{
+  color: #8a6a1c;
+  font-size: clamp(1rem, 1.8vw, 1.2rem);
+}
+.rn-gh .rn-pc-f,
+.rn-gh .rn-pc-n{
+  background: 0 0;
+  -webkit-background-clip: initial;
+  background-clip: initial;
+  color: #0b0a08;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+.rn-gh .rn-pc-n{
+  font-size: clamp(2rem, 4.4vw, 3rem);
+}
+.rn-gh .rn-pc-f{
+  font-size: clamp(1.5rem, 3.2vw, 2.2rem);
+  font-style: italic;
+}
+.rn-gh .rn-pc-l{
+  width: 44%;
+  border-top: 1px solid #c9a14a;
+}
+.rn-gh .rn-pc-g{
+  color: #0b3d2c;
+  font-weight: 600;
+}
+.rn-gh .rn-pc-d{
+  color: #4a3a14;
+}
+.rn-gh .rn-seal{
+  left: auto;
+  right: 30%;
+  bottom: 7%;
+  background: radial-gradient(circle at 35% 30%, #c8352b, #8e1b15 70%);
+  box-shadow:
+    0 8px 18px rgba(0, 0, 0, 0.35),
+    inset 0 0 0 3px rgba(212, 166, 42, 0.85),
+    inset 0 0 0 6px transparent;
+}
+.rn-steps{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.rn-steps li{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px 6px 6px;
+  border-radius: 999px;
+  border: 1px solid rgba(246, 219, 134, 0.3);
+  font-size: 0.82rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #cfd8d0;
+  transition: all 0.35s;
+}
+.rn-steps li i{
+  font-style: normal;
+  width: 24px;
+  height: 24px;
+  display: grid;
+  background: rgba(255, 255, 255, 0.08);
+  font-size: 0.75rem;
+  letter-spacing: 0;
+}
+.rn-steps li.on{
+  color: var(--gold-hi);
+}
+.rn-steps li.on i{
+  color: var(--gold-ink);
+}
+#royal-name .rn-form label,
+#royal-name .rn-form legend{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.rn-n,
+.rn-reveal b,
+.rn-steps li.on i{
+  background: var(--metal);
+}
+.rn-n,
+.rn-steps li i{
+  border-radius: 50%;
+  place-items: center;
+}
+.rn-n{
+  width: 26px;
+  height: 26px;
+  display: inline-grid;
+  color: var(--gold-ink);
+  font-size: 0.8rem;
+  flex: none;
+}
+.rn-dob{
+  border: 0;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 12px;
+  min-width: 0;
+}
+.rn-dob legend{
+  margin-bottom: 10px;
+}
+.rn-dob-row{
+  display: grid;
+  grid-template-columns: 0.8fr 1.5fr 1fr;
+  gap: 10px;
+}
+#royal-name #rn-name,
+#royal-name .rn-dob-row select{
+  width: 100%;
+  min-height: 54px;
+  font-size: 1.05rem;
+  border-radius: 12px;
+  border: 1px solid rgba(212, 166, 42, 0.6);
+  background: #fbf7ec;
+  color: #16201b;
+  padding: 0 14px;
+}
+#royal-name .rn-dob-row select{
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, #8c6510 50%),
+    linear-gradient(135deg, #8c6510 50%, transparent 50%);
+  background-position:
+    calc(100% - 18px) 50%,
+    calc(100% - 12px) 50%;
+  background-size: 6px 6px;
+  background-repeat: no-repeat;
+  padding-right: 30px;
+}
+.rn-or{
+  margin: 2px 0 0;
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+  color: #cfd8d0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.rn-or::after,
+.rn-or::before{
+  content: "";
+  flex: 1;
+  border-top: 1px solid rgba(246, 219, 134, 0.25);
+}
+.rn-days{
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 6px;
+}
+.rn-day{
+  min-height: 46px;
+  border-radius: 12px;
+  border: 1px solid rgba(246, 219, 134, 0.35);
+  background: rgba(255, 255, 255, 0.05);
+  color: #f4efe2;
+  font: 600 0.85rem var(--heavy);
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: all 0.25s;
+}
+.rn-day:hover,
+.rn-steps li.on{
+  border-color: var(--gold-hi);
+}
+.rn-day[aria-pressed="true"]{
+  background: var(--metal);
+  color: var(--gold-ink);
+  border-color: transparent;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px -10px rgba(212, 166, 42, 0.8);
+}
+.rn-reveal{
+  display: grid;
+  justify-items: center;
+  text-align: center;
+  gap: 2px;
+  padding: 18px;
+  border-radius: 16px;
+  border: 1px solid rgba(246, 219, 134, 0.45);
+  background: radial-gradient(100% 120%at 50%0, rgba(246, 219, 134, 0.16), rgba(255, 255, 255, 0.02));
+}
+.rn-reveal-k{
+  font-size: 0.8rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #cfd8d0;
+}
+.rn-reveal b{
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: clamp(2.4rem, 5vw, 3.2rem);
+  line-height: 1.05;
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.rn-reveal-m{
+  font-family: var(--display);
+  font-style: italic;
+  color: #f4efe2;
+  font-size: 1.1rem;
+}
+.rn-reveal.pop{
+  animation: rnpop 0.6s cubic-bezier(0.2, 1.4, 0.4, 1);
+}
+.rn-reveal.pop b{
+  animation: rnshine 1.4s ease;
+}
+.rn-err{
+  margin: 0;
+  min-height: 1.2em;
+  color: #ffb4a8;
+  font-size: 0.92rem;
+}
+.rn-err:empty{
+  display: none;
+}
+@media (prefers-reduced-motion: reduce){.rn-reveal.pop,
+  .rn-reveal.pop b{
+    animation: none;
+  }}
+@media (max-width: 420px){.rn-steps{
+    display: none;
+  }.rn-days{
+    gap: 4px;
+  }.rn-day{
+    font-size: 0.78rem;
+    min-height: 44px;
+    padding: 0;
+  }.rn-dob-row{
+    grid-template-columns: 1fr 1.6fr 1.1fr;
+    gap: 8px;
+  }}
+.rn-gh .rn-seal,
+.rn-gh .rn-seal svg{
+  background: 0 0 !important;
+  box-shadow: none !important;
+  border-radius: 0;
+}
+.rn-gh .rn-seal{
+  width: 74px !important;
+  height: 74px !important;
+}
+.rn-gh .rn-seal svg{
+  width: 100% !important;
+  height: 100% !important;
+}
+@keyframes rnpop{
+  0% {
+    transform: scale(0.92);
+    opacity: 0.3;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+@keyframes rnshine{
+  0% {
+    background-position: 100%0;
+  }
+  to {
+    background-position: 0 0;
+  }
+}
