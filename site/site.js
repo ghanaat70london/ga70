@@ -2757,3 +2757,350 @@ document.addEventListener("click", function (e) {
   var again = document.querySelector("[data-envelope-again]");
   if (again) again.addEventListener("click", open);
 })();
+
+(function () {
+/* ===== Your royal name: Akan day names, drawn as a shareable invitation. Nothing leaves the device ===== */
+  var rn = document.querySelector("[data-rn]");
+  if (rn) {
+    var AKAN = [
+      ["Kwasi", "Akosua", "Sunday"],
+      ["Kwadwo", "Adwoa", "Monday"],
+      ["Kwabena", "Abena", "Tuesday"],
+      ["Kwaku", "Akua", "Wednesday"],
+      ["Yaw", "Yaa", "Thursday"],
+      ["Kofi", "Afua", "Friday"],
+      ["Kwame", "Ama", "Saturday"],
+    ];
+    var outBox = document.querySelector("[data-rn-out]"),
+      cv = outBox.querySelector("canvas"),
+      blobUrl = "";
+    /* Live preview in the shape of Ghana */
+    var MEAN = [
+      "The day of the leader. Born to guide.",
+      "The day of peace. The calm in every storm.",
+      "The day of compassion. Deep as the ocean.",
+      "The day of the champion. Wise as Ananse.",
+      "The day of courage. Strong as the earth.",
+      "The day of the explorer. Restless and bold.",
+      "The day of wisdom. The old soul of the family.",
+    ];
+    var pT = document.querySelector("[data-rnp-t]"),
+      pN = document.querySelector("[data-rnp-n]"),
+      pB = document.querySelector("[data-rnp-b]");
+    var pF = document.querySelector("[data-rnp-f]");
+    var rnDay = rn.querySelector("#rn-dd"),
+      mm = rn.querySelector("#rn-mm"),
+      yy = rn.querySelector("#rn-yy"),
+      chips = [].slice.call(rn.querySelectorAll("[data-rn-day]"));
+    var rv = rn.querySelector("[data-rn-reveal]"),
+      err = rn.querySelector("[data-rn-err]"),
+      picked = null,
+      lastIdx = null;
+    /* The weekday from the three selects, null when incomplete, -1 when the date does not exist */
+    function fromDate() {
+      if (!rnDay.value || !mm.value || !yy.value) return null;
+      var y = +yy.value,
+        m = +mm.value - 1,
+        d = +rnDay.value,
+        dt = new Date(Date.UTC(y, m, d));
+      return dt.getUTCMonth() === m ? dt.getUTCDay() : -1;
+    }
+    function dayIdx() {
+      var f = fromDate();
+      return f !== null && f > -1 ? f : picked;
+    }
+    function queen() {
+      return (rn.querySelector('input[name="k"]:checked') || {}).value === "queen";
+    }
+    function livePreview() {
+      var f = rn.querySelector("#rn-name").value.trim().split(/\s+/)[0] || "",
+        q = queen(),
+        fd = fromDate(),
+        idx = dayIdx(),
+        has = idx !== null && idx !== undefined;
+      err.textContent = fd === -1 ? "That date does not exist. Check the day and the month." : "";
+      chips.forEach(function (c) {
+        var on = has && +c.getAttribute("data-rn-day") === idx;
+        c.setAttribute("aria-pressed", on ? "true" : "false");
+      });
+      var st = [f ? 1 : 0, has ? 1 : 0, has ? 1 : 0];
+      [].forEach.call(rn.querySelectorAll("[data-rn-step]"), function (li, i) {
+        li.classList.toggle("on", !!st[i]);
+      });
+      var show = has ? idx : q ? 4 : 6,
+        dn = AKAN[show][q ? 1 : 0];
+      if (has) {
+        rv.hidden = false;
+        rn.querySelector("[data-rn-rk]").textContent = "Born on a " + AKAN[idx][2] + ", you are";
+        rn.querySelector("[data-rn-rn]").textContent = dn;
+        rn.querySelector("[data-rn-rm]").textContent = MEAN[idx];
+        if (idx !== lastIdx) {
+          rv.classList.remove("pop");
+          void rv.offsetWidth;
+          rv.classList.add("pop");
+          lastIdx = idx;
+        }
+      } else rv.hidden = true;
+      if (!pT) return;
+      if (!f && !has) f = q ? "Asantewaa" : "";
+      if (f && f.toLowerCase() === dn.toLowerCase()) f = "";
+      pT.textContent = q ? "Her Royal Highness" : "His Royal Highness";
+      pN.textContent = "Nana " + dn;
+      if (pF) {
+        pF.textContent = f ? f.charAt(0).toUpperCase() + f.slice(1) : "";
+        pF.hidden = !f;
+      }
+      pB.textContent = "born on a " + AKAN[show][2];
+    }
+    chips.forEach(function (c) {
+      c.addEventListener("click", function () {
+        picked = +c.getAttribute("data-rn-day");
+        rnDay.value = mm.value = yy.value = "";
+        livePreview();
+      });
+    });
+    [rnDay, mm, yy].forEach(function (el) {
+      el.addEventListener("change", function () {
+        if (fromDate() !== null) picked = null;
+      });
+    });
+    rn.addEventListener("input", livePreview);
+    rn.addEventListener("change", livePreview);
+
+    var star = function (c, x, y, r, fill, stroke) {
+      c.beginPath();
+      for (var i = 0; i < 10; i++) {
+        var a = -Math.PI / 2 + (i * Math.PI) / 5,
+          rr = i % 2 ? r * 0.4 : r;
+        c.lineTo(x + rr * Math.cos(a), y + rr * Math.sin(a));
+      }
+      c.closePath();
+      if (fill) {
+        c.fillStyle = fill;
+        c.fill();
+      }
+      if (stroke) {
+        c.strokeStyle = stroke;
+        c.lineWidth = 3;
+        c.stroke();
+      }
+    };
+    var fit = function (c, text, max, size, font) {
+      var s2 = size;
+      do {
+        c.font = font.replace("{s}", s2);
+        s2 -= 4;
+      } while (c.measureText(text).width > max && s2 > 30);
+    };
+    var GH = (cv.getAttribute("data-gh") || "")
+      .split(/\s+/)
+      .filter(Boolean)
+      .map(function (p) {
+        var a = p.split(",");
+        return [+a[0], +a[1]];
+      });
+    var ghPath = function (c, x, y, w, h) {
+      c.beginPath();
+      GH.forEach(function (p, i) {
+        var px = x + p[0] * w,
+          py = y + p[1] * h;
+        if (i) c.lineTo(px, py);
+        else c.moveTo(px, py);
+      });
+      c.closePath();
+    };
+    var draw = function (first, day, queen) {
+      var c = cv.getContext("2d"),
+        W = cv.width,
+        H = cv.height,
+        nm = AKAN[day],
+        dn = queen ? nm[1] : nm[0];
+      if (first && first.toLowerCase() === dn.toLowerCase()) first = "";
+      var g = c.createRadialGradient(W / 2, H * 0.35, 80, W / 2, H * 0.5, H * 0.85);
+      g.addColorStop(0, "#0F4A35");
+      g.addColorStop(1, "#04190F");
+      c.fillStyle = g;
+      c.fillRect(0, 0, W, H);
+      var foil = c.createLinearGradient(0, 0, W, H);
+      foil.addColorStop(0, "#A8781F");
+      foil.addColorStop(0.45, "#F6DE95");
+      foil.addColorStop(0.7, "#C9962E");
+      foil.addColorStop(1, "#8C6416");
+      var mh = 1170,
+        mw = (mh * 279) / 397.5,
+        mx = (W - mw) / 2,
+        my = 60;
+      var ink = "#0B0A08",
+        brown = "#8A6A1C",
+        green = "#0B3D2C";
+      if (GH.length > 10) {
+        c.save();
+        c.shadowColor = "rgba(0,0,0,.55)";
+        c.shadowBlur = 50;
+        c.shadowOffsetY = 26;
+        ghPath(c, mx, my, mw, mh);
+        var pg = c.createRadialGradient(
+          mx + mw * 0.4,
+          my + mh * 0.25,
+          30,
+          mx + mw * 0.5,
+          my + mh * 0.5,
+          mh * 0.75,
+        );
+        pg.addColorStop(0, "#FFFDF7");
+        pg.addColorStop(0.6, "#F8F0DE");
+        pg.addColorStop(1, "#EADBB8");
+        c.fillStyle = pg;
+        c.fill();
+        c.restore();
+        ghPath(c, mx, my, mw, mh);
+        c.strokeStyle = foil;
+        c.lineWidth = 8;
+        c.stroke();
+        ghPath(c, mx, my, mw, mh);
+        c.strokeStyle = "rgba(255,248,225,.9)";
+        c.lineWidth = 1.5;
+        c.stroke();
+      } else {
+        c.fillStyle = "#F8F0DE";
+        c.fillRect(60, 60, W - 120, H - 120);
+        c.strokeStyle = foil;
+        c.lineWidth = 6;
+        c.strokeRect(60, 60, W - 120, H - 120);
+      }
+      var cx = mx + mw * 0.455,
+        mt = 410;
+      c.textAlign = "center";
+      c.fillStyle = "#5B4A1E";
+      c.font = "500 20px Jost, Arial, sans-serif";
+      c.fillText("G H A N A   A T   7 0", cx, 318);
+      star(c, cx, 372, 22, "#B8891F", "#B8891F");
+      c.fillStyle = brown;
+      c.font = "italic 400 44px 'Cormorant Garamond', Georgia, serif";
+      c.fillText(queen ? "Her Royal Highness" : "His Royal Highness", cx, 470);
+      c.fillStyle = ink;
+      fit(c, "Nana " + dn, mt, 112, "500 {s}px 'Cormorant Garamond', Georgia, serif");
+      c.fillText("Nana " + dn, cx, 590);
+      var y = 590;
+      if (first) {
+        y += 92;
+        fit(c, first, mt, 84, "italic 500 {s}px 'Cormorant Garamond', Georgia, serif");
+        c.fillText(first, cx, y);
+      }
+      c.fillStyle = "#5B4A1E";
+      c.font = "500 22px Jost, Arial, sans-serif";
+      c.fillText(("born on a " + nm[2]).toUpperCase().split("").join(" "), cx, y + 66);
+      c.strokeStyle = "#C9A14A";
+      c.lineWidth = 1.5;
+      c.beginPath();
+      c.moveTo(cx - 110, y + 102);
+      c.lineTo(cx + 110, y + 102);
+      c.stroke();
+      c.fillStyle = brown;
+      c.font = "italic 400 40px 'Cormorant Garamond', Georgia, serif";
+      c.fillText("is invited to", cx, y + 164);
+      c.fillStyle = green;
+      fit(c, "The Royal Jubilee Gala", 460, 56, "600 {s}px 'Cormorant Garamond', Georgia, serif");
+      c.fillText("The Royal Jubilee Gala", cx, y + 238);
+      c.fillStyle = "#4A3A14";
+      c.font = "500 21px Jost, Arial, sans-serif";
+      c.fillText("FRIDAY 5 MARCH 2027", cx, y + 290);
+      c.fillText("BANKING HALL  ·  LONDON", cx, y + 322);
+      var sx = mx + mw * 0.62,
+        sy = my + mh * 0.9,
+        sr = 42;
+      var sg = c.createRadialGradient(sx - 12, sy - 14, 4, sx, sy, sr);
+      sg.addColorStop(0, "#C8352B");
+      sg.addColorStop(1, "#8E1B15");
+      c.save();
+      c.shadowColor = "rgba(0,0,0,.4)";
+      c.shadowBlur = 16;
+      c.shadowOffsetY = 6;
+      c.beginPath();
+      c.arc(sx, sy, sr, 0, Math.PI * 2);
+      c.fillStyle = sg;
+      c.fill();
+      c.restore();
+      c.beginPath();
+      c.arc(sx, sy, sr - 5, 0, Math.PI * 2);
+      c.strokeStyle = "#D4A62A";
+      c.lineWidth = 2.5;
+      c.stroke();
+      star(c, sx, sy, 20, "#F3D27A", "#F3D27A");
+      c.fillStyle = "#D9C68F";
+      c.font = "400 22px Jost, Arial, sans-serif";
+      c.fillText("What is your royal name?", W / 2, H - 46);
+      return dn;
+    };
+    rn.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var nmIn = rn.querySelector("#rn-name"),
+        day = dayIdx();
+      if (fromDate() === -1) {
+        err.textContent = "That date does not exist. Check the day and the month.";
+        rnDay.focus();
+        return;
+      }
+      if (day === null || day === undefined) {
+        err.textContent = "Choose your birthday, or tap the day you were born.";
+        rnDay.focus();
+        return;
+      }
+      var first = nmIn.value
+        .trim()
+        .replace(/[^\p{L}\p{M} '\-]/gu, "")
+        .slice(0, 24);
+      first = first.charAt(0).toUpperCase() + first.slice(1);
+      var queen = (rn.querySelector('input[name="k"]:checked') || {}).value === "queen";
+      var go2 = function () {
+        var dn = draw(first, day, queen);
+        outBox.hidden = false;
+        outBox.querySelector("[data-rn-says]").textContent =
+          "Born on a " +
+          AKAN[day][2] +
+          ", you are " +
+          dn +
+          ". " +
+          MEAN[day] +
+          " Your royal seat is waiting.";
+        outBox.querySelector("[data-rn-share]").href =
+          "https://wa.me/?text=" +
+          encodeURIComponent(
+            "I am Nana " +
+              dn +
+              (first && first.toLowerCase() !== dn.toLowerCase() ? " " + first : "") +
+              ", and I am invited to the Royal Jubilee Gala, Friday 5 March 2027 in London. What is your royal name? " +
+              location.origin +
+              "/#royal-name",
+          );
+        if (blobUrl) URL.revokeObjectURL(blobUrl);
+        blobUrl = "";
+        if (window.__ga70track)
+          window.__ga70track("lead", { day: "gala", name: "Royal name", price: 0, qty: 0, value: 0 });
+        outBox.scrollIntoView({ behavior: "smooth", block: "center" });
+      };
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(go2);
+      else go2();
+    });
+    outBox.querySelector("[data-rn-save]").addEventListener("click", function () {
+      cv.toBlob(function (b) {
+        if (!b) return;
+        var f = null;
+        try {
+          f = new window.File([b], "my-royal-invitation.png", { type: "image/png" });
+        } catch {}
+        if (f && navigator.canShare && navigator.canShare({ files: [f] })) {
+          navigator.share({ files: [f], title: "My royal invitation" }).catch(function () {});
+          return;
+        }
+        blobUrl = URL.createObjectURL(b);
+        var a = document.createElement("a");
+        a.href = blobUrl;
+        a.download = "my-royal-invitation.png";
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+      }, "image/png");
+    });
+  }
+})();
