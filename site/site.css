@@ -316,3 +316,6 @@ html.nav-open .site-header .nav-book{display:none}
 .reg-done{text-align:center;display:grid;gap:12px}
 .reg-done .btn-row{justify-content:center}
 .reg-form{scroll-margin-top:110px}
+.choice-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:14px 16px;border-radius:14px;background:color-mix(in srgb,var(--gold) 10%,#fff)}
+.choice-q{flex:1 0 100%;margin:0 0 4px;font-size:.98rem}
+.appts.is-off{opacity:.45}

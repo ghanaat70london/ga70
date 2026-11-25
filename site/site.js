@@ -433,6 +433,22 @@ set();if("ResizeObserver"in window)new ResizeObserver(set).observe(hd);else wind
       if (e.target.closest("[data-next]") && cur < steps.length - 1) show(cur + 1);
       else if (e.target.closest("[data-prev]") && cur > 0) show(cur - 1);
     });
+    /* No appointments wanted: the appointment cards rest, and nothing is sent from them */
+    var appt = form.querySelector(".appts");
+    var syncAppt = function () {
+      var no = form.querySelector('input[name="appointments"]:checked');
+      if (!appt || !no) return;
+      var off = /^No/.test(no.value);
+      appt.classList.toggle("is-off", off);
+      appt.querySelectorAll("input").forEach(function (x) {
+        if (off) x.checked = false;
+        x.disabled = off;
+      });
+    };
+    form.addEventListener("change", function (e) {
+      if (e.target.name === "appointments") syncAppt();
+    });
+    syncAppt();
     form.querySelectorAll("[data-max]").forEach(function (box) {
       var max = +box.getAttribute("data-max");
       box.addEventListener("change", function () {
