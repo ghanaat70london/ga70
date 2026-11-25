@@ -7541,6 +7541,19 @@ main p a:not(.btn) {
   line-height: 1.4;
   transition: color 0.2s;
 }
+.ft-mark {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  user-select: none;
+  padding-left: max(16px, env(safe-area-inset-left, 0));
+  padding-right: max(16px, env(safe-area-inset-right, 0));
+}
+.ft-mark-svg {
+  height: auto;
+  display: block;
+  overflow: visible;
+}
 .ft-base {
   position: relative;
   display: flex;
@@ -8993,6 +9006,22 @@ textarea {
 .ft .ft-base {
   border-top: 1px solid rgba(246, 219, 134, 0.16);
 }
+.ft-mark {
+  margin-top: clamp(24px, 4vw, 56px);
+  margin-bottom: calc(-0.2 * min(1240px, 100vw - 32px) * 97 / 551);
+  pointer-events: none;
+}
+.ft-mark-svg {
+  width: min(1240px, 100%);
+  opacity: 0.075;
+}
+.ft-mark-svg path {
+  fill: #f6db86;
+  stroke: #f6db86;
+  stroke-width: 2.4;
+  stroke-linejoin: round;
+  paint-order: stroke;
+}
 .ft .ft-base {
   z-index: 1;
   margin-top: 0;
@@ -9065,6 +9094,9 @@ textarea {
   color: #afc2b7;
   text-decoration: none !important;
 }
+.ft .ft-mark {
+  padding-bottom: 0;
+}
 @media (max-width: 620px) {
   .ft .ft-base {
     flex-direction: column;
@@ -9100,6 +9132,16 @@ html.ft-in .to-top {
     display: grid;
     gap: 4px;
   }
+}
+.ft .ft-mark {
+  margin: 0 0 clamp(28px, 4vw, 48px);
+  padding-top: clamp(8px, 2vw, 24px);
+  overflow: visible;
+}
+.ft .ft-mark-svg {
+  width: min(1320px, 100%);
+  opacity: 0.085;
+  margin: 0;
 }
 .ft .ft-base {
   padding-block: 0 clamp(28px, 4vw, 44px);
@@ -16137,7 +16179,7 @@ html.sm-js .sm-env:not(.is-open){opacity:0}
 .sm-card .sm-wm svg{width:70%;height:auto}
 .sm-card>*:not(.sm-wm){position:relative}
 .sm-seal{width:92px;height:92px;margin:-48px 0 0 -46px}
-/* FOOTER FINISH: a closing invitation, a gold hairline, and Akwaaba in gold foil as the farewell. 25 November 2026 */
+/* FOOTER FINISH: a closing invitation and a gold hairline. 25 November 2026 */
 .site-footer.ft .ft-quote p {
   font-size: clamp(2.1rem, 7.4vw, 3.8rem) !important;
   line-height: 1.08;
@@ -16168,32 +16210,5 @@ html.sm-js .sm-env:not(.is-open){opacity:0}
   border-top: 1px solid rgba(246, 219, 134, 0.2);
   padding-top: clamp(48px, 6vw, 80px);
 }
-.ft-akwaaba {
-  margin: clamp(8px, 2vw, 24px) 0 clamp(24px, 3vw, 40px);
-  text-align: center;
-  font-family: var(--display);
-  font-style: italic;
-  font-weight: 300;
-  font-size: clamp(5rem, 22vw, 17rem);
-  line-height: 1;
-  letter-spacing: -0.02em;
-  padding-bottom: 0.06em;
-  background: linear-gradient(115deg, #6f5210 0%, #b8862b 25%, #f6e2a0 42%, #fff4cc 50%, #d4a62a 62%, #8c6510 85%, #b8862b 100%);
-  background-size: 220% 100%;
-  background-position: 100% 0;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  user-select: none;
-  pointer-events: none;
-}
 @media (prefers-reduced-motion: no-preference) {
-  html.ft-in .ft-akwaaba {
-    animation: ftFoil 7s ease-in-out infinite alternate;
-  }
-}
-@keyframes ftFoil {
-  to {
-    background-position: 0 0;
-  }
-}
+  html.ft-in 
