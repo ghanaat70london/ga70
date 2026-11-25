@@ -6193,12 +6193,6 @@ html.co-open {
   text-align: center;
   max-width: 40rem;
 }
-.story-sign {
-  text-align: center;
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  color: #7a5a12;
-}
 @media (max-width: 900px) {
   .story-pull {
     font-size: 1.35rem;
@@ -8400,66 +8394,6 @@ textarea {
   text-align: center;
   color: #cfc6b2;
   font-size: 0.95rem;
-}
-.pj {
-  display: grid;
-  gap: 18px;
-  max-width: 880px;
-  margin: clamp(28px, 4vw, 48px) auto;
-  width: 100%;
-}
-.pj-h {
-  margin: 0;
-  text-align: center;
-  font-family: var(--display);
-  font-weight: 400;
-  font-size: clamp(1.25rem, 2.2vw, 1.6rem);
-  text-wrap: balance;
-}
-.pj-rows {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  border-top: 1px solid var(--line);
-}
-.pj-rows li {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: 24px;
-  padding: 16px 0;
-  border-bottom: 1px solid var(--line);
-}
-.pj-rows span {
-  display: grid;
-  gap: 2px;
-  min-width: 0;
-}
-.pj-rows i {
-  font-style: normal;
-  font-family: var(--heavy);
-  font-size: 0.72rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
-}
-.pj-now {
-  color: var(--emerald, #0e3b2c);
-  font-weight: 600;
-}
-.pj-now i {
-  color: var(--gold-lo);
-}
-.pj-src {
-  text-align: center;
-  font-size: 0.82rem;
-  margin-top: 18px;
-}
-@media (max-width: 600px) {
-  .pj-rows li {
-    grid-template-columns: 1fr;
-    gap: 8px;
-  }
 }
 .pjm .section-head {
   margin-bottom: clamp(24px, 3vw, 40px);
@@ -16823,5 +16757,128 @@ html body .site-footer .ft-copy > span + span {
 }@media (max-width: 860px) {
   .w2-ph img {
     aspect-ratio: 4 / 3;
+  }
+}
+/* The jubilee ledger and the close of Our story: one heading row, a gold diamond between then and now, the refrain in gold */
+.pj2 {
+  width: 100%;
+  max-width: 980px;
+  margin: clamp(40px, 6vw, 72px) auto 0;
+  display: grid;
+  gap: 18px;
+}
+.pj2-h {
+  margin: 0 0 18px;
+  text-align: center;
+  font-size: clamp(1.8rem, 3.4vw, 2.6rem);
+  line-height: 1.15;
+  color: #0b3526;
+  text-wrap: balance;
+}
+.pj2-h em {
+  display: block;
+  color: #8f6d3f;
+}
+.pj2-cols,
+.pj2-rows li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 40px minmax(0, 1fr);
+  align-items: center;
+}
+.pj2-cols span {
+  font-family: var(--heavy);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #8f6d3f;
+}
+.pj2-cols span:first-child,
+.pj2-then {
+  text-align: right;
+}
+.pj2-rows {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid rgba(143, 109, 63, 0.3);
+}
+.pj2-rows li {
+  padding: 20px 0;
+  border-bottom: 1px solid rgba(143, 109, 63, 0.3);
+}
+.pj2-then {
+  font-size: 1.02rem;
+  color: #56615a;
+}
+.pj2-now {
+  font-family: var(--display);
+  font-size: clamp(1.2rem, 1.9vw, 1.45rem);
+  line-height: 1.3;
+  color: #0b3526;
+}
+.pj2-d {
+  justify-self: center;
+  width: 7px;
+  height: 7px;
+  background: #c9a04b;
+  transform: rotate(45deg);
+}
+.pj2-close {
+  max-width: 40rem;
+  margin: clamp(56px, 8vw, 96px) auto 0;
+  display: grid;
+  gap: 26px;
+  justify-items: center;
+  text-align: center;
+}
+.pj2-close p {
+  margin: 0;
+}
+.pj2-q {
+  font-size: 1.12rem;
+  line-height: 1.8;
+  color: #2b2418;
+}
+.pj2-refrain {
+  display: grid;
+  gap: 6px;
+  font-family: var(--display);
+  font-style: italic;
+  font-size: clamp(1.4rem, 2.6vw, 1.9rem);
+  line-height: 1.3;
+  color: #8f6d3f;
+}
+.pj2-sign {
+  font-family: var(--display);
+  font-size: clamp(1.9rem, 3.8vw, 2.8rem);
+  line-height: 1.1;
+  color: #0b3526;
+  text-wrap: balance;
+}
+.pj2-close .btn-row {
+  justify-content: center;
+}
+.pj2-src {
+  font-size: 13px;
+  line-height: 1.6;
+  color: #6b736d;
+  max-width: 34rem;
+}
+@media (max-width: 640px) {
+  .pj2-cols {
+    display: none;
+  }
+  .pj2-rows li {
+    grid-template-columns: 1fr;
+    gap: 6px;
+    text-align: left;
+  }
+  .pj2-then {
+    text-align: left;
+    font-size: 0.95rem;
+  }
+  .pj2-d {
+    display: none;
   }
 }
