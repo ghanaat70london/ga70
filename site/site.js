@@ -2731,3 +2731,29 @@ document.addEventListener("click", function (e) {
     });
   });
 })();
+
+/* Signature moment: the royal envelope opens once, when it comes into view */
+(function () {
+  var env = document.querySelector("[data-envelope]");
+  if (!env || !("IntersectionObserver" in window)) return;
+  document.documentElement.classList.add("sm-js");
+  function open() {
+    env.classList.remove("is-open");
+    void env.offsetWidth;
+    env.classList.add("is-open");
+  }
+  var io = new IntersectionObserver(
+    function (es) {
+      es.forEach(function (e) {
+        if (e.isIntersecting) {
+          setTimeout(open, 300);
+          io.disconnect();
+        }
+      });
+    },
+    { threshold: 0.5 },
+  );
+  io.observe(env);
+  var again = document.querySelector("[data-envelope-again]");
+  if (again) again.addEventListener("click", open);
+})();
