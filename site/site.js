@@ -417,6 +417,12 @@ set();if("ResizeObserver"in window)new ResizeObserver(set).observe(hd);else wind
 /* Stepped forms (data-steps): one short step at a time, at most five appointments */
 (function () {
   document.querySelectorAll("form[data-steps]").forEach(function (form) {
+    /* While the form is on screen, the bottom Register bar steps aside */
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(function (es) {
+        document.documentElement.classList.toggle("in-reg", es[0].isIntersecting);
+      }, { rootMargin: "-80px 0px -80px 0px" }).observe(form.closest(".reg-card") || form);
+    }
     var steps = form.querySelectorAll(".reg-step"),
       dots = form.querySelectorAll(".reg-steps li"),
       cur = 0;

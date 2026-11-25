@@ -319,3 +319,4 @@ html.nav-open .site-header .nav-book{display:none}
 .choice-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:14px 16px;border-radius:14px;background:color-mix(in srgb,var(--gold) 10%,#fff)}
 .choice-q{flex:1 0 100%;margin:0 0 4px;font-size:.98rem}
 .appts.is-off{opacity:.45}
+html.in-reg .mobile-cta{transform:translateY(120%);opacity:0;pointer-events:none;transition:transform .25s,opacity .25s}
