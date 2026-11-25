@@ -24,9 +24,24 @@ vercel.json               clean URLs, security headers, cache rules
 
 ## Signatures: never remove, never flatten
 
-The golden ticket, the RSVP envelope with its wax seal (with full depth and shadow), the Kente drapes on the
-home hero, the woven Kente bands, the tricolour bars, the diamond dividers, the countdown and the Banking Hall
-gallery. They are listed again at the end of `site/site.css`.
+1. The golden tickets: black for the Gala, green for Ghana Day, ruby for Women of the Motherland.
+2. The RSVP envelope with its wax seal, with full depth and shadow, on each event page.
+3. The royal envelope on the home page: the seal breaks, the Kente flap opens, the invitation comes forward once.
+4. What is your royal name? on the home page: the Akan day name invitation in the shape of Ghana.
+5. The Kente drapes on the home hero, the woven Kente bands, the tricolour bars, the diamond dividers and the countdown.
+6. The Banking Hall gallery and the GHANA name mark in the footer.
+7. The dates above the days in the header: 5 March, 6 March, 7 March.
+
+Each one is marked SIGNATURE in `site/site.css`.
+
+## The site today
+
+1. Only the Gala is on sale. Every Book your tickets button opens the Gala booking.
+2. Ghana Day and Women of the Motherland show their tickets and register your interest only, with no price.
+3. Readability: reading text 17.5px regular, no label under 13px, display type Cormorant 400 and 500.
+   The READABILITY block is last in `site/site.css` on purpose, so it wins.
+4. Adinkra symbols on the home envelope come from adinkra-icons (Apache License 2.0), credited in
+   `site/images/brand/adinkra-tile.svg`.
 
 ## Rules that keep the site safe
 
