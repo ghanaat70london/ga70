@@ -27,8 +27,8 @@ const TYPES = {
   draw: { pipeline: "GA70 Tickets", stage: "Hamper draw entry", tag: "GA70 Hamper Draw", reply: "You are entered in the free Ghana at 70 UK hamper draw. The winner is drawn on Independence Day, Saturday 6 March 2027, and told by email within 3 working days." },
   exinterest: { pipeline: "GA70 Exhibitors", stage: "Registered interest", tag: "GA70 Exhibitor Interest", reply: "Thank you for registering your interest in exhibiting at Ghana at 70 UK. Our exhibitions team will be in touch with the details." },
   quophi: { pipeline: "GA70 Enquiries", stage: "Quophi Akotuah interest", tag: "GA70 Quophi Akotuah", reply: "Thank you for registering your interest with Quophi Akotuah, Fashion Partner of Ghana at 70 UK. You will hear from us soon." },
-  interest: { pipeline: "GA70 Tickets", stage: "Registered interest", tag: "GA70 Ghana Day Interest", reply: "Thank you for registering your interest in Saturday 6 March 2027 at Ghana at 70 UK. You will hear first when the details are confirmed." },
-  sunint: { pipeline: "GA70 Tickets", stage: "Registered interest", tag: "GA70 Sunday Interest", reply: "Thank you for registering your interest in Women of the Motherland on Sunday 7 March 2027. You will hear first when the details are confirmed." },
+  interest: { pipeline: "GA70 Tickets", stage: "Registered interest", tag: "GA70 Ghana Day Interest", reply: "Thank you for registering your interest in the Ghana Day Festival on Saturday 6 March 2027. Tickets go on sale in the New Year, and you hear first, before anyone else. A person reads every word." },
+  sunint: { pipeline: "GA70 Tickets", stage: "Registered interest", tag: "GA70 Sunday Interest", reply: "Thank you for registering your interest in Women of the Motherland on Mothering Sunday, 7 March 2027. Tickets go on sale in the New Year, and you hear first, before anyone else. Her seat is in our thoughts." },
   compete: { pipeline: "GA70 Competitions", stage: "Entered", tag: "GA70 Competitor", reply: "You are entered for the Ghana Day Festival games. Rules and your call times arrive by email in February 2027." }
 };
 const clip = (s, n) => String(s == null ? "" : s).slice(0, n);
