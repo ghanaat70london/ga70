@@ -425,7 +425,7 @@ set();if("ResizeObserver"in window)new ResizeObserver(set).observe(hd);else wind
     if ("IntersectionObserver" in window) {
       new IntersectionObserver(function (es) {
         document.documentElement.classList.toggle("in-reg", es[0].isIntersecting);
-      }, { rootMargin: "-80px 0px -80px 0px" }).observe(form.closest(".reg-card") || form);
+      }, { rootMargin: "-80px 0px -80px 0px" }).observe(form.closest(".gd-reg") || form);
     }
     var steps = form.querySelectorAll(".reg-step"),
       dots = form.querySelectorAll(".reg-steps li"),
