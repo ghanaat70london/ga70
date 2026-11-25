@@ -476,3 +476,4 @@ main figure,main figure img,main picture img{border-radius:0 !important;box-shad
 .ev-date{background:var(--m-gold) !important;color:var(--m-ink) !important}
 .gt-wrap:has(.gt[data-buy])::after{border-radius:0 !important;background:var(--m-gold) !important;color:var(--m-ink) !important;box-shadow:none !important}
 .dc-dark .qk-link,.emerald .qk-link,.black .qk-link{color:#e4c98f}
+.qa-fp img{height:auto}
