@@ -365,3 +365,31 @@ html .band.invite .inv-next{justify-self:stretch;width:100%}
 html .band.invite .inv-next div{border-bottom:1px solid color-mix(in srgb,var(--gold) 25%,transparent) !important;border-top:0 !important;border-left:0 !important;padding:0 0 14px}
 html .band.invite .inv-row-in i{border:1px solid var(--gold-on-light) !important}
 html .band.invite .inv-choice .inv-opt{width:auto}
+
+/* Lustre: gilded gold, light on the page, a polished button. 25 November 2026 */
+html .band.invite{background:radial-gradient(70% 40% at 50% 0%,#fffdf6 0%,rgba(255,253,246,0) 70%),radial-gradient(60% 50% at 100% 30%,color-mix(in srgb,var(--gold) 9%,transparent) 0%,transparent 70%),radial-gradient(60% 50% at 0% 70%,color-mix(in srgb,var(--gold) 8%,transparent) 0%,transparent 70%),linear-gradient(180deg,#fbf7ee 0%,#f6efe0 100%)}
+html .band.invite .inv-emblem{width:46px;filter:drop-shadow(0 6px 14px rgba(150,105,20,.35)) drop-shadow(0 0 1px rgba(255,230,160,.9))}
+html .band.invite h2 em,html .band.invite .inv-done h3 em{background:linear-gradient(100deg,#7a5a0e 0%,#b8892a 22%,#f3d27a 42%,#c9962c 58%,#8c6510 78%,#d9ad4a 100%);-webkit-background-clip:text;background-clip:text;color:transparent;background-size:200% 100%;animation:inv-gild 9s ease-in-out infinite alternate}
+@keyframes inv-gild{from{background-position:0% 50%}to{background-position:100% 50%}}
+html .band.invite .inv-rule{width:96px;height:1px;background:linear-gradient(90deg,transparent,#c9962c 25%,#f6db86 50%,#c9962c 75%,transparent)}
+html .band.invite .inv-sec{border-top:0;position:relative}
+html .band.invite .inv-sec::before{content:"";position:absolute;left:0;right:0;top:0;height:1px;background:linear-gradient(90deg,transparent,color-mix(in srgb,var(--gold) 70%,transparent) 20%,#f3d27a 50%,color-mix(in srgb,var(--gold) 70%,transparent) 80%,transparent)}
+html .band.invite .inv-sec legend span{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;font-style:italic;color:#4a3507;background:radial-gradient(circle at 35% 30%,#fff3c4 0%,#f3d27a 35%,#d4a62a 70%,#a87a1a 100%);box-shadow:0 6px 16px -6px rgba(140,101,16,.6),inset 0 1px 0 rgba(255,255,255,.7)}
+html .band.invite .inv-lab,html .band.invite .field label,html .band.invite .inv-next dt{color:#8c6510}
+html .band.invite .inv-row-in{transition:background .35s,box-shadow .35s;border-radius:2px}
+html .band.invite .inv-row:hover .inv-row-in{background:linear-gradient(90deg,rgba(243,210,122,.12),transparent 70%)}
+html .band.invite .inv-row input:checked + .inv-row-in{background:linear-gradient(90deg,rgba(243,210,122,.28),rgba(243,210,122,.06) 60%,transparent);box-shadow:inset 3px 0 0 #d4a62a}
+html .band.invite .inv-row-in{padding-left:14px;padding-right:10px}
+html .band.invite .inv-row-in i{border-color:#b8892a !important;box-shadow:0 0 0 3px rgba(243,210,122,.15)}
+html .band.invite .inv-row-in i::after{background:linear-gradient(135deg,#fff3c4,#d4a62a 60%,#8c6510)}
+html .band.invite .inv-opt span::before{border-color:#b8892a}
+html .band.invite .inv-opt input:checked + span::before{background:linear-gradient(135deg,#fff3c4,#d4a62a 60%,#8c6510);border-color:#b8892a;box-shadow:0 0 8px rgba(212,166,42,.6)}
+html .band.invite .field input,html .band.invite .field textarea{border-bottom:1px solid transparent;border-image:linear-gradient(90deg,color-mix(in srgb,var(--gold) 55%,transparent),color-mix(in srgb,var(--gold) 20%,transparent)) 1}
+html .band.invite .field input:focus,html .band.invite .field textarea:focus{border-image:linear-gradient(90deg,#d4a62a,#f3d27a,#d4a62a) 1}
+html .band.invite .inv-send{position:relative;overflow:hidden;background:linear-gradient(180deg,#0f4a32 0%,#0a3523 55%,#062618 100%);border:1px solid #b8892a;color:#f6db86;box-shadow:0 14px 30px -14px rgba(5,28,18,.7),inset 0 1px 0 rgba(246,219,134,.35);border-radius:2px}
+html .band.invite .inv-send::after{content:"";position:absolute;top:0;bottom:0;left:-60%;width:40%;background:linear-gradient(100deg,transparent,rgba(255,240,190,.35),transparent);transform:skewX(-18deg);transition:left .9s ease}
+html .band.invite .inv-send:hover::after,html .band.invite .inv-send:focus-visible::after{left:120%}
+html .band.invite .inv-send:hover,html .band.invite .inv-send:focus-visible{background:linear-gradient(180deg,#125a3c,#0a3523);color:#fff3c4;border-color:#f3d27a}
+html .band.invite .inv-foot{border-top:0;position:relative}
+html .band.invite .inv-foot::before{content:"";position:absolute;left:10%;right:10%;top:0;height:1px;background:linear-gradient(90deg,transparent,#d4a62a 30%,#f6db86 50%,#d4a62a 70%,transparent)}
+@media (prefers-reduced-motion: reduce){html .band.invite h2 em,html .band.invite .inv-done h3 em{animation:none}html .band.invite .inv-send::after{display:none}}
