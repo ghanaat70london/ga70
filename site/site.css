@@ -16884,4 +16884,39 @@ html body .ev-date span,
 html body .ev-date i {
   letter-spacing: 0.14em !important;
 }
+/* Quick register forms: the essentials first, the rest folded away, 25 November 2026 */
+html .band.invite .inv-more {
+  margin: 6px 0 4px;
+  border-top: 1px solid rgba(143, 109, 63, 0.35);
+  border-bottom: 1px solid rgba(143, 109, 63, 0.35);
+}
+html .band.invite .inv-more > summary {
+  cursor: pointer;
+  list-style: none;
+  padding: 16px 0;
+  font-family: var(--display);
+  font-size: 1.25rem;
+  font-style: italic;
+  color: var(--inv-em, #0b3526);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+html .band.invite .inv-more > summary::-webkit-details-marker {
+  display: none;
+}
+html .band.invite .inv-more > summary::after {
+  content: "+";
+  font-style: normal;
+  font-size: 1.5rem;
+  color: #8f6d3f;
+}
+html .band.invite .inv-more[open] > summary::after {
+  content: "\2212";
+}
+html .band.invite .inv-more-in {
+  display: grid;
+  gap: 18px;
+  padding: 4px 0 22px;
+}
 
