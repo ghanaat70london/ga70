@@ -138,12 +138,35 @@ var SITE_CONFIG={contactEmail:"hello@ghanaat70uk.com",contactPhone:"+44 7824 555
   };
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", setHref);
   else setHref();
+  /* Phones and tablets go straight to the Ticket Tailor page in the same tab: a checkout inside a pop-up frame
+     can lose its session on iPhone Safari, and the full page gives Apple Pay and Google Pay without a frame. */
+  var phone = function () {
+    try {
+      return window.matchMedia("(max-width: 820px), (pointer: coarse)").matches;
+    } catch (e) {
+      return false;
+    }
+  };
+  /* The golden ticket cards (data-buy) book exactly like Book now (data-pay), never through the old enquiry panel */
+  document.addEventListener(
+    "keydown",
+    function (e) {
+      var a = e.target.closest && e.target.closest("[data-buy]");
+      if (!a || (e.key !== "Enter" && e.key !== " ")) return;
+      var d = a.getAttribute("data-buy");
+      if (DAYS.indexOf(d) < 0 || !link(d)) return;
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      a.click();
+    },
+    true,
+  );
   document.addEventListener(
     "click",
     function (e) {
-      var a = e.target.closest && e.target.closest("[data-pay]");
+      var a = e.target.closest && e.target.closest("[data-pay], [data-buy]");
       if (!a || e.metaKey || e.ctrlKey || e.shiftKey || e.button === 1) return;
-      var d = a.getAttribute("data-pay");
+      var d = a.getAttribute("data-pay") || a.getAttribute("data-buy");
       if (d === "pick") {
         var all = document.getElementById("all-days");
         if (all) {
@@ -163,6 +186,11 @@ var SITE_CONFIG={contactEmail:"hello@ghanaat70uk.com",contactPhone:"+44 7824 555
       }
       if (DAYS.indexOf(d) < 0 || !(live(d) || link(d))) return;
       e.stopImmediatePropagation();
+      if (phone() && link(d)) {
+        e.preventDefault();
+        location.href = link(d);
+        return;
+      }
       if (live(d)) {
         e.preventDefault();
         try {
