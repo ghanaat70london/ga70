@@ -339,17 +339,12 @@ html.nav-open .site-header .nav-book{display:none}
 .invite .inv-send{display:inline-grid;place-items:center;min-height:54px;min-width:15rem;padding:0 44px;background:var(--emerald);border:1px solid var(--emerald);color:var(--ivory);font-family:var(--heavy);font-size:.74rem;font-weight:500;letter-spacing:.34em;text-transform:uppercase;text-decoration:none;cursor:pointer;transition:background .25s,color .25s,border-color .25s}
 .invite .inv-send:hover,.invite .inv-send:focus-visible{background:transparent;color:var(--emerald);border-color:var(--gold)}
 .invite .inv-done{padding-top:8px}
-.invite .inv-next{margin:6px 0;display:grid;gap:16px;text-align:left}
-.invite .inv-next div{display:grid;grid-template-columns:9.5rem 1fr;gap:18px;align-items:baseline}
-.invite .inv-next dt{font-family:var(--heavy);font-size:.64rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold-on-light)}
-.invite .inv-next dd{margin:0;font-family:var(--body);color:var(--ink)}
-@media (max-width:560px){.invite .inv-next div{grid-template-columns:1fr;gap:2px}.invite .inv-send{width:100%}}
+@media (max-width:560px){.invite .inv-send{width:100%}}
 html.in-reg .mobile-cta{transform:translateY(120%);opacity:0;pointer-events:none;transition:transform .25s,opacity .25s}
 /* The invitation sits on the page on its own: no grid, card, border or side rule from older section styles */
 html .band.invite{display:block;border:0;border-radius:0;box-shadow:none;padding-block:clamp(64px,10vw,120px)}
 html .band.invite > .wrap.inv-wrap{display:block;width:auto;max-width:40rem;margin-inline:auto;border:0;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px));background:none;box-shadow:none}
 html .band.invite .inv-head,html .band.invite .inv-form,html .band.invite .inv-done{width:100%;grid-template-columns:none}
-html .band.invite .inv-next,html .band.invite .inv-next div{border:0;background:none;padding-left:0;padding-right:0}
 html .band.invite div,html .band.invite fieldset,html .band.invite form{border-right:0}
 html .band.invite b{text-transform:none;letter-spacing:0;font-weight:500}
 html .band.invite .inv-rows,html .band.invite .inv-opts,html .band.invite .inv-row-in{text-align:left}
@@ -361,8 +356,6 @@ html .band.invite .inv-sec legend,html .band.invite .inv-lab,html .band.invite .
 html .band.invite .inv-rows,html .band.invite .inv-opts,html .band.invite .inv-sec,html .band.invite .row2{justify-items:stretch;justify-content:stretch}
 html .band.invite .inv-row,html .band.invite .inv-opt,html .band.invite .field{width:100%;text-align:left}
 html .band.invite .field label{text-align:left}
-html .band.invite .inv-next{justify-self:stretch;width:100%}
-html .band.invite .inv-next div{border-bottom:1px solid color-mix(in srgb,var(--gold) 25%,transparent) !important;border-top:0 !important;border-left:0 !important;padding:0 0 14px}
 html .band.invite .inv-row-in i{border:1px solid var(--gold-on-light) !important}
 html .band.invite .inv-choice .inv-opt{width:auto}
 
@@ -379,7 +372,7 @@ html .band.invite .inv-sec{border-top:1px solid var(--inv-hair)}
 html .band.invite .inv-sec::before,html .band.invite .inv-foot::before{display:none}
 html .band.invite .inv-sec legend{color:var(--inv-em)}
 html .band.invite .inv-sec legend span{display:inline;width:auto;height:auto;border-radius:0;background:none;box-shadow:none;font-style:italic;font-size:1.05rem;color:var(--inv-bronze)}
-html .band.invite .inv-lab,html .band.invite .field label,html .band.invite .inv-next dt{color:var(--inv-bronze)}
+html .band.invite .inv-lab,html .band.invite .field label{color:var(--inv-bronze)}
 html .band.invite .inv-rows{border-top:1px solid var(--inv-hair)}
 html .band.invite .inv-row-in{border-bottom:1px solid var(--inv-hair);background:none;box-shadow:none;transition:none}
 html .band.invite .inv-row:hover .inv-row-in{background:none}
@@ -402,13 +395,35 @@ html .band.invite .inv-foot{border-top:1px solid var(--inv-hair)}
 html .band.invite .inv-send{background:var(--inv-em);border:1px solid var(--inv-em);color:#f7f3ea;box-shadow:none;border-radius:0}
 html .band.invite .inv-send::after{display:none}
 html .band.invite .inv-send:hover,html .band.invite .inv-send:focus-visible{background:transparent;color:var(--inv-em);border-color:var(--inv-em)}
-html .band.invite .inv-next div{border-bottom:1px solid var(--inv-hair) !important}
 html .band.invite .inv-row-in{padding-left:16px;padding-right:8px}
 
-/* Received: the moment after Register, after The House of Clio */
-html .band.invite .inv-done{scroll-margin-top:96px}
-html .band.invite .inv-done:not([hidden]){animation:invIn 1.1s cubic-bezier(.2,.7,.2,1) both}
+/* Received: the moment after Register, a royal acknowledgement */
+html .band.invite .inv-done{gap:22px;padding-block:28px 8px;scroll-margin-top:96px}
+html .band.invite .inv-done .inv-emblem{width:52px;height:auto}
+html .band.invite .inv-done h3{font-size:clamp(2.1rem,6.4vw,3.6rem)}
 html .band.invite .inv-done .inv-lead{max-width:34rem}
-html .band.invite .inv-sign{margin:-8px 0 0;font-family:var(--display);font-style:italic;font-size:1rem;color:var(--inv-bronze)}
+html .band.invite .inv-orn{display:block;width:160px;max-width:60%;color:var(--inv-bronze)}
+html .band.invite .inv-orn svg{display:block;width:100%;height:14px}
+html .band.invite .inv-steps{list-style:none;margin:8px 0;padding:0;display:grid;grid-auto-flow:column;grid-auto-columns:1fr;justify-self:stretch;width:100%;border-top:1px solid var(--inv-hair);border-bottom:1px solid var(--inv-hair)}
+html .band.invite .inv-steps li{display:grid;gap:10px;align-content:start;justify-items:center;padding:28px 18px;text-align:center}
+html .band.invite .inv-steps li+li{border-left:1px solid var(--inv-hair)}
+html .band.invite .inv-steps b{font-family:var(--display);font-weight:400;font-size:1.7rem;line-height:1;letter-spacing:0;text-transform:none;color:var(--inv-bronze)}
+html .band.invite .inv-steps span{font-family:var(--heavy);font-size:.62rem;letter-spacing:.24em;text-transform:uppercase;color:var(--inv-em)}
+html .band.invite .inv-steps p{margin:0;max-width:15rem;font-family:var(--body);font-size:.96rem;line-height:1.55;color:var(--ink)}
+html .band.invite .inv-sign{margin:-10px 0 0;font-family:var(--display);font-style:italic;font-size:1.05rem;line-height:1.5;color:var(--inv-bronze)}
+html .band.invite .inv-gala{margin:0;font-family:var(--display);font-style:italic;font-size:1.1rem;color:var(--inv-em)}
+@media (max-width:720px){html .band.invite .inv-steps{grid-auto-flow:row}html .band.invite .inv-steps li{padding:22px 4px}html .band.invite .inv-steps li+li{border-left:0;border-top:1px solid var(--inv-hair)}}
+html .band.invite .inv-done:not([hidden])>*{animation:invIn 1s cubic-bezier(.2,.7,.2,1) both}
+html .band.invite .inv-done:not([hidden])>.inv-orn{animation:invDraw 1.2s cubic-bezier(.6,0,.2,1) both}
+html .band.invite .inv-done>:nth-child(2){animation-delay:.2s}
+html .band.invite .inv-done>:nth-child(3){animation-delay:.35s}
+html .band.invite .inv-done>:nth-child(4){animation-delay:.7s}
+html .band.invite .inv-done>:nth-child(5){animation-delay:.95s}
+html .band.invite .inv-done>:nth-child(6){animation-delay:1.15s}
+html .band.invite .inv-done>:nth-child(7){animation-delay:1.4s}
+html .band.invite .inv-done>:nth-child(8){animation-delay:1.55s}
+html .band.invite .inv-done>:nth-child(n+9){animation-delay:1.75s}
 @keyframes invIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
-@media (prefers-reduced-motion:reduce){html .band.invite .inv-done:not([hidden]){animation:none}}
+@keyframes invDraw{from{opacity:0;transform:scaleX(0)}to{opacity:1;transform:scaleX(1)}}
+@media (prefers-reduced-motion:reduce){html .band.invite .inv-done:not([hidden])>*{animation:none}}
+html .band.invite .inv-done h3 [data-first]{display:block;font:inherit;font-style:normal;font-size:inherit;letter-spacing:inherit;text-transform:none;color:var(--inv-em)}
