@@ -7637,10 +7637,6 @@ main p a:not(.btn) {
 .who-letter blockquote p {
   margin: 0;
 }
-.who-txt h3 {
-  font-family: var(--display);
-  font-weight: 500;
-}
 @media (max-width: 900px) {
   .feast-in {
     grid-template-columns: 1fr;
@@ -7655,208 +7651,6 @@ main p a:not(.btn) {
 .ft-grid ul {
   justify-items: start;
 }
-.who .who-intro {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
-  gap: clamp(28px, 5vw, 72px);
-  margin-bottom: clamp(48px, 7vw, 88px);
-}
-.who .who-ph {
-  aspect-ratio: 4/5;
-  margin: 0;
-  border-radius: var(--r);
-  overflow: hidden;
-  box-shadow: 0 30px 60px -34px rgba(7, 42, 30, 0.55);
-}
-.who-intro-txt {
-  display: grid;
-  gap: 14px;
-  min-width: 0;
-}
-.who-intro-txt h2 {
-  margin: 0;
-  text-wrap: balance;
-}
-.who-intro-txt p,
-.who-txt p {
-  margin: 0;
-  color: var(--ink-soft);
-}
-.who-intro-txt p {
-  max-width: 60ch;
-}
-.who-intro-txt .lead {
-  color: var(--ink);
-}
-.who-founders {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 24px;
-}
-.who-card {
-  display: grid;
-  position: relative;
-}
-.who-card {
-  grid-template-columns: 96px minmax(0, 1fr);
-  gap: 22px;
-  padding: 30px;
-  background: var(--ivory);
-  border: 1px solid var(--line);
-  border-radius: var(--r);
-}
-.who-card::before {
-  content: "";
-  position: absolute;
-  inset: 0 0 auto;
-  height: 3px;
-  background: var(--metal);
-}
-.who-txt {
-  display: grid;
-  gap: 6px;
-  align-content: start;
-  min-width: 0;
-}
-.who-txt h3 {
-  margin: 0;
-  font-size: 1.6rem;
-}
-.who-txt p {
-  font-size: 0.98rem;
-}
-.who-txt .who-say {
-  font-family: var(--display);
-  font-style: italic;
-  color: var(--gold-lo);
-  font-size: 1.15rem;
-  margin-top: 6px;
-}
-.who-letter {
-  margin: 28px 0 0;
-  background: radial-gradient(120% 100%at 20% 0%, #145c42 0%, var(--emerald) 45%, var(--emerald-deep) 100%);
-  color: #fff;
-  border-radius: var(--r);
-  padding: clamp(28px, 5vw, 64px);
-  position: relative;
-  overflow: hidden;
-}
-.who-letter::after {
-  content: "";
-  position: absolute;
-  inset: 14px;
-  border: 1px solid rgba(246, 219, 134, 0.35);
-  pointer-events: none;
-  border-radius: 2px;
-}
-.who-letter-in {
-  max-width: 68ch;
-  margin: 0 auto;
-  display: grid;
-  gap: 18px;
-  position: relative;
-}
-.who-letter .eyebrow {
-  color: var(--gold-hi);
-  text-align: center;
-}
-.who-letter blockquote {
-  margin: 0;
-  display: grid;
-  gap: 14px;
-  font-family: var(--display);
-  font-size: clamp(1.15rem, 1.9vw, 1.4rem);
-  line-height: 1.55;
-  color: #f4efe2;
-}
-.who-from {
-  margin: 0;
-  display: grid;
-  gap: 2px;
-  justify-items: end;
-  text-align: right;
-}
-.who-sig {
-  font-family: var(--script);
-  font-size: 2.6rem;
-  color: var(--gold-hi);
-  line-height: 1.1;
-}
-.who-from span:last-child {
-  font-size: 0.85rem;
-  letter-spacing: 0.08em;
-  color: #cfd8d0;
-}
-.who-promise ol,
-.who-proof {
-  list-style: none;
-  padding: 0;
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-}
-.who-proof {
-  margin: 40px 0 0;
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-}
-.who-promise li,
-.who-proof li {
-  display: grid;
-  gap: 4px;
-  justify-items: center;
-  text-align: center;
-  padding: 26px 12px;
-}
-.who-proof li + li {
-  border-left: 1px solid var(--line);
-}
-.who-promise b,
-.who-proof b {
-  font-family: var(--display);
-  font-weight: 500;
-}
-.who-proof b {
-  font-size: clamp(2rem, 3.6vw, 2.9rem);
-  line-height: 1;
-  background: var(--metal);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-.who-proof span {
-  font-size: 0.88rem;
-  color: var(--ink-soft);
-  max-width: 20ch;
-}
-.who-promise {
-  margin-top: 56px;
-  display: grid;
-  gap: 26px;
-}
-.who-promise .c {
-  text-align: center;
-  margin: 0;
-}
-.who-promise ol {
-  margin: 0;
-  gap: 20px;
-}
-.who-promise li {
-  gap: 8px;
-  padding: 8px;
-}
-.who-promise li .adk {
-  width: 52px;
-  height: 52px;
-  color: var(--gold-lo);
-}
-.who-promise b {
-  font-size: 1.2rem;
-}
-.who-promise span {
-  font-size: 0.93rem;
-  color: var(--ink-soft);
-}
 .story .faces {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -7869,27 +7663,7 @@ main p a:not(.btn) {
   border-radius: var(--r);
   overflow: hidden;
 }
-@media (max-width: 900px) {
-  .who .who-intro,
-  .who-founders {
-    grid-template-columns: 1fr;
-  }
-  .who-promise ol,
-  .who-proof {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-  .who-proof li:nth-child(3) {
-    border-left: 0;
-  }
-  .who-proof li:nth-child(n + 3) {
-    border-top: 1px solid var(--line);
-  }
-}
 @media (max-width: 560px) {
-  .who-card {
-    grid-template-columns: 1fr;
-    padding: 24px;
-  }
   .story .faces {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -9473,8 +9247,6 @@ html.ft-in .to-top {
     0 18px 40px rgba(0, 0, 0, 0.35),
     0 0 0 1px rgba(246, 219, 134, 0.25);
 }
-@media (prefers-reduced-motion: no-preference) {
-}
 @media (max-width: 600px) {
   .band.emerald .eyebrow,
   .dc-dark .eyebrow,
@@ -10696,12 +10468,6 @@ img.heads-safe {
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: #6f531b;
-}
-.fog-when {
-  margin: 4px 0 8px;
-  font-family: var(--display);
-  font-size: 1.1rem;
-  color: #0a3523;
 }
 .fog-card .btn-row {
   position: relative;
@@ -12003,33 +11769,6 @@ img.heads-safe {
     grid-template-columns: 1fr;
   }
 }
-.who-ph {
-  margin: 0;
-  width: 100%;
-  max-width: 280px;
-  aspect-ratio: 4/5;
-  overflow: hidden;
-  border: 1px solid color-mix(in srgb, var(--gold) 45%, transparent);
-  box-shadow: 0 24px 48px -32px rgba(10, 53, 35, 0.55);
-}
-.who-ph img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: 50% 20%;
-}
-.who-card:has(.who-ph) {
-  align-items: start;
-}
-@media (max-width: 700px) {
-  .who-card:has(.who-ph) {
-    grid-template-columns: 1fr;
-  }
-  .who-ph {
-    max-width: 220px;
-  }
-}
 .lv-trust {
   list-style: none;
   margin: 40px 0 0;
@@ -12275,36 +12014,6 @@ details.more[open] > summary.more-s {
   .dcx-slide .dc-mood {
     grid-template-columns: 1fr;
     max-width: 340px;
-  }
-}
-.who .who-intro {
-  align-items: stretch;
-}
-.who .who-intro .who-ph {
-  max-width: none;
-  width: 100%;
-  height: 100%;
-  min-height: 460px;
-  aspect-ratio: auto;
-}
-.who-card:has(.who-ph) {
-  grid-template-columns: 220px minmax(0, 1fr);
-}
-@media (max-width: 900px) {
-  .who .who-intro .who-ph {
-    min-height: 0;
-    aspect-ratio: 4/5;
-    max-width: 520px;
-    margin: 0 auto;
-  }
-}
-@media (max-width: 700px) {
-  .who-card:has(.who-ph) {
-    grid-template-columns: 1fr;
-  }
-  .who-card .who-ph {
-    max-width: none;
-    width: 100%;
   }
 }
 .story .faces.faces-3 {
@@ -16926,4 +16635,193 @@ html body .site-footer .ft-copy > span + span {
   font-family: var(--display);
   font-style: italic;
   font-size: max(1.02rem, 16px) !important;
+}
+/* ==========================================================
+   WHO WE ARE, after The House of Clio, in a Japandi hand:
+   ivory, air, one photograph, two portraits, one letter.
+   No boxes, no icons, hairlines only. 25 November 2026.
+   ========================================================== */
+.band.who2 {
+  background: #f7f3ea;
+  color: #16201b;
+  padding-block: clamp(80px, 11vw, 168px);
+}
+.who2 .wrap {
+  display: grid;
+  gap: clamp(88px, 11vw, 160px);
+}
+.w2-open {
+  display: grid;
+  grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+  gap: clamp(40px, 7vw, 112px);
+  align-items: center;
+}
+.w2-txt {
+  display: grid;
+  gap: 22px;
+  max-width: 34rem;
+}
+.who2 .eyebrow {
+  color: #8f6d3f;
+}
+.w2-txt h2 {
+  margin: 0;
+  font-size: clamp(2.4rem, 4.6vw, 3.8rem);
+  line-height: 1.04;
+  color: #0b3526;
+  text-wrap: balance;
+}
+.w2-txt p {
+  margin: 0;
+  color: #3d4741;
+}
+.w2-txt .lead {
+  color: #16201b;
+}
+.w2-ph {
+  margin: 0;
+}
+.w2-ph img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  object-position: 38% 30% !important;
+}
+.w2-founders {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(48px, 7vw, 112px);
+  max-width: 980px;
+  margin-inline: auto;
+  width: 100%;
+}
+.w2-f {
+  display: grid;
+  gap: 12px;
+  align-content: start;
+}
+.w2-fph {
+  margin: 0 0 14px;
+}
+.w2-fph img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  object-position: 50% 20%;
+}
+.w2-role {
+  font-family: var(--heavy);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #8f6d3f;
+}
+.w2-f h3 {
+  margin: 0;
+  font-size: clamp(1.7rem, 2.6vw, 2.2rem);
+  line-height: 1.1;
+  color: #0b3526;
+}
+.w2-f p {
+  margin: 0;
+  color: #3d4741;
+}
+.w2-f .w2-say {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 1.3rem;
+  color: #8f6d3f;
+  margin-top: 4px;
+}
+.w2-letter {
+  margin: 0 auto;
+  max-width: 40rem;
+  text-align: center;
+  display: grid;
+  gap: 22px;
+  justify-items: center;
+}
+.w2-letter blockquote {
+  margin: 0;
+  display: grid;
+  gap: 18px;
+}
+.w2-letter blockquote p {
+  margin: 0;
+  font-family: var(--display);
+  font-size: clamp(1.3rem, 2.2vw, 1.6rem);
+  line-height: 1.5;
+  color: #16201b;
+}
+.w2-letter figcaption {
+  display: grid;
+  gap: 6px;
+  margin-top: 10px;
+}
+.w2-sig {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  color: #8f6d3f;
+}
+.w2-letter figcaption span:last-child {
+  font-size: 15px;
+  color: #3d4741;
+}
+.w2-proof {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border-top: 1px solid rgba(143, 109, 63, 0.35);
+  border-bottom: 1px solid rgba(143, 109, 63, 0.35);
+}
+.w2-proof li {
+  display: grid;
+  gap: 8px;
+  justify-items: center;
+  text-align: center;
+  padding: 34px 18px;
+}
+.w2-proof li + li {
+  border-left: 1px solid rgba(143, 109, 63, 0.25);
+}
+.w2-proof b {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(2.4rem, 4vw, 3.2rem);
+  line-height: 1;
+  color: #9a7214;
+}
+.w2-proof span {
+  font-size: 15px;
+  color: #3d4741;
+  max-width: 16ch;
+}
+@media (max-width: 860px) {
+  .w2-open,
+  .w2-founders {
+    grid-template-columns: 1fr;
+  }
+  .w2-ph {
+    order: -1;
+  }
+  .w2-proof {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .w2-proof li:nth-child(3) {
+    border-left: 0;
+  }
+  .w2-proof li:nth-child(n + 3) {
+    border-top: 1px solid rgba(143, 109, 63, 0.25);
+  }
+}
+}@media (max-width: 860px) {
+  .w2-ph img {
+    aspect-ratio: 4 / 3;
+  }
 }
