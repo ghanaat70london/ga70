@@ -26,7 +26,7 @@ var SITE_CONFIG = {
   tracking: {
     ga4: "",
     googleAds: "",
-    metaPixel: "29226830343650795",
+    metaPixel: "1892866475044833",
     tiktok: "",
     linkedin: "",
     snapchat: "",
