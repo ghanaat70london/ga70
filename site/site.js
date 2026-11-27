@@ -39,7 +39,7 @@ var SITE_CONFIG = {
   },
 };
 /* Days that register interest instead of selling. Remove a line to put that day on sale. */
-SITE_CONFIG.register = { ghanaday: "ghana-day.html#interest", sunday: "women-of-the-motherland.html#sunday-interest" };
+SITE_CONFIG.register = { ghanaday: "/ghana-day#interest", sunday: "/women-of-the-motherland#sunday-interest" };
 /* ===== Ticket Tailor: official pop-out checkout, with a plain link fallback. No card data touches this site. ===== */
 (function () {
   var TT = SITE_CONFIG.ticketTailor || {},
@@ -230,8 +230,8 @@ SITE_CONFIG.register = { ghanaday: "ghana-day.html#interest", sunday: "women-of-
         e.preventDefault();
         e.stopImmediatePropagation();
         var parts = reg.split("#"),
-          here = (location.pathname.split("/").pop() || "index.html").replace(/^$/, "index.html");
-        if (here === parts[0] || here + ".html" === parts[0]) {
+          here = (location.pathname.split("/").pop() || "index").replace(/\.html$/, "");
+        if (here === parts[0].replace(/^\//, "").replace(/\.html$/, "")) {
           var t = document.getElementById(parts[1]);
           if (t) t.scrollIntoView({ block: "start" });
         } else location.href = reg;
@@ -251,7 +251,7 @@ SITE_CONFIG.register = { ghanaday: "ghana-day.html#interest", sunday: "women-of-
         }
         e.preventDefault();
         e.stopImmediatePropagation();
-        location.href = "tickets.html#all-days";
+        location.href = "/tickets#all-days";
         return;
       }
       if (DAYS.indexOf(d) < 0 || !(live(d) || link(d))) return;
@@ -1230,7 +1230,7 @@ SITE_CONFIG.register = { ghanaday: "ghana-day.html#interest", sunday: "women-of-
     cb.setAttribute("role", "region");
     cb.setAttribute("aria-label", "Cookie choice");
     cb.innerHTML =
-      '<p>We count visits without cookies so we can improve this site. With your permission we also use cookies from Google, Meta, TikTok, LinkedIn, Snapchat and Microsoft to measure our adverts and how the site is used. <a href="privacy.html#cookies">Details</a></p><div class="btn-row"><button class="btn gold small" type="button" data-cy>Accept all</button><button class="btn gold small" type="button" data-cn>Reject all</button></div>';
+      '<p>We count visits without cookies so we can improve this site. With your permission we also use cookies from Google, Meta, TikTok, LinkedIn, Snapchat and Microsoft to measure our adverts and how the site is used. <a href="/privacy#cookies">Details</a></p><div class="btn-row"><button class="btn gold small" type="button" data-cy>Accept all</button><button class="btn gold small" type="button" data-cn>Reject all</button></div>';
     document.body.appendChild(cb);
     cb.addEventListener("click", function (e) {
       var yes = e.target.closest("[data-cy]"),
@@ -1906,7 +1906,7 @@ SITE_CONFIG.register = { ghanaday: "ghana-day.html#interest", sunday: "women-of-
     if (window.__ga70lenis) window.__ga70lenis.scrollTo(0, { duration: 1.2 });
     else window.scrollTo({ top: 0, behavior: "smooth" });
   });
-  var logo = document.querySelector(".site-header a.brand, .site-header .logo, .site-header a[href='index.html']");
+  var logo = document.querySelector(".site-header a.brand, .site-header .logo, .site-header a[href='/']");
   if (logo)
     logo.addEventListener("click", function (e) {
       var here = (location.pathname.split("/").pop() || "index.html").replace(/\.html$/, "") || "index";

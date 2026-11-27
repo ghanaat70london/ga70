@@ -66,6 +66,15 @@ for path in pages:
     for href in re.findall(r'href="([^"#?:]+\.html)', raw):
         if not os.path.exists(os.path.join(SITE, href)):
             fails.append(f"{name}: broken link {href}")
+    # Clean addresses, as served by Vercel: /tickets is tickets.html, / is index.html
+    for href, frag in re.findall(r'(?:href|data-gi-href)="(/[^"#?:]*)(#[^"]*)?"', raw):
+        p = href.strip("/") or "index"
+        if not (os.path.exists(os.path.join(SITE, p + ".html")) or os.path.exists(os.path.join(SITE, p))):
+            fails.append(f"{name}: broken link {href}")
+        elif len(frag) > 1 and os.path.exists(os.path.join(SITE, p + ".html")):
+            tgt = open(os.path.join(SITE, p + ".html"), encoding="utf-8").read()
+            if f'id="{frag[1:]}"' not in tgt:
+                fails.append(f"{name}: link to a missing section {href}{frag}")
     for src in re.findall(r'(?:src|srcset)="([^"]+)"', raw):
         if src.startswith("data:"):
             continue
