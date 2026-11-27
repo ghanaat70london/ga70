@@ -16725,3 +16725,39 @@ html body .tm-grid.tm-four {
 .ft .ft-social a:hover,.ft .ft-social a:focus-visible{background:#edcb6b;color:#0a3523}
 html body .site-footer .ft-social{display:flex!important;flex-direction:row!important;flex-wrap:nowrap;justify-content:center;gap:12px}
 html body .site-footer .ft-social li{margin:0!important;padding:0!important}
+
+/* Shown openly, 27 November 2026: questions and detail sections that were folded */
+.more-open {
+  margin-top: 18px;
+}
+html body .qa {
+  border-bottom: 1px solid #efe6d0;
+}
+html body .qa .qa-q {
+  font-family: var(--display);
+  font-size: 1.2rem;
+  font-weight: 500;
+  line-height: 1.6;
+  color: #16201b;
+  margin: 0;
+  padding: 16px 0 4px;
+  letter-spacing: normal;
+  text-transform: none;
+}
+html body .qa p {
+  margin: 0 0 16px;
+  color: #4a5a52;
+}
+html body .faq .qa {
+  border-bottom: 1px solid var(--line);
+}
+html body .faq .qa .qa-q {
+  font-size: 1.4rem;
+  font-weight: 600;
+  padding: 20px 0 4px;
+}
+html body .faq .qa p {
+  margin: 0;
+  padding: 0 0 22px;
+  color: var(--ink-soft);
+}

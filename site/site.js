@@ -1066,7 +1066,7 @@ SITE_CONFIG.register = { ghanaday: "/ghana-day#interest", sunday: "/women-of-the
               var fn = ((form.querySelector("[name=firstName]") || {}).value || "").trim().split(/\s+/)[0];
               if (fn)
                 done.querySelectorAll("[data-first]").forEach(function (el) {
-                  el.textContent = "Akwaaba, " + fn + ".";
+                  el.textContent = "Medaase, " + fn + ".";
                 });
               var mn = ((form.querySelector("[name=motherName]") || {}).value || "").trim();
               if (mn)
