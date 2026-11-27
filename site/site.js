@@ -1004,11 +1004,6 @@ SITE_CONFIG.register = { ghanaday: "ghana-day.html#interest", sunday: "women-of-
         });
         if (bx[0]) bx[0].setCustomValidity(any ? "" : "Please tick at least one.");
       });
-      form.querySelectorAll("[data-show-when]").forEach(function (f) {
-        var rule = f.getAttribute("data-show-when").split(":");
-        var el = form.querySelector('[name="' + rule[0] + '"]');
-        f.hidden = !(el && rule[1].split("|").indexOf(el.value) > -1);
-      });
     };
     form.addEventListener("change", groups);
     groups();
@@ -1895,16 +1890,6 @@ SITE_CONFIG.register = { ghanaday: "ghana-day.html#interest", sunday: "women-of-
   document.head.appendChild(st);
 })();
 (function () {
-  var cb = document.querySelector('input[name="galaWanted"]'),
-    sel = document.getElementById("ex-gala");
-  if (!cb || !sel) return;
-  var sync = function () {
-    sel.disabled = !cb.checked;
-  };
-  cb.addEventListener("change", sync);
-  sync();
-})();
-(function () {
   var b = document.createElement("button");
   b.type = "button";
   b.className = "to-top";
@@ -2336,26 +2321,6 @@ SITE_CONFIG.register = { ghanaday: "ghana-day.html#interest", sunday: "women-of-
     });
 })();
 (function () {
-  document.addEventListener("click", function (e) {
-    var b = e.target.closest && e.target.closest("[data-spotify-play]");
-    if (!b) return;
-    var box = b.closest("[data-spotify]");
-    var id = box && box.getAttribute("data-spotify");
-    if (!id || !/^[A-Za-z0-9]{10,40}$/.test(id)) return;
-    var f = document.createElement("iframe");
-    f.src = "https://open.spotify.com/embed/playlist/" + id + "?utm_source=generator&theme=0";
-    f.width = "100%";
-    f.height = "452";
-    f.loading = "lazy";
-    f.title = "Seventy years, seventy songs on Spotify";
-    f.setAttribute("allow", "autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture");
-    f.style.border = "0";
-    f.style.borderRadius = "14px";
-    box.innerHTML = "";
-    box.appendChild(f);
-  });
-})();
-(function () {
   document.querySelectorAll("[data-copytext]").forEach(function (b) {
     b.addEventListener("click", function () {
       var t = b.getAttribute("data-copytext"),
@@ -2547,17 +2512,6 @@ SITE_CONFIG.register = { ghanaday: "ghana-day.html#interest", sunday: "women-of-
       });
   });
 })();
-document.addEventListener("click", function (e) {
-  var a = e.target.closest && e.target.closest("[data-qa-piece]");
-  if (!a) return;
-  var form = document.querySelector("#qa-connect form");
-  if (!form) return;
-  var sel = form.querySelector("select[name=interests]"),
-    msg = form.querySelector("textarea[name=message]");
-  if (sel) sel.value = "A piece from the collection";
-  if (msg && msg.value.indexOf(a.getAttribute("data-qa-piece")) < 0)
-    msg.value = "I would like to order: " + a.getAttribute("data-qa-piece") + (msg.value ? "\n" + msg.value : "");
-});
 (function () {
   var ids = ["list-your-pieces", "plan", "from-ghana", "interest"];
   function openFor(h) {
