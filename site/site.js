@@ -39,7 +39,7 @@ var SITE_CONFIG = {
   },
 };
 /* Days that register interest instead of selling. Remove a line to put that day on sale. */
-SITE_CONFIG.register = { ghanaday: "ghana-day.html#interest", sunday: "women-of-the-motherland.html#sunday-interest" };
+SITE_CONFIG.register = { ghanaday: "/ghana-day#interest", sunday: "/women-of-the-motherland#sunday-interest" };
 /* ===== Ticket Tailor: official pop-out checkout, with a plain link fallback. No card data touches this site. ===== */
 (function () {
   var TT = SITE_CONFIG.ticketTailor || {},
@@ -230,8 +230,8 @@ SITE_CONFIG.register = { ghanaday: "ghana-day.html#interest", sunday: "women-of-
         e.preventDefault();
         e.stopImmediatePropagation();
         var parts = reg.split("#"),
-          here = (location.pathname.split("/").pop() || "index.html").replace(/^$/, "index.html");
-        if (here === parts[0] || here + ".html" === parts[0]) {
+          here = (location.pathname.split("/").pop() || "index").replace(/\.html$/, "");
+        if (here === parts[0].replace(/^\//, "").replace(/\.html$/, "")) {
           var t = document.getElementById(parts[1]);
           if (t) t.scrollIntoView({ block: "start" });
         } else location.href = reg;
@@ -251,7 +251,7 @@ SITE_CONFIG.register = { ghanaday: "ghana-day.html#interest", sunday: "women-of-
         }
         e.preventDefault();
         e.stopImmediatePropagation();
-        location.href = "tickets.html#all-days";
+        location.href = "/tickets#all-days";
         return;
       }
       if (DAYS.indexOf(d) < 0 || !(live(d) || link(d))) return;
@@ -1004,11 +1004,6 @@ SITE_CONFIG.register = { ghanaday: "ghana-day.html#interest", sunday: "women-of-
         });
         if (bx[0]) bx[0].setCustomValidity(any ? "" : "Please tick at least one.");
       });
-      form.querySelectorAll("[data-show-when]").forEach(function (f) {
-        var rule = f.getAttribute("data-show-when").split(":");
-        var el = form.querySelector('[name="' + rule[0] + '"]');
-        f.hidden = !(el && rule[1].split("|").indexOf(el.value) > -1);
-      });
     };
     form.addEventListener("change", groups);
     groups();
@@ -1071,7 +1066,7 @@ SITE_CONFIG.register = { ghanaday: "ghana-day.html#interest", sunday: "women-of-
               var fn = ((form.querySelector("[name=firstName]") || {}).value || "").trim().split(/\s+/)[0];
               if (fn)
                 done.querySelectorAll("[data-first]").forEach(function (el) {
-                  el.textContent = "Akwaaba, " + fn + ".";
+                  el.textContent = "Medaase, " + fn + ".";
                 });
               var mn = ((form.querySelector("[name=motherName]") || {}).value || "").trim();
               if (mn)
@@ -1235,7 +1230,7 @@ SITE_CONFIG.register = { ghanaday: "ghana-day.html#interest", sunday: "women-of-
     cb.setAttribute("role", "region");
     cb.setAttribute("aria-label", "Cookie choice");
     cb.innerHTML =
-      '<p>We count visits without cookies so we can improve this site. With your permission we also use cookies from Google, Meta, TikTok, LinkedIn, Snapchat and Microsoft to measure our adverts and how the site is used. <a href="privacy.html#cookies">Details</a></p><div class="btn-row"><button class="btn gold small" type="button" data-cy>Accept all</button><button class="btn gold small" type="button" data-cn>Reject all</button></div>';
+      '<p>We count visits without cookies so we can improve this site. With your permission we also use cookies from Google, Meta, TikTok, LinkedIn, Snapchat and Microsoft to measure our adverts and how the site is used. <a href="/privacy#cookies">Details</a></p><div class="btn-row"><button class="btn gold small" type="button" data-cy>Accept all</button><button class="btn gold small" type="button" data-cn>Reject all</button></div>';
     document.body.appendChild(cb);
     cb.addEventListener("click", function (e) {
       var yes = e.target.closest("[data-cy]"),
@@ -1895,16 +1890,6 @@ SITE_CONFIG.register = { ghanaday: "ghana-day.html#interest", sunday: "women-of-
   document.head.appendChild(st);
 })();
 (function () {
-  var cb = document.querySelector('input[name="galaWanted"]'),
-    sel = document.getElementById("ex-gala");
-  if (!cb || !sel) return;
-  var sync = function () {
-    sel.disabled = !cb.checked;
-  };
-  cb.addEventListener("change", sync);
-  sync();
-})();
-(function () {
   var b = document.createElement("button");
   b.type = "button";
   b.className = "to-top";
@@ -1921,7 +1906,7 @@ SITE_CONFIG.register = { ghanaday: "ghana-day.html#interest", sunday: "women-of-
     if (window.__ga70lenis) window.__ga70lenis.scrollTo(0, { duration: 1.2 });
     else window.scrollTo({ top: 0, behavior: "smooth" });
   });
-  var logo = document.querySelector(".site-header a.brand, .site-header .logo, .site-header a[href='index.html']");
+  var logo = document.querySelector(".site-header a.brand, .site-header .logo, .site-header a[href='/']");
   if (logo)
     logo.addEventListener("click", function (e) {
       var here = (location.pathname.split("/").pop() || "index.html").replace(/\.html$/, "") || "index";
@@ -2336,26 +2321,6 @@ SITE_CONFIG.register = { ghanaday: "ghana-day.html#interest", sunday: "women-of-
     });
 })();
 (function () {
-  document.addEventListener("click", function (e) {
-    var b = e.target.closest && e.target.closest("[data-spotify-play]");
-    if (!b) return;
-    var box = b.closest("[data-spotify]");
-    var id = box && box.getAttribute("data-spotify");
-    if (!id || !/^[A-Za-z0-9]{10,40}$/.test(id)) return;
-    var f = document.createElement("iframe");
-    f.src = "https://open.spotify.com/embed/playlist/" + id + "?utm_source=generator&theme=0";
-    f.width = "100%";
-    f.height = "452";
-    f.loading = "lazy";
-    f.title = "Seventy years, seventy songs on Spotify";
-    f.setAttribute("allow", "autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture");
-    f.style.border = "0";
-    f.style.borderRadius = "14px";
-    box.innerHTML = "";
-    box.appendChild(f);
-  });
-})();
-(function () {
   document.querySelectorAll("[data-copytext]").forEach(function (b) {
     b.addEventListener("click", function () {
       var t = b.getAttribute("data-copytext"),
@@ -2547,17 +2512,6 @@ SITE_CONFIG.register = { ghanaday: "ghana-day.html#interest", sunday: "women-of-
       });
   });
 })();
-document.addEventListener("click", function (e) {
-  var a = e.target.closest && e.target.closest("[data-qa-piece]");
-  if (!a) return;
-  var form = document.querySelector("#qa-connect form");
-  if (!form) return;
-  var sel = form.querySelector("select[name=interests]"),
-    msg = form.querySelector("textarea[name=message]");
-  if (sel) sel.value = "A piece from the collection";
-  if (msg && msg.value.indexOf(a.getAttribute("data-qa-piece")) < 0)
-    msg.value = "I would like to order: " + a.getAttribute("data-qa-piece") + (msg.value ? "\n" + msg.value : "");
-});
 (function () {
   var ids = ["list-your-pieces", "plan", "from-ghana", "interest"];
   function openFor(h) {
