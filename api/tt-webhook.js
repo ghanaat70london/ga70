@@ -5,7 +5,8 @@
 // Variables in Vercel (Settings, Environment Variables): TT_BRIDGE_KEY, GHL_TT_CREATED_URL, GHL_TT_CANCELLED_URL
 // Optional, for adverts: META_PIXEL_ID and META_CAPI_TOKEN send each paid order to Meta as a Purchase from the server.
 // Use this OR the Meta pixel inside Ticket Tailor for purchases, never both, or every sale counts twice.
-// META_TEST_CODE (optional) sends the events to Test Events in Meta Events Manager while testing.
+// META_TEST_CODE (optional) sends test orders (+ga70test) to Test Events in Meta Events Manager while testing.
+// META_CAPI_LIVE = yes sends real orders. Leave it unset until the Ticket Tailor pixel Purchase and this one deduplicate.
 // Ported from the build guide's Cloudflare version (functions/api/tt-webhook.js). One change: when GoHighLevel
 // does not accept the order, the bridge answers 502, so Ticket Tailor retries instead of losing the order.
 
@@ -31,11 +32,15 @@ const sameKey = (a, b) => {
 };
 
 async function metaPurchase(env, out) {
-  if (!env.META_PIXEL_ID || !env.META_CAPI_TOKEN || out.event !== "created" || (out.tags.includes("SYS_TEST") && !env.META_TEST_CODE)) return null;
+  if (!env.META_PIXEL_ID || !env.META_CAPI_TOKEN || out.event !== "created") return null;
+  // Test orders (+ga70test, SYS_TEST) go to Meta only with META_TEST_CODE, and then only to Test Events.
+  // Real orders go only once META_CAPI_LIVE is "yes", after the Ticket Tailor and server Purchase are seen to deduplicate.
+  const isTest = out.tags.includes("SYS_TEST");
+  if (isTest ? !env.META_TEST_CODE : env.META_CAPI_LIVE !== "yes") return null;
   const user = { em: [sha256(out.email)], ph: [sha256(ukPhone(out.phone))], fn: [sha256(out.firstName)], ln: [sha256(out.lastName)], country: [sha256("gb")], external_id: [sha256(out.email)] };
   Object.keys(user).forEach((k) => { if (!user[k][0]) delete user[k]; });
   const body = { data: [{ event_name: "Purchase", event_time: Math.floor(Date.now() / 1000), event_id: "tt_" + out.orderId, action_source: "website", event_source_url: "https://ghanaat70uk.com/tickets", user_data: user, custom_data: { currency: "GBP", value: out.totalGBP, num_items: out.seats } }] };
-  if (env.META_TEST_CODE) body.test_event_code = env.META_TEST_CODE;
+  if (isTest && env.META_TEST_CODE) body.test_event_code = env.META_TEST_CODE;
   const r = await fetch("https://graph.facebook.com/v22.0/" + env.META_PIXEL_ID + "/events?access_token=" + encodeURIComponent(env.META_CAPI_TOKEN), { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body), signal: AbortSignal.timeout(8000) });
   if (!r.ok) console.error("Meta answered", r.status, await r.text());
   return r.ok;
